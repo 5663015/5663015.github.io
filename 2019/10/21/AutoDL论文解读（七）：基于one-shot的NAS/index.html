@@ -274,7 +274,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：4 分钟前
+                  本文最后更新于：几秒前
                 
               </p>
             
@@ -315,16 +315,24 @@
 <p>one-shot方法为结构搜索提供了一个新的方向，并且没有结构松弛化和分布参数。结构搜索问题从超网络训练中解耦出来，变成一个单独的步骤，它结合了嵌套优化和联合优化方法的优点。刚才介绍的两篇论文就是这样的one-shot方法，解决了上面提到的第二个问题，但并没有很好地解决第一个问题，超网络的权重仍然是耦合的。在《Understanding and Simplifying One-Shot Architecture Search》里提到，one-shot成果的关键是一个使用权重继承的结构的准确率应该对已经优化好的结构有预测性。因此，作者提出超网络训练应该是随机的，所有的结构都可以同时优化它们的权重。为了减少超网络的权重耦合，作者提出了一个简单的搜索空间，单路径超网络（single path supernet）。对于超网络训练，作者采用均匀采样，平等地对待所有结构，没有超参数。</p>
 <h2 id="2、NAS方法回顾"><a href="#2、NAS方法回顾" class="headerlink" title="2、NAS方法回顾"></a><strong>2、NAS方法回顾</strong></h2><p>我们用$\mathcal A$结构搜索空间，这是一个有向无环图（DAG），一个搜索到的结构是DAG的子图$a \in \mathcal A$，记为$\mathcal N(a,w)$，$w$为权重。NAS的目的是去解决两个有关联的问题，第一个是在标准深度学习里给定一个网络结构，优化其权重：</p>
 <script type="math/tex; mode=display">
-w_{a}=\underset{w}{\operatorname{argmin}} \mathcal{L}_{\text {train }}(\mathcal{N}(a, w)) \tag{1}</script><p>$\mathcal L_{train}(\cdot)$是在训练集上的损失函数。第二个问题是结构优化，一般来说是通过验证集的准确率来寻找：</p>
+begin{equation}
+w_{a}=\underset{w}{\operatorname{argmin}} \mathcal{L}_{\text {train }}(\mathcal{N}(a, w))
+end{equation}</script><p>$\mathcal L_{train}(\cdot)$是在训练集上的损失函数。第二个问题是结构优化，一般来说是通过验证集的准确率来寻找：</p>
 <script type="math/tex; mode=display">
-a^{\ast}=\underset{a \in \mathcal A}{\operatorname{argmin}} {\rm ACC}_{\text {val }}(\mathcal{N}(a, w_{a})) \tag{2}</script><p>${\rm ACC}_{\rm val}(\cdot)$是验证集准确率。真实情况下会对网络的内存消耗、FLOPs、latency、功耗等有要求，这些取决于结构$a$、软件和硬件等，但和权重$w_{a}$无关，因此作者称为“结构限制”。一个典型的限制网络的latency不大于预设的budget：</p>
+\begin{equation}
+a^{\ast}=\underset{a \in \mathcal A}{\operatorname{argmin}} {\rm ACC}_{\text {val }}(\mathcal{N}(a, w_{a})) 
+\end{equation}</script><p>${\rm ACC}_{\rm val}(\cdot)$是验证集准确率。真实情况下会对网络的内存消耗、FLOPs、latency、功耗等有要求，这些取决于结构$a$、软件和硬件等，但和权重$w_{a}$无关，因此作者称为“结构限制”。一个典型的限制网络的latency不大于预设的budget：</p>
 <script type="math/tex; mode=display">
-{\rm Latency(a^{\ast}) \leq {\rm Lat}_{\rm max}} \tag{3}</script><p>对于大多数方法来说，同时满足式（2）和式（3）是很有挑战性的。最近的NAS方法采用了权值共享的策略，结构搜索空间$\mathcal A$被编码进一个超网络，记作$\mathcal N(\mathcal A, W)$，$W$是超网络的权重。超网络被训练一次，所有的结构都从$W$里直接继承，因此他们在相同的图节点上式共享权值的。大多权值共享的方法将离散的搜索空间转为连续的，$\mathcal A$松弛化为$\mathcal A(\theta)$，$\theta$为表示结构分布的连续化参数。注意新的空间包含了原始的搜索空间：$\mathcal A \subseteq \mathcal A(\theta)$。这样松弛化的好处是可以用梯度方法联合优化权重和结构分布参数，表示如下：</p>
+\begin{equation}
+{\rm Latency(a^{\ast}) \leq {\rm Lat}_{\rm max}} 
+\end{equation}</script><p>对于大多数方法来说，同时满足式（2）和式（3）是很有挑战性的。最近的NAS方法采用了权值共享的策略，结构搜索空间$\mathcal A$被编码进一个超网络，记作$\mathcal N(\mathcal A, W)$，$W$是超网络的权重。超网络被训练一次，所有的结构都从$W$里直接继承，因此他们在相同的图节点上式共享权值的。大多权值共享的方法将离散的搜索空间转为连续的，$\mathcal A$松弛化为$\mathcal A(\theta)$，$\theta$为表示结构分布的连续化参数。注意新的空间包含了原始的搜索空间：$\mathcal A \subseteq \mathcal A(\theta)$。这样松弛化的好处是可以用梯度方法联合优化权重和结构分布参数，表示如下：</p>
 <script type="math/tex; mode=display">
-\left(\theta^{*}, W_{\theta^{*}}\right)=\underset{\theta, W}{\operatorname{argmin}} \mathcal{L}_{t r a i n}(\mathcal{N}(\mathcal{A}(\theta), W)) \tag{4}</script><p>优化后，最好的结构$a^{\ast}$从$\mathcal A(\theta)$采样得到，然后从$W_{\theta^{\ast}}$继承权值、微调。理论上这样做很合理，但优化式（4）是具有挑战性的。首先，在超网络里的图节点的权重是互相依赖的、深度耦合的，但从$W$中继承的权重解耦了，尚不明确为什么这样做是有效的。第二，联合训练结构参数$\theta$和权值$W$进一步引入了耦合。满足结构限制也是困难的，一些工作使用精心设计的soft损失项来扩充式(4)中的损失函数$\mathcal L_{train}$，但也很难满足像式（3）中的限制。作者总结了一下这部分提到的方法，连同作者提出的方法一同作了比较：<br><img src="https://img-blog.csdnimg.cn/20191021151840136.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+\begin{equation}
+\left(\theta^{*}, W_{\theta^{*}}\right)=\underset{\theta, W}{\operatorname{argmin}} \mathcal{L}_{t r a i n}(\mathcal{N}(\mathcal{A}(\theta), W)) 
+\end{equation}</script><p>优化后，最好的结构$a^{\ast}$从$\mathcal A(\theta)$采样得到，然后从$W_{\theta^{\ast}}$继承权值、微调。理论上这样做很合理，但优化式（4）是具有挑战性的。首先，在超网络里的图节点的权重是互相依赖的、深度耦合的，但从$W$中继承的权重解耦了，尚不明确为什么这样做是有效的。第二，联合训练结构参数$\theta$和权值$W$进一步引入了耦合。满足结构限制也是困难的，一些工作使用精心设计的soft损失项来扩充式(4)中的损失函数$\mathcal L_{train}$，但也很难满足像式（3）中的限制。作者总结了一下这部分提到的方法，连同作者提出的方法一同作了比较：<br><img src="https://img-blog.csdnimg.cn/20191021151840136.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
 <h2 id="3、one-shot-NAS-回顾"><a href="#3、one-shot-NAS-回顾" class="headerlink" title="3、one-shot NAS 回顾"></a><strong>3、one-shot NAS 回顾</strong></h2><p>通过上面的分析，耦合的结构搜索和权重优化是困难的，我们能否同时拥有问题解耦和权值共享的优点？这引出了叫做one-shot的方法（即上面解读的两篇论文），这两种方法依然训练一个超网络然后共享其中的参数，超网络训练和结构搜索是解耦成两个步骤，这既不同于嵌套式优化也不同于联合优化。首先，第一步优化超网络权重：</p>
 <script type="math/tex; mode=display">
-W_{\mathcal{A}}=\underset{W}{\operatorname{argmin}} \mathcal{L}_{\text {train }}(\mathcal{N}(\mathcal{A}, W)) \tag{5}</script><p>相比于式（4），搜索空间的连续化参数消失了，只有权重被优化。第二步，结构搜索表示为：</p>
+W_{\mathcal{A}}=\underset{W}{\operatorname{argmin}} \mathcal{L}_{\text {train }}(\mathcal{N}(\mathcal{A}, W)) \quad (5)</script><p>相比于式（4），搜索空间的连续化参数消失了，只有权重被优化。第二步，结构搜索表示为：</p>
 <script type="math/tex; mode=display">
 a^{*}=\underset{a \in \mathcal{A}}{\operatorname{argmax}} \mathrm{ACC}_{\mathrm{val}}\left(\mathcal{N}\left(a, W_{\mathcal{A}}(a)\right)\right) \tag{6}</script><p>在搜索过程中，每个采样的结构$a$从继承$W_{\mathcal A}$继承权重，记为$W_{\mathcal A}(a)$。同式（1）、式（2）相比，式（6）的主要不同是，结构的权重是合理初始化的，估计$ACC_{val}(\cdot)$只需推断，没有微调或重新训练。找到最优的结构$a^{\ast}$后，通过微调来获得$w_{a^{\ast}}$。这样的搜索也是灵活的，任何适当的搜索方法都可以，这里作者采用遗传算法。结构限制，式（3）的结构限制也被精确地满足。一旦训练好超网络，搜索可以用不同的结构限制（如100ms latency 和 200ms latency）在超网络上被重复很多次，之前的方法都没有这样的特性。但超网络的权重依然是耦合的。</p>
 <h2 id="4、单路径超网络和均匀采样"><a href="#4、单路径超网络和均匀采样" class="headerlink" title="4、单路径超网络和均匀采样"></a><strong>4、单路径超网络和均匀采样</strong></h2><p>将式（1）作为理想的情况，one-shot要求权重$W_{\mathcal A}(a)$接近于最优权值$w_{a}$，近似的程度取决于训练损失$\mathcal L_{train}(\mathcal N(a, W_{\mathcal A}(a)))$被优化的程度。这引出一个原则，超网络的权重$W_{\mathcal A}$应该与搜索空间中的所有子结构的优化同时进行，如下式：</p>
