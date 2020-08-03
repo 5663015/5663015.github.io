@@ -224,7 +224,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.2k 字
+      3.1k 字
     </span>
   
 
@@ -274,24 +274,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：8 个月前
+                  本文最后更新于：5 分钟前
                 
               </p>
             
             <article class="markdown-body">
-              <blockquote>
-<p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p>
-<p><strong>此系列的文章列表：</strong></p>
-<ul>
-<li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li>
-<li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li>
-<li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li>
-</ul>
-</blockquote>
+              <div class="note note-success">
+            <p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p><p><strong>此系列的文章列表：</strong></p><ul><li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li><li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li><li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li><li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li><li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li></ul>
+          </div>
 <p>本文解读两篇基于遗传算法的典型方法：谷歌的《Large-Scale Evolution of Image Classifiers》和坦佩雷理工大学的《Finding Better Topologies for Deep Convolutional Neural Network by Evolution》。过去基于遗传算法的网络结构搜索大多依赖先验知识，以残差块（residual block）、稠密块（dense block）等已被验证有效的块为基础进行组合拼接，而且要求每个个体都从头开始训练，对计算资源要求很高。这里要介绍的两篇论文要解决上面的问题，它们的核心思想都是尽可能少的使用先验知识，从node-level进行网络结构搜索。</p>
 <h1 id="一、遗传算法"><a href="#一、遗传算法" class="headerlink" title="一、遗传算法"></a><strong>一、遗传算法</strong></h1><p>首先，作者进化出一个神经网络模型的<strong>种群</strong>，这个种群会包含很多不同的网络模型，其中每个模型即为一个<strong>个体</strong>。这个模型被训练后在验证集上的准确率为此个体的<strong>适应度评估</strong>。在每一个进化步中，<strong>worker</strong>（即计算机）从种群中随机选择两个个体，然后计算并比较其适应度。适应度较差的个体从种群中被移除，较好的个体留下来作为<strong>亲本</strong>进行下一步的<strong>繁殖</strong>。繁殖过程中，worker复制这个亲本，然后对其进行<strong>变异</strong>，即对其进行结构上的修改，修改后的模型称为<strong>后代</strong>。这个后代被训练然后得到在验证集上的准确率，最后被放回到种群里。<br>用这样的策略在巨大的搜索空间里寻找最优的分类模型需要巨大的计算量，为此作者提出了一个大规模并行的方法。很多worker在不同的计算机上异步地操作，他们彼此之间不直接通信。他们使用一个共享的文件系统，这里用字典存储了种群的信息，每个字典代表一个个体。相应的操作可以通过修改字典完成，例如，移除一个个体即为字典的重命名。有时会出现这种情况，对于同一个个体，一个worker尝试对其进行修改，但另一个worker可能正在对其进行操作，此时这个worker放弃修改并重新尝试。在这篇论文里，种群的大小是1000个个体，worker的个数总是为种群大小的四分之一。为了在有限的空间内实现长时间的运行，会经常对被移除的个体的字典进行垃圾收集。</p>
 <h1 id="二、方法实现"><a href="#二、方法实现" class="headerlink" title="二、方法实现"></a><strong>二、方法实现</strong></h1><h2 id="1、编码和变异"><a href="#1、编码和变异" class="headerlink" title="1、编码和变异"></a><strong>1、编码和变异</strong></h2><p>个体的结构被编码为一个图，我们称之为<strong>DNA</strong>。在图中，顶点表示3阶张量或激活函数。3阶张量表示图片的长宽和通道数。激活函数可以是带ReLu的批标准化，也可以是简单的线性单元。图的边表示恒等映射或卷积，并包含定义卷积特性的变异了的数值参数。当一个顶点有多个边时，他们的长宽和通道数目可能不一致。为了解决这个问题，选择这些边中的一个作为主要边，这个主要边是非跨连接的。非主要边的激活值以主要边为基准，在长宽这个维度上进行zerothorder插值，在通道这个维度上进行填充或截断。除了图，学习率也被存在DNA里。<br>后代是通过对亲本的复制和变异产生的，这些变异是从预先定义的集合里随机选择的。预先定义的变异集合包括：</p>

@@ -274,14 +274,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：1 年前
+                  本文最后更新于：几秒前
                 
               </p>
             
             <article class="markdown-body">
-              <blockquote>
-<p>相信大家对浩瀚的宇宙、漫天繁星都充满过极大的兴趣，我们对夜晚漫天眨眼的星星充满了无限的向往，在某个夏日夜晚里，我们也是那个“数星星的孩子”。在本文中，我们将使用变分自编码器（VAE）这项深度学习技术，生成星系的图片，生成我们的“星辰大海”。</p>
-</blockquote>
+              <div class="note note-success">
+            <p>相信大家对浩瀚的宇宙、漫天繁星都充满过极大的兴趣，我们对夜晚漫天眨眼的星星充满了无限的向往，在某个夏日夜晚里，我们也是那个“数星星的孩子”。在本文中，我们将使用变分自编码器（VAE）这项深度学习技术，生成星系的图片，生成我们的“星辰大海”。</p>
+          </div>
 <h1 id="一、变分自编码器"><a href="#一、变分自编码器" class="headerlink" title="一、变分自编码器"></a><strong>一、变分自编码器</strong></h1><p><strong>自编码器</strong>（AutoEncoder）是一种表示学习技术，是深度学习中的一个重要分支，也是无监督学习的重要技术之一。一个典型的自编码器结构如Figure1所示，包括两个主要部分：<strong>编码器</strong>（Encoder）<strong>和解码器</strong>（Decoder）。编码器将输入图像不断压缩，最后形成一个特征表示向量，而解码器用这个表示向量将原图片重构出来。学习过程是最小化输出与输入之间的差异，这个差异用一个损失函数表示，比如均方误差。自编码器起到了降维的作用，用一个低维的向量空间来表示原始的高维空间。</p>
 <p><img src="https://img-blog.csdnimg.cn/20190816185500889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
 <p>而变分自编码器是怎么回事呢？先看一下典型的变分自编码的结构，如图2所示。</p>

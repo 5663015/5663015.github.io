@@ -274,24 +274,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：9 小时前
+                  本文最后更新于：3 分钟前
                 
               </p>
             
             <article class="markdown-body">
-              <blockquote>
-<p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p>
-<p><strong>此系列的文章列表：</strong></p>
-<ul>
-<li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li>
-<li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li>
-<li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li>
-</ul>
-</blockquote>
+              <div class="note note-success">
+            <p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p><p><strong>此系列的文章列表：</strong></p><ul><li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li><li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li><li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li><li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li><li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li></ul>
+          </div>
 <p>本文解读两篇基于强化学习的开创性论文：谷歌的《Neural Architecture Search with Reinforcement Learning》和MIT的《Designing Neural Network Architectures Using Reinforcement Learning》。用到的强化学习方法分别为策略梯度（Policy Gradient）和Q-learning。</p>
 <h1 id="一、强化学习相关背景知识"><a href="#一、强化学习相关背景知识" class="headerlink" title="一、强化学习相关背景知识"></a><strong>一、强化学习相关背景知识</strong></h1><p>强化学习任务包括量大主体：<strong>智能体</strong>（Agent）和<strong>环境</strong>（Environment），智能体通过与环境交互获得奖励，来学习相应的策略。强化学习有三种基本方法：动图规划、蒙特卡洛方法和时序差分方法，如下框图所示：</p>
 <p><img src="https://img-blog.csdnimg.cn/20190930173357326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt></p>

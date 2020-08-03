@@ -274,23 +274,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：8 个月前
+                  本文最后更新于：4 分钟前
                 
               </p>
             
             <article class="markdown-body">
-              <blockquote>
-<p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！<br><strong>此系列的文章列表：</strong></p>
-<ul>
-<li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li>
-<li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li>
-<li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li>
-</ul>
-</blockquote>
+              <div class="note note-success">
+            <p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p><p><strong>此系列的文章列表：</strong></p><ul><li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li><li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li><li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li><li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li><li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li></ul>
+          </div>
 <p>本篇介绍三篇论文：《SMASH: One-Shot Model Architecture Search through HyperNetworks》，《Understanding and Simplifying One-Shot Architecture Search》和《Single Path One-Shot Neural Architecture Search with Uniform Sampling》。</p>
 <h1 id="一、SMASH-One-Shot-Model-Architecture-Search-through-HyperNetworks"><a href="#一、SMASH-One-Shot-Model-Architecture-Search-through-HyperNetworks" class="headerlink" title="一、SMASH: One-Shot Model Architecture Search through HyperNetworks"></a><strong>一、SMASH: One-Shot Model Architecture Search through HyperNetworks</strong></h1><h2 id="1、总览"><a href="#1、总览" class="headerlink" title="1、总览"></a><strong>1、总览</strong></h2><p>这篇论文作者通过训练一个辅助模型：超网络（HyperHet），去训练搜索过程中的候选模型，这个超网络动态地生成生成具有可变结构的主模型的权值。尽管这些生成的权重比固定的网络结构自由学习得到的权重更差，但是不同网络在早期训练中的相对性能(即与最优值的距离)为最优状态下性能提供了有意义的指导。作者同时开发了一个基于存储库（memory-back）读写的网络表示机制，来定义各种各样的网络结构。作者称此方法为SMASH（one-Shot Model Architecture Search through Hypernetworks）</p>
 <h2 id="2、利用超网络的one-shot结构搜索"><a href="#2、利用超网络的one-shot结构搜索" class="headerlink" title="2、利用超网络的one-shot结构搜索"></a><strong>2、利用超网络的one-shot结构搜索</strong></h2><p>在SMASH中，我们的目标是根据一个网络的验证集性能对一组网络的性能进行排序，这个任务是通过超网络生成权重来完成的。在每个训练步，我们随机地采样一个网络结构，用超网络生成它的权重，然后训练这个网络。训练结束后，再随机采样一些网络，它们的权重是由超网络生成的，直接评估它们的性能。选择其中在验证集表现最好的网络，再正常地训练它的权重。SMASH由两个核心要点：（1）我们采样网络结构的方法；（2）给定抽样结构的权重的方法。对于第一点，作者提出了网络的存储库视图，允许将复杂的、分支的拓扑作为二值向量进行采样和编码。对于第二点，作者使用超网络，直接学习二值向量的结构编码到权重的映射。这里假设只要超网络生成了合理的权值，网络的验证集性能将与使用正常训练权值时的性能相关，而结构的差异是其性能变化的主要因素。</p>

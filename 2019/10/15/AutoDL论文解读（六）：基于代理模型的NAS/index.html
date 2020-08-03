@@ -274,24 +274,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：8 个月前
+                  本文最后更新于：4 分钟前
                 
               </p>
             
             <article class="markdown-body">
-              <blockquote>
-<p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p>
-<p><strong>此系列的文章列表：</strong></p>
-<ul>
-<li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li>
-<li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li>
-<li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li>
-</ul>
-</blockquote>
+              <div class="note note-success">
+            <p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p><p><strong>此系列的文章列表：</strong></p><ul><li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li><li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li><li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li><li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li><li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li></ul>
+          </div>
 <p>本篇讲述基于代理模型的渐进式搜索《Progressive Neural Architecture Search》。代理模型就是训练并利用一个计算成本较低的模型去模拟原本计算成本较高的那个模型的预测结果，当需要计算的大模型的数量较多时，可以避开很多计算。</p>
 <h1 id="一、Progressive-Neural-Architecture-Search"><a href="#一、Progressive-Neural-Architecture-Search" class="headerlink" title="一、Progressive Neural Architecture Search"></a><strong>一、Progressive Neural Architecture Search</strong></h1><h2 id="1、总览"><a href="#1、总览" class="headerlink" title="1、总览"></a><strong>1、总览</strong></h2><p>这篇论文也是搜寻卷积cell，每个cell包含B个block，每个block连接两个输入，然后cell堆叠起来组成整个网络，同NASNet（《Learning Transferable Architectures for Scalable Image Recognition》）里的基本一样。不过作者是从简单的浅层的cell开始，逐渐地搜索到复杂的cell，而不是每次预测固定大小的cell。在算法的第b次迭代，有K个候选的cell（每个cell有b个block），这些会被训练和评估。因为这个过程是非常费时的，作者在这里使用代理模型去预测候选cell的效果。将K个包含b个block的候选cell扩展成$K^{\prime}&gt;&gt;K$个cell，每个cell有b+1个block。使用代理模型去预测他们的表现，然后选取最高的K个，训练并评估。直到b=B，达到允许的最大block数目。</p>
 <h2 id="2、搜索空间"><a href="#2、搜索空间" class="headerlink" title="2、搜索空间"></a><strong>2、搜索空间</strong></h2><p>这里作者不再区分normal cell和reduction cell，不过如果步长为2，同样可以实现reduction cell的功能。cell是由B个block组成的，每个block将两个输入组合成一个输出。一个在第$c$个cell里的第$b$个block 可以用一个元组表示$(I_{1},I_{2},O_{1},O_{2})$，这里$I_{1},I_{2} \in {\mathcal I}_{b}$表示输入，$O_{1},O_{2} \in {\mathcal O}_{b}$表示作用在输入$I_{i}$上的操作。对于两个输入的连接方式，NASNet里有相加和沿深度轴连接两种选择，不过作者发现沿深度轴连接在实验中从来没有被选择过，因此这里只将两个输入相加，生成block的输出$H_{b}^{c}$。可能的输入集合$\mathcal I_{b}$是这个cell里所有的前驱block的输出$\{H_{1}^{c}, \dots, H_{b-1}^{c}\}$，加上前一个cell的输出$H_{B}^{c-1}$，再加上前前一个cell的输出$H_{B}^{c-2}$。操作空间$\mathcal O$包括以下几种：<br><img src="https://img-blog.csdnimg.cn/20191015170158825.png" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>令第$b$个block可能的结构空间是$\mathcal B_{b}$，那么这个空间的大小为$|\mathcal B_{b}|=|\mathcal I_{b}|^{2} \times |\mathcal O|^{2}$，$|\mathcal I_{b}|=(2+b-1)$，$|\mathcal O|=8$。对于$b=1$，只有$\mathcal I_{1}=\{H_{B}^{c-1}, H_{B}^{c-2}\}$，所以总共有$|\mathcal B|_{1}=4 \times 4 \times 8^{2}=256$个可能的cell。这里作者令$B=5$，那么一种有$\left|\mathcal{B}_{1: 5}\right|=(2^{2} \times 8^{2}) \times (3^{2} \times 8^{2}) \times (4^{2} \times 8^{2}) \times (5^{2} \times 8^{2} )\times (6^{2} \times 8^{2})=5.6 \times 10^{14}$种可能。但这些可能的cell里有一些对称的结构，例如b=1时只有136个独一无二的cell，那么整个搜索空间大小大概是$10^{12}$数量级，比NASNet的$10^{28}$小了不少。</p>

@@ -274,24 +274,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：8 个月前
+                  本文最后更新于：4 分钟前
                 
               </p>
             
             <article class="markdown-body">
-              <blockquote>
-<p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p>
-<p><strong>此系列的文章列表：</strong></p>
-<ul>
-<li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li>
-<li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li>
-<li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li>
-</ul>
-</blockquote>
+              <div class="note note-success">
+            <p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p><p><strong>此系列的文章列表：</strong></p><ul><li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li><li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li><li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li><li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li><li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li></ul>
+          </div>
 <p>本篇介绍两篇论文：谷歌的《Learning Transferable Architectures for Scalable Image Recognition》，商汤的《Practical Block-wise Neural Network Architecture Generation》。前两篇博文介绍的方法都是从最简单的初始化网络一点一点地增加基本操作如卷积、池化等，这样搜索空间巨大非常耗时。这里介绍的两篇论文是以搜索基本的层结构或块结构为主要目的，然后重复堆叠这些基本结构组成最终的网络。这相当于增加了先验知识，也较少了搜索空间，速度会比之前的方法快。</p>
 <hr>
 <h1 id="一、Learning-Transferable-Architectures-for-Scalable-Image-Recognition"><a href="#一、Learning-Transferable-Architectures-for-Scalable-Image-Recognition" class="headerlink" title="一、Learning Transferable Architectures for Scalable Image Recognition"></a><strong>一、Learning Transferable Architectures for Scalable Image Recognition</strong></h1><h2 id="1、引言"><a href="#1、引言" class="headerlink" title="1、引言"></a><strong>1、引言</strong></h2><p>本文提出的方法叫做NASNet，是基于《Neural Architecture Search with Reinforcement Learning》（NAS）这篇论文的。直接用NAS在巨大的数据集上比如ImageNet是非常耗时的，因此作者提出现在小数据集上比如CIFAR-10上搜索，然后将搜索到的结构迁移至大数据及上。作者为了实现这种可迁移性，设计了新的搜索空间（称作NASNet搜索空间），使网络的复杂性与网络的深度和输入图像的大小无关。并且，搜索空间中的所有卷积网络都是由结构相同但权重不同的卷积层（或cell）组成的，搜索网络结构就相当于搜索最好的cell。搜索cell会比搜索整个结构更快，而且cell结构更容易泛化。</p>

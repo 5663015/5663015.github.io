@@ -274,24 +274,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：8 个月前
+                  本文最后更新于：3 分钟前
                 
               </p>
             
             <article class="markdown-body">
-              <blockquote>
-<p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p>
-<p><strong>此系列的文章列表：</strong></p>
-<ul>
-<li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li>
-<li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li>
-<li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li>
-<li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li>
-</ul>
-</blockquote>
+              <div class="note note-success">
+            <p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p><p><strong>此系列的文章列表：</strong></p><ul><li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li><li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li><li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li><li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li><li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li><li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li></ul>
+          </div>
 <p>本次介绍的两篇论文是谷歌的《Efficient Neural Architecture Search via Parameter Sharing》和自动化所、图森的《You Only Search Once: Single Shot Neural Architecture Search via Direct Sparse Optimization》。一般自动生成的网络模型庞大而冗余，且搜索过程耗时耗力，这次的论文是用权值共享的办法来加速模型搜索。</p>
 <h1 id="一、Efficient-Neural-Architecture-Search-via-Parameter-Sharing"><a href="#一、Efficient-Neural-Architecture-Search-via-Parameter-Sharing" class="headerlink" title="一、Efficient Neural Architecture Search via Parameter Sharing"></a><strong>一、Efficient Neural Architecture Search via Parameter Sharing</strong></h1><h2 id="1、总览"><a href="#1、总览" class="headerlink" title="1、总览"></a><strong>1、总览</strong></h2><p>这篇论文也是基于NAS的框架，对其进行了改进，称之为ENAS。NAS搜索到的图是一个更大的图的子图，也就是说NAS的搜索空间可以用<strong>一个</strong>有向无环图（DAG）来表示。下图给出了一个例子：<br><img src="https://img-blog.csdnimg.cn/20191011202939341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>上面的图是整个搜索空间，红色的线连起来的子图是控制器发现的模型。ENAS的DAG是NAS搜索空间里所有可能子模型的叠加，图中的结点表示具体的计算操作，边表示信息流动。每个节点都有其自己的参数，这些参数在所有的子模型中都可以共享。其实ENAS要学习的就是节点之间的连线关系，通过不同的连线产生大量的模型。</p>
 <h2 id="2、生成RNN的cell"><a href="#2、生成RNN的cell" class="headerlink" title="2、生成RNN的cell"></a><strong>2、生成RNN的cell</strong></h2><p>为了生成RNN的cell，作者使用一个有N个节点的DAG。ENAS的控制器是个RNN，它决定两个方面：（1）哪个边被激活；（2）DAG中的结点选择哪种操作。原NAS论文里的RNN生成，cell的结构被固定为二叉树结构，只决定树上每个节点的操作。而这里ENAS即设计节点操作也设计cell的结构。以下图为例说明控制器生成cell的过程：<br><img src="https://img-blog.csdnimg.cn/20191011204402393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>假设有N=4个节点，$x_{t}$是cell的输入，$h_{t-1}$是前一个时间步的输出。采样过程如下：</p>
