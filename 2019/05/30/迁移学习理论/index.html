@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>迁移学习理论 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                迁移学习理论
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-05-30 16:00">
+      2019年5月30日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>本文解读的是迁移学习的第一篇理论性的文章：<a href="https://www.researchgate.net/publication/221618429_Analysis_of_Representations_for_Domain_Adaptation?ev=prf_cit" target="_blank" rel="noopener">《Analysis of Representation for Domain Adaptation》</a>。笔者水平有限，对于解读有错误或不合理的地方还请批评指正！</p>
+</blockquote>
+<p>一般的机器学习都假设训练集和测试集来自同一分布，但实际上在大多数情况下，我们有带标签的源域数据集（目标域不带标签，或者很少部分带标签），希望能训练一个分类器在一个分布不同的目标域上也能取得很好的泛化能力，这就是domain adaptation领域自适应（以下简称DA）。在什么情况下我们能调整一个在源域上训练的分类器，使其能用在目标域上？从直觉上想，一个好的特征表示是关键因素。这篇文献从理论上形式化了这种直觉，给出了domain adaptation的泛化边界，用到了PAC计算学习理论。这篇文献关注的是目标域无标签的情况。</p>
+<h2 id="0-相关符号含义"><a href="#0-相关符号含义" class="headerlink" title="0. 相关符号含义"></a><strong>0. 相关符号含义</strong></h2><p>$\chi$：样本实例集合</p>
+<p>$\cal Z$：特征空间</p>
+<p>$\cal D$：在$\chi$上的一个分布</p>
+<p>$f$：$\chi \to [0, 1]$，$f(x)$代表$x$的标签是1的概率</p>
+<p>$\cal R$：表示函数，将实例映射到特征$\cal R: \cal X \to \cal Z$</p>
+<p>${\cal D}_S$：源域样本分布</p>
+<p>${\cal \tilde{D}}_S$：源域样本在特征空间$\cal Z$上的感应（induced）分布</p>
+<p>${\cal D}_T$：目标域样本分布</p>
+<p>${\cal \tilde{D}}_T$：目标域样本在特征空间$\cal Z$上的感应分布</p>
+<p>$h$：预测函数，从特征空间$\cal Z$到$[0, 1]$</p>
+<p>$\epsilon_S(h)$：$h$关于$\cal D_T$的期望误差</p>
+<p>${\rm sup}$：上确界</p>
+<p>${\rm inf}$：下确界</p>
+<h2 id="1-一般学习问题与DA的形式化"><a href="#1-一般学习问题与DA的形式化" class="headerlink" title="1. 一般学习问题与DA的形式化"></a><strong>1. 一般学习问题与DA的形式化</strong></h2><h3 id="1-1-学习问题的定义"><a href="#1-1-学习问题的定义" class="headerlink" title="1.1 学习问题的定义"></a><strong>1.1 学习问题的定义</strong></h3><p>一个学习问题被两个参数所确定：在$\chi$上的一个分布$\cal D$，和目标函数（可能是随机的）$f: {\cal X} \to [0, 1]$（本文考虑二分类问题）。<strong>表示函数将样本实例映射到特征空间</strong>，$\cal R: \cal X \to \cal Z$。表示函数指示了在$\cal Z$上的一个分布，从$\cal Z$到$[0, 1]$的目标函数$\tilde{f}(z)$如下所示：</p>
+<script type="math/tex; mode=display">Pr_\tilde{\cal D}[B]=Pr_ {\cal D} [{\cal R ^ {-1}} (B)]</script><script type="math/tex; mode=display">\tilde{f}(z)=E_{\cal D}[f(x)|{\cal R}(x)=z]</script><p>对于任意的$A\subseteq Z$，使得${\cal R ^ {-1}} (B)$是$\cal D$可测量的。也就是说，在分布$\tilde{\cal D}$下的事件$B$的概率，是在分布$\cal D$下，$B$在表示函数$\cal R$的逆下的概率。$z$的标签是1的概率，也就是$\tilde{f}(z)$的值，是用$z$表示的实例$x$的概率的平均值（期望）。注意，即使$f(x)$不是随机函数，$\tilde{f}(z)$也可能是随机函数，这是因为表示函数$\cal R$可以将不同的被$f$标记实例映射到同一个特征表示。</p>
+<p>总结一下，这里的学习问题是这样定义的：<strong>有个固定的但未知的分布$\cal D$和目标函数$f$，我们选择一个合适的表示函数$\cal R$和合适的假设类${\cal H} \subseteq \lbrace g: {\cal Z}\to \lbrace0, 1\rbrace \rbrace$，去估计标记函数$f$</strong>。</p>
+<h3 id="1-2-DA问题的定义"><a href="#1-2-DA问题的定义" class="headerlink" title="1.2 DA问题的定义"></a><strong>1.2 DA问题的定义</strong></h3><p>“域”的含义是实例集$\cal X$的分布$\cal D$。我们假设有两个域，<strong>源域（source domain）</strong>和<strong>目标域（target domain）</strong>。${\cal D}_S$是源域样本分布，${\cal \tilde{D}}_S$是源域样本在特征空间$\cal Z$上的感应分布。同样的含义，我们同${\cal D}_T$和${\cal \tilde{D}}_T$表示目标域。$f: {\cal X} \to [0, 1]$是标记规则函数，在源域和目标域上都适用，$\tilde{\cal f}$是$f$在$\cal R$下的感应。</p>
+<p>预测函数$h$将特征空间$\cal Z$映射到$[0, 1]$。我们用$\epsilon_S(h)$表示$h$和$f$不一致的概率：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \epsilon_{S}(h) &=\mathrm{E}_{\mathbf{z} \sim \tilde{\mathcal{D}}_{S}}\left[\mathrm{E}_{y \sim \tilde{f}(\mathbf{z})}[y \neq h(\mathbf{z})]\right] \\ &=\mathrm{E}_{\mathbf{z} \sim \tilde{\mathcal{D}}_{S}}|\tilde{f}(\mathbf{z})-h(\mathbf{z})| \end{aligned}</script><p>相似地，我们用$\epsilon_T(h)$表示$h$相对于${\cal D}_T$的期望误差。</p>
+<h2 id="2-DA的泛化边界"><a href="#2-DA的泛化边界" class="headerlink" title="2. DA的泛化边界"></a><strong>2. DA的泛化边界</strong></h2><p>DA的各种方法适用带标签的源域数据训练分类器，它会在目标域数据集上有泛化误差。这个泛化误差包括两项：</p>
+<ul>
+<li><font color="red" size="4">分类器在源域数据集上的误差边界</font></li>
+<li><font color="red" size="4">感应的源域边缘分布${\cal D}_S$和感应的目标域边缘分布${\cal D}_T$之间的差异性</font>
+
+</li>
+</ul>
+<p>文中说一个自然的想法是使用$L_1$或者变分距离来表示这种差异性，但是这种变分距离在实数域分布之间无法通过有限的样本计算得到。作者在这里采用了$\cal A$-距离来表示这种差异性。给定一个域$\cal X$和一个$\cal X$上的子集$\cal A$，$\cal D$和${\cal D}^{\prime}$是在$\cal X$上的概率分布，这两个分布的$\cal A$-距离定义为：</p>
+<font color="red" size="4">$$d_{\mathcal{A}}\left(\mathcal{D}, \mathcal{D}^{\prime}\right)=2 \sup _{A \in \mathcal{A}}\left|\operatorname{Pr}_{\mathcal{D}}[A]-\operatorname{Pr}_{\mathcal{D}^{\prime}}[A]\right|$$</font>
+
+<p>为了使用$\cal A$-距离，我们需要限定$f$的复杂度。如果说下式成立，那么我们说${\tilde f:{\cal Z} \to [0, 1]}$关于${\tilde {\cal D}_S}$和${\tilde {\cal D}_T}$是$\lambda$-接近于$\cal H$的：</p>
+<script type="math/tex; mode=display">\mathop {\rm inf}_{h \in {\cal H}}[\epsilon_S(h)+\epsilon_T(h)] \leq \lambda</script><h6 id="Theorem-1："><a href="#Theorem-1：" class="headerlink" title="Theorem 1："></a><strong>Theorem 1：</strong></h6><blockquote>
+<p>${\cal R}$是从$\cal X$到$\cal Z$的表示函数，$\cal H$是VC维为$d$的假设类空间，如果$m$条随机样本是从应用了${\cal R}$函数的${\cal D}_S$分布上独立同分布地采样得到，其标签由$f$标记，那么对于每个$h \in {\cal H}$，下式至少以$1-\delta$的概率成立：</p>
+<script type="math/tex; mode=display">
+\epsilon_{T}(h) \leq \hat{\epsilon}_{S}(h)+\sqrt{\frac{4}{m}\left(d \log \frac{2 e m}{d}+\log \frac{4}{\delta}\right)}+d_{\mathcal{H}}\left(\tilde{\mathcal{D}}_{S}, \tilde{\mathcal{D}}_{T}\right)+\lambda</script></blockquote>
+<p>边界取决于$d_{\cal H}({\tilde {\cal D}_S},{\tilde {\cal D}_T})$，这里选择$\cal A$-距离，因为我们可以从有限个样本中估计它。</p>
+<h6 id="Theorem-2："><a href="#Theorem-2：" class="headerlink" title="Theorem 2："></a><strong>Theorem 2：</strong></h6><blockquote>
+<p>${\cal R}$是从$\cal X$到$\cal Z$的表示函数，$\cal H$是VC维为$d$的假设类空间，如果$m$条随机样本是从应用了${\cal R}$函数的${\cal D}_S$分布上独立同分布地采样得到，其标签由$f$标记；并且${\tilde {\cal U}_S}$和${\tilde {\cal U}_T}$是从${\tilde {\cal D}_S}$和${\tilde {\cal D}_T}$上采样得到的无标签样本，都分别有$m^{\prime}$个，那么对于每个$h \in {\cal H}$，下式至少以$1-\delta$的概率成立：</p>
+<font color="red" size="4">$$\epsilon_{T}(h) \leq \hat{\epsilon}_{S}(h)+\frac{4}{m} \sqrt{\left(d \log \frac{2 e m}{d}+\log \frac{4}{\delta}\right)}+\lambda+d_{\mathcal{H}}\left(\tilde{\mathcal{U}}_{S}, \tilde{\mathcal{U}}_{T}\right)+4 \sqrt{\frac{d \log \left(2 m^{\prime}\right)+\log \left(\frac{4}{\delta}\right)}{m^{\prime}}}$$</font>
+
+</blockquote>
+<p>之前我们假设$\lambda$对于合理的$\cal R$是足够小的，所以上式中<strong>第一项</strong>和<strong>第四项</strong>是主要的，表示函数$\cal R$直接影响了他们。<strong>第一项是经验训练误差，第四项是域之间的$\cal A$-距离。我们可以看出一个好的表示函数$\cal R$对于降低训练误差和$\cal A$-距离是至关重要的</strong>。</p>
+<h2 id="3-cal-A-距离的计算"><a href="#3-cal-A-距离的计算" class="headerlink" title="3. $\cal A$-距离的计算"></a><strong>3. $\cal A$-距离的计算</strong></h2><p>前面说明了$\cal A$-距离是可以通过有限多样本估计出来的。而且$\cal A$-距离和学习一个分类器$h$紧密相关，这个分类器是区分样本来自于哪个分布。假设我们有两个分别从${\tilde {\cal D}_S}$和${\tilde {\cal D}_T}$上采样得到的样本集${\tilde {\cal U}_S}$和${\tilde {\cal U}_T}$，它们分别有${\tilde m^{\prime}}$个，分类器$h$就是要将${\tilde {\cal U}_S}$和${\tilde {\cal U}_T}$区别开。$h$的误差为：</p>
+<font color="red" size="4">$$\operatorname{err}(\mathrm{h})=\frac{1}{2 \mathrm{m}^{\prime}} \sum_{\mathrm{i}=1}^{2 \mathrm{m}^{\prime}}\left|\mathrm{h}\left(\mathbf{z}_{\mathrm{i}}\right)-\mathrm{I}_{\mathrm{z}_{\mathrm{i}} \in \tilde{\mathcal{U}}_{\mathrm{S}}}\right|$$</font>
+
+<p>是在${\tilde {\cal U}_S}$上的指示函数。不幸的是，即使是估计任意分布的最优超平面分类器的误差，也是NP难问题。而我们选择通过最小化误差的凸上限来估计最优超平面分类器，则$\cal A$-距离通过下式计算：</p>
+<font color="red" size="4">$$d_{A}\left(\tilde{\mathcal{U}}_{S}, \tilde{\mathcal{U}}_{T}\right)=2\left(1-2 \min _{h^{\prime} \in \mathcal{H}} \operatorname{err}\left(\mathrm{h}^{\prime}\right)\right)$$</font>
+
+<p>值得注意的是，这并没有为我们提供目标域错误的有效上限，但它仍然为我们提供了有关领域自适应表示的有用方面。</p>
+<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4. 实验"></a><strong>4. 实验</strong></h2><p>这部分作者使用的数据集是语音标记数据集，从金融领域（source domain）到生物领域（target domain）。先选择表示函数$\cal R$，再用$\cal R$得到表示训练一个分类器。本文使用的都是线性映射，包括identity映射、随机映射和SCL（structural correspondence learning）。原始数据的维数为$d^{\prime}$，这里将其映射至$d$维空间。</p>
+<p>随机映射使用随机映射矩阵$P \in {\Bbb R}^{d \times d^{\prime}}$，$P$从${\cal N}(0, 1)$中独立同分布地采样得到。Johnson-Lindenstrauss定理保证了只要$d$足够大，随机映射可以很好地接近原始高维空间里的距离。SCL时一种启发式DA方法，首先选择一个在所有域中出现频率最高的“中心”特征，然后其他特征用这些“特征”表示，最后使用共现计数矩阵的低秩近似作为投影矩阵P。</p>
+<p>实验结果如下两个图所示：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC0wNWY5ZjgyOWNkZDRiNzcwLnBuZw" srcset="/img/loading.gif" alt></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC04MTY2ZDdkNDJjMGFmYjQ1LnBuZw" srcset="/img/loading.gif" alt></p>
+<p>图1(a)是使用SCL后两个域之间的可视化，图1(a)是使用随机映射后两个域的可视化，使用近似线性鉴别器来鉴别不同的域。图1(b)是使用SCL后不同类别的可视化。对比图1(a)和图1(b)，关于域的分类器表现得很差，而类别分类器表现得比较好。域分类器表现得差即误差$err(h)$很大，根据前文section3 $\cal A$-距离的计算公式，那么$\cal A$-距离很小。类别分类器的表现得好，经验分类误差比较小。这说明SCL找到了一个比较好的表示使得经验分类误差和$\cal A$-距离都很小。从图2(b)看，identity映射的类别经验分类误差$\hat{\epsilon}_{S}(h)$很小（在带标签的训练数据上的经验误差，也就是源域，这里使用Huber loss作为损失，损失越小经验误差越小），但$\cal A$-距离很大，导致目标域的分类误差比较大（即表格中的Error列）。随机映射的$\cal A$-距离虽然很小，但经验误差很大，导致目标域分类误差很大。只有SCL的经验误差和$\cal A$-距离都很小，最后目标域分类误差也是其中最小的。这些结果也正验证了Theorem 2，<strong>Theorem 2说$\epsilon_{T}(h)$取决于公式中的第一项和第四项，即经验训练误差和域之间的$\cal A$-距离，只有两者皆小才能达到较低的目标域分类误差。而SCL在两者都得到了较小的值，所以它的目标域分类误差是最小的。</strong></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/迁移学习/">迁移学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/理论/">理论</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/06/03/数据结构与算法——算法复杂度/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据结构与算法——算法复杂度</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/04/26/我的书单/">
+                        <span class="hidden-mobile">我的书单</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/05/30/迁移学习理论/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

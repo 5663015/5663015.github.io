@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>数据结构与算法——二叉树 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                数据结构与算法——二叉树
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-03-11 22:49">
+      2020年3月11日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 个月前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="一、二叉树"><a href="#一、二叉树" class="headerlink" title="一、二叉树"></a><strong>一、二叉树</strong></h1><p>二叉树是一种更为典型的树树状结构。如它名字所描述的那样，二叉树是每个节点最多有两个子树的树结构，通常子树被称作“左子树”和“右子树”。下面是个二叉树的例子：<br><img src="https://img-blog.csdnimg.cn/20200311183632554.png" srcset="/img/loading.gif" alt="图1"><br>用python定义二叉树的节点：</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 二叉树节点</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreeNode</span>:</span>
+	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, x)</span>:</span>
+		self.val = x
+		self.left = <span class="hljs-literal">None</span>
+		self.right = <span class="hljs-literal">None</span></code></pre>
+<h1 id="二、二叉树遍历"><a href="#二、二叉树遍历" class="headerlink" title="二、二叉树遍历"></a><strong>二、二叉树遍历</strong></h1><h2 id="1、前序遍历"><a href="#1、前序遍历" class="headerlink" title="1、前序遍历"></a><strong>1、前序遍历</strong></h2><p>前序遍历访问的顺序为：<strong>根节点</strong>、左子树、右子树。对于上图，遍历过程如下：</p>
+<ul>
+<li>一开始指向根节点，访问它，为<strong>E</strong></li>
+<li>有左子树，指向他并访问，为<strong>A</strong></li>
+<li>A没有左子树，指向其右子树并访问，为<strong>C</strong></li>
+<li>C有左子树和右子树，按顺序访问，为<strong>BD</strong></li>
+<li>E的左半边访问完毕，指向E的右子树并访问，为<strong>G</strong></li>
+<li>G只有右子树，访问它，为<strong>F</strong></li>
+<li>F往下已经没有叶子节点，遍历结束</li>
+</ul>
+<p>因此，前序遍历的结果为：<code>EACBDGF</code></p>
+<h2 id="2、中序遍历"><a href="#2、中序遍历" class="headerlink" title="2、中序遍历"></a><strong>2、中序遍历</strong></h2><p>中序遍历访问的顺序为：左子树、<strong>根节点</strong>、右子树。对于上图，遍历过程如下：</p>
+<ul>
+<li>一开始指向根节点E，因为优先访问左子树，先看有没有左子树。发现根节点有左子树A，指向它</li>
+<li>此时A有没有左子树，因此访问当前节点，为<strong>A</strong></li>
+<li>A有右子树，指向其右子树C</li>
+<li>此节点C有左子树，指向其左子树B</li>
+<li>此时节点没有子树，访问其节点为<strong>B</strong></li>
+<li>然后往回指向节点B的父节点，并访问，为<strong>C</strong></li>
+<li>C有右子树，访问，为<strong>D</strong></li>
+<li>此时指回根节点E，访问它，为<strong>E</strong></li>
+<li>E有右子树，指向右子树G</li>
+<li>因为G没有左子树，因此访问当前节点，为<strong>G</strong></li>
+<li>G有右子树，访问，为<strong>F</strong></li>
+<li>F无子树，遍历结束</li>
+</ul>
+<p>因此，中序遍历的结果为：<code>ABCDEGF</code>。通常来说，对于二叉搜索树，我们可以通过中序遍历得到一个递增的有序序列</p>
+<h2 id="3、后序遍历"><a href="#3、后序遍历" class="headerlink" title="3、后序遍历"></a><strong>3、后序遍历</strong></h2><p>后序遍历访问的顺序为：左子树、右子树、<strong>根节点</strong>。对于上图，遍历过程如下：</p>
+<ul>
+<li>一开始指向根节点E，先指向左子树A</li>
+<li>要优先访问左子树右子树，A无左子树、有右子树，因此指向A的右子树C</li>
+<li>C有左子树，指向左子树B</li>
+<li>B无子树，访问为<strong>B</strong></li>
+<li>指回C，C有右子树，指向并访问，为<strong>D</strong></li>
+<li>指回BD的根节点C，访问为<strong>C</strong></li>
+<li>指回C的根节点，访问为<strong>A</strong></li>
+<li>指回A的根节点E，访问其右子树G</li>
+<li>G有右子树，访问为<strong>F</strong></li>
+<li>指回F的根节点，访问为<strong>G</strong></li>
+<li>指回G的根节点，访问为<strong>E</strong></li>
+<li>E已为整个树的根节点，遍历结束</li>
+</ul>
+<p>因此，后序遍历的结果为：<code>BDCAFGE</code>。当你删除树中的节点时，用到后序遍历。 也就是说，当你删除一个节点时，你将首先删除它的左节点和它的右边的节点，然后再删除节点本身。</p>
+<h2 id="4、层序遍历"><a href="#4、层序遍历" class="headerlink" title="4、层序遍历"></a><strong>4、层序遍历</strong></h2><p>层序遍历就是逐层遍历树结构，下图展示了它的层次结构：<br><img src="https://img-blog.csdnimg.cn/20200311203221842.png" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>二叉树的层序遍历即为<strong>广度优先搜索</strong>，该算法从一个根节点开始，首先访问节点本身。 然后遍历它的相邻节点，其次遍历它的二级邻节点、三级邻节点，以此类推。广度优先搜索需要用到<strong>队列</strong>。遍历过程如下：</p>
+<ul>
+<li>初始化队列q=[]，并将根节点E入队，为q=[E]</li>
+<li>q出队，为<strong>E</strong></li>
+<li>E有左子树和右子树，两者入队，为q=[A, G]</li>
+<li>q出队，为<strong>A</strong>，此时将A的右子树入队，为q=[G, C]</li>
+<li>q出队，为<strong>G</strong>，此时G的右子树入队，为q=[C, F]</li>
+<li>q出队，为<strong>C</strong>，此时C的左子树、右子树入队，为q=[F, B, D]</li>
+<li>q出队，为<strong>F</strong>，此时q=[B, D]</li>
+<li>F没有子树，q继续出队，为<strong>B</strong>，此时q=[D]</li>
+<li>q出队，为<strong>D</strong></li>
+<li>q为空，遍历结束</li>
+</ul>
+<p>因此，层序遍历的结果为：<code>EAGCFBD</code>。</p>
+<h1 id="三、程序实现"><a href="#三、程序实现" class="headerlink" title="三、程序实现"></a><strong>三、程序实现</strong></h1><p>二叉树的前序、中序、后序和层序遍历，分别为leetcode的第144、94、145、102题，都可以用<strong>递归</strong>和<strong>迭代</strong>两种方法做。</p>
+<h2 id="1、递归实现"><a href="#1、递归实现" class="headerlink" title="1、递归实现"></a><strong>1、递归实现</strong></h2><p>对于前序、中序和后序来说，递归的现实非常简单，他们的实现区别是根节点访问的顺序不一样。代码如下：</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 前序遍历递归</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preorderTraversal</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[int]:</span>
+		<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+			<span class="hljs-keyword">return</span> []
+		<span class="hljs-keyword">else</span>:
+			<span class="hljs-keyword">return</span> [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment"># 中序遍历递归</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[int]:</span>
+		<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+			<span class="hljs-keyword">return</span> []
+		<span class="hljs-keyword">else</span>:
+			<span class="hljs-keyword">return</span> self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment"># 后序遍历递归</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">postorderTraversal</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[int]:</span>
+		<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+			<span class="hljs-keyword">return</span> []
+		<span class="hljs-keyword">else</span>:
+			<span class="hljs-keyword">return</span> self.postorderTraversal(root.left)  + self.postorderTraversal(root.right)+ [root.val]</code></pre>
+<p>可以看出不同的地方就是<code>[root.val]</code>的位置不一样，前序遍历<code>[root.val]</code>就在最一开始，中序遍历<code>[root.val]</code>则在中间，后序遍历<code>[root.val]</code>就在最后。整个迭代结构下图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200311212631168.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<p>对于层序遍历的递归实现，我们不仅要输出层序遍历的序列，还要有每个元素属于哪个层次的信息，可以用列表嵌套的方式，比如之前的例子里，层序遍历表示为<code>[[E], [AG], [CF], [BD]]</code>。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 层序遍历递归</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[List[int]]:</span>
+		levels = []
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+            <span class="hljs-keyword">return</span> levels
+        
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">helper</span><span class="hljs-params">(node, level)</span>:</span>
+            <span class="hljs-comment"># start the current level</span>
+            <span class="hljs-keyword">if</span> len(levels) == level:
+                levels.append([])
+
+            <span class="hljs-comment"># append the current node value</span>
+            levels[level].append(node.val)
+
+            <span class="hljs-comment"># process child nodes for the next level</span>
+            <span class="hljs-keyword">if</span> node.left:
+                helper(node.left, level + <span class="hljs-number">1</span>)
+            <span class="hljs-keyword">if</span> node.right:
+                helper(node.right, level + <span class="hljs-number">1</span>)
+            
+        helper(root, <span class="hljs-number">0</span>)
+        <span class="hljs-keyword">return</span> levels</code></pre>
+<p>我们设更节点的层级序号为0，依次往下为1、2、3……。<code>leaves</code>为保存结果的列表，每一层的结果又为一个列表，保存在<code>leaves</code>里，层级序号即为在<code>leaves</code>里的index，在第<code>i</code>层级，<code>leaves</code>里应该有<code>i+1</code>个列表，第<code>i+1</code>个列表为当前层级的节点。每个列表只append层级序号相同的节点。</p>
+<h2 id="2、迭代实现"><a href="#2、迭代实现" class="headerlink" title="2、迭代实现"></a><strong>2、迭代实现</strong></h2><p>二叉树的迭代实现都需要用到<strong>栈</strong>。对于前序、中序、后序遍历，他们的迭代实现大同小异：</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 前序遍历迭代</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>        
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preorderTraversal</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[int]:</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> []
+
+        stack, output = [root, ], []
+        <span class="hljs-keyword">while</span> stack:
+            root = stack.pop()
+            <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                output.append(root.val)
+                <span class="hljs-keyword">if</span> root.right <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                    stack.append(root.right)
+                <span class="hljs-keyword">if</span> root.left <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                    stack.append(root.left)
+
+        <span class="hljs-keyword">return</span> output</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment"># 中序遍历迭代</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[int]:</span>
+    	<span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> []
+            
+        stack, output= [], []
+        curr = root
+        <span class="hljs-keyword">while</span> curr <span class="hljs-keyword">or</span> len(stack) &gt; <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">while</span> curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            output.append(curr.val)
+            curr = curr.right
+        <span class="hljs-keyword">return</span> output</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment"># 后序遍历迭代</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">postorderTraversal</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[int]:</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> []
+
+        stack, output = [root, ], []
+        <span class="hljs-keyword">while</span> stack:
+            root = stack.pop()
+            output.append(root.val)
+            <span class="hljs-keyword">if</span> root.left <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                stack.append(root.left)
+            <span class="hljs-keyword">if</span> root.right <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                stack.append(root.right)
+                
+        <span class="hljs-keyword">return</span> output[::<span class="hljs-number">-1</span>]</code></pre>
+<ul>
+<li>对于前序遍历，先初始化一个有根节点的栈，然后进入循环，出栈根节点，访问它。然后依次入栈右子树、左子树（注意栈是先进后出）。则下次循环，会先出栈左子树，访问它，然后入栈它的右子树、左子树。这样根节点E的右子树会在其左子树遍历完后才会出栈。循环停止条件是栈为空。</li>
+<li>对于中序遍历，因为要优先遍历左子树，循环之前初始化一个空栈，进入循环后，用一个内循环依次入栈左子树，直到叶子节点（也为一个左子树），然后退出内循环，出栈并访问。</li>
+<li>对于后序遍历，和前序遍历的整体结构是一样的，唯一不同的是在循环里先入栈左子树，后入栈右子树，循环结束后将结果逆序。</li>
+</ul>
+<p>对于层序遍历的迭代实现，循环之前初始化一个有根节点的队列，此时队列只有一个元素，进入循环后，出队并访问，然后将根节点的左右子树依次入队。下次循环，依次将上次队列里的元素出队，同队入队他们的左右子树。这样每次循环只出队当前层次的节点，并入队他们的左右子树，完成了层次之间的交换。这实际上是一种<strong>广度优先搜索</strong>。<strong>层序遍历迭代写法：</strong></p>
+<pre><code class="hljs python"><span class="hljs-comment"># 层序遍历迭代，使用栈</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[List[int]]:</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> []
+        q = [root]
+        result = []
+        <span class="hljs-keyword">while</span> q:
+            res = []
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(q)):
+                node = q.pop(<span class="hljs-number">0</span>)
+                res.append(node.val)
+                <span class="hljs-keyword">if</span> node.left:
+                    q.append(node.left)
+                <span class="hljs-keyword">if</span> node.right:
+                    q.append(node.right)
+            result.append(res)
+        <span class="hljs-keyword">return</span> result</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment"># 层序遍历迭代，使用队列</span>
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">levelOrder</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; List[List[int]]:</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> []
+            
+        res = []
+        q = deque()
+        q.append(root)
+        <span class="hljs-keyword">while</span> q:
+            size = len(q)
+            curr_level = []
+            <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(size):
+                node = q.popleft()
+                curr_level.append(node.val)
+                <span class="hljs-keyword">if</span> node.left:
+                    q.append(node.left)
+                <span class="hljs-keyword">if</span> node.right:
+                    q.append(node.right)
+            res.append(curr_level)
+        <span class="hljs-keyword">return</span> res</code></pre>
+<h1 id="四、例题"><a href="#四、例题" class="headerlink" title="四、例题"></a><strong>四、例题</strong></h1><p><strong>二叉树的最近公共祖先</strong></p>
+<p>此题为leetcode<a href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener">第236题</a></p>
+<p>给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(self, root: <span class="hljs-string">'TreeNode'</span>, p: <span class="hljs-string">'TreeNode'</span>, q: <span class="hljs-string">'TreeNode'</span>)</span> -&gt; 'TreeNode':</span>
+        <span class="hljs-comment"># 树为空返回None</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+        
+        <span class="hljs-comment"># 找到了p或q</span>
+        <span class="hljs-keyword">if</span> root == p <span class="hljs-keyword">or</span> root == q:
+            <span class="hljs-keyword">return</span> root
+        
+        <span class="hljs-comment"># 在root的左子树找p或q</span>
+        left = self.lowestCommonAncestor(root.left, p, q)
+        <span class="hljs-comment"># 在root的右子树找p或q</span>
+        right = self.lowestCommonAncestor(root.right, p, q)
+        
+        <span class="hljs-keyword">if</span> left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:    <span class="hljs-comment"># 如果左子树没有p或q，返回右孩子</span>
+            <span class="hljs-keyword">return</span> right
+        <span class="hljs-keyword">elif</span> right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: <span class="hljs-comment"># 如果右子树没有p或q，返回左孩子</span>
+            <span class="hljs-keyword">return</span> left
+        <span class="hljs-keyword">else</span>:               <span class="hljs-comment"># 如果分别在左右子树找到了p或q，那么root就是最近公共祖先</span>
+            <span class="hljs-keyword">return</span> root</code></pre>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a><strong>五、总结</strong></h1><ul>
+<li>前序、中序、后序遍历的递归实现几乎一模一样，区别是根节点的访问位置不一样</li>
+<li>前序、中序、后序的迭代实现需要借助栈</li>
+<li>层序遍历的递归和迭代实现需要借助队列</li>
+</ul>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/算法/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/数据结构/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/13/数据机构与算法——二叉搜索树/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据机构与算法——二叉搜索树</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/12/13/MobileNet系列/">
+                        <span class="hidden-mobile">MobileNet系列</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/03/11/数据结构与算法——二叉树/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>深度学习调参经验汇总 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                深度学习调参经验汇总
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-03-01 10:41">
+      2019年3月1日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      95
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>此篇文章是在原创教程这个栏目下，但实际上是一篇汇总整理文章。相信大家在做深度学习时对调参尤为无奈，经验不足乱调一通，或者参数太多无从下手，我也如此。希望通过此文汇总网上一些调参的经验方法，供大家参考。此文会对网上每一篇调参文章做简练的总结与提炼，以此为此文的组成单元，并附上原文的链接。如果遇到不对的地方，欢迎指正~本文也将不定期更新，最后祝大家调参（炼金）顺利！</p>
+</blockquote>
+<h1 id="有多少人工，就有多少智能！（笑哭脸）"><a href="#有多少人工，就有多少智能！（笑哭脸）" class="headerlink" title="有多少人工，就有多少智能！（笑哭脸）"></a><strong>有多少人工，就有多少智能！（笑哭脸）</strong></h1><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC0yNDExNzI4MGU0N2UwMmYyLmpwZw" srcset="/img/loading.gif" alt="人工智障"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC0wNzI5ZGZkZTNiZTJiMTdmLmpwZw" srcset="/img/loading.gif" alt="炼金大法"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC05Y2ViZmRmNjA4NmIzOGExLmpwZw" srcset="/img/loading.gif" alt="你已经是成熟的算法了，要学会自己调参"></p>
+<h1 id="正文开始"><a href="#正文开始" class="headerlink" title="正文开始"></a><strong>正文开始</strong></h1><hr>
+<h2 id="UNIT-1"><a href="#UNIT-1" class="headerlink" title="UNIT 1"></a><strong>UNIT 1</strong></h2><ul>
+<li><p><strong>case1：</strong>网络错误没有正确训练，损失完全不收敛。可能两种原因：1，错误的input data，网络无法学习。 2，错误的网络，网络无法学习。<strong>解决办法：（1）请检测自己的数据是否存在可以学习的信息，这个数据集中的数值是否泛化（防止过大或过小的数值破坏学习）。（2）如果是错误的数据则你需要去再次获得正确的数据，如果是数据的数值异常我们可以使用zscore函数来解决这个问题（3）如果是网络的错误，则希望调整网络，包括：网络深度，非线性程度，分类器的种类等等。</strong></p>
+</li>
+<li><p><strong>case2：</strong>部分收敛。可能原因：1.underfitting，就是网络的分类太简单了没办法去分类，因为没办法分类就是没办法学到正确的知识。2.overfitting，就是网络的分类太复杂了以至于它可以学习数据中的每一个信息甚至是错误的信息他都可以学习。<strong>解决办法：（1）underfitting: 增加网络的复杂度（深度），降低learning rate，优化数据集，增加网络的非线性度（ReLu），采用batch normalization。（2）overfitting: 丰富数据，增加网络的稀疏度，降低网络的复杂度（深度），L1 regularization,L2 regulariztion,添加Dropout，Early stopping,适当降低Learning rate，适当减少epoch的次数，</strong></p>
+</li>
+<li><p><strong>case3：</strong>全部收敛但效果不好。这是个好的开始，接下来我们要做的就是微调一些参数。<strong>解决办法：调整方法就是保持其他参数不变，只调整一个参数。这里需要调整的参数会有：learning rate,minibatch size，epoch，filter size,number of filter</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>原文链接：<a href="https://blog.csdn.net/qq\_20259459/article/details/70316511" target="_blank" rel="noopener">https://blog.csdn.net/qq\_20259459/article/details/70316511</a></p>
+</blockquote>
+<hr>
+<h2 id="UNIT-2"><a href="#UNIT-2" class="headerlink" title="UNIT 2"></a><strong>UNIT 2</strong></h2><ul>
+<li><p><strong>好的实验环境是成功的一半：</strong>（1）将各个参数的设置部分集中在一起。如果参数的设置分布在代码的各个地方，那么修改的过程想必会非常痛苦。（2）可以输出模型的损失函数值以及训练集和验证集上的准确率。（3）可以考虑设计一个子程序，可以根据给定的参数，启动训练并监控和周期性保存评估结果。再由一个主程序，分配参数以及并行启动一系列子程序。</p>
+</li>
+<li><p><strong>画图：</strong>画图是一个很好的习惯，一般是训练数据遍历一轮以后，就输出一下训练集和验证集准确率。同时画到一张图上。这样训练一段时间以后，如果模型一直没有收敛，那么就可以停止训练，尝试其他参数了，以节省时间。 如果训练到最后，训练集，测试集准确率都很低，那么说明模型有可能欠拟合。那么后续调节参数方向，就是增强模型的拟合能力。例如增加网络层数，增加节点数，减少dropout值，减少L2正则值等等。 如果训练集准确率较高，测试集准确率比较低，那么模型有可能过拟合，这个时候就需要向提高模型泛化能力的方向，调节参数。</p>
+</li>
+<li><p><strong>从粗到细分阶段调参：</strong>（1）建议先参考相关论文，以论文中给出的参数作为初始参数。至少论文中的参数，是个不差的结果。（2）如果找不到参考，那么只能自己尝试了。可以先从比较重要，对实验结果影响比较大的参数开始，同时固定其他参数，得到一个差不多的结果以后，在这个结果的基础上，再调其他参数。例如学习率一般就比正则值，dropout值重要的话，学习率设置的不合适，不仅结果可能变差，模型甚至会无法收敛。（3）如果实在找不到一组参数，可以让模型收敛。那么就需要检查，是不是其他地方出了问题，例如模型实现，数据等等。</p>
+</li>
+<li><p><strong>提高速度：</strong>调参只是为了寻找合适的参数，而不是产出最终模型。一般在小数据集上合适的参数，在大数据集上效果也不会太差。因此可以尝试对数据进行精简，以提高速度，在有限的时间内可以尝试更多参数。（1）对训练数据进行采样。例如原来100W条数据，先采样成1W，进行实验看看。（2）减少训练类别。例如手写数字识别任务，原来是10个类别，那么我们可以先在2个类别上训练，看看结果如何。</p>
+</li>
+<li><p><strong>超参数范围：</strong>建议优先在对数尺度上进行超参数搜索。比较典型的是学习率和正则化项，我们可以从诸如0.001 0.01 0.1 1 10，以10为阶数进行尝试。因为他们对训练的影响是相乘的效果。不过有些参数，还是建议在原始尺度上进行搜索，例如dropout值: 0.3 0.5 0.7)。</p>
+</li>
+<li><p><strong>经验参数：</strong></p>
+<ul>
+<li>learning rate: 1 0.1 0.01 0.001, 一般从1开始尝试。很少见learning rate大于10的。学习率一般要随着训练进行衰减。衰减系数一般是0.5。 衰减时机，可以是验证集准确率不再上升时，或固定训练多少个周期以后。 不过更建议使用自适应梯度的办法，例如adam，adadelta，rmsprop等，这些一般使用相关论文提供的默认值即可，可以避免再费劲调节学习率。对RNN来说，有个经验，如果RNN要处理的序列比较长，或者RNN层数比较多，那么learning rate一般小一些比较好，否则有可能出现结果不收敛，甚至Nan等问题。</li>
+<li>网络层数： 先从1层开始。</li>
+<li>每层结点数： 16 32 128，超过1000的情况比较少见。超过1W的从来没有见过。</li>
+<li>batch size: 128上下开始。batch size值增加，的确能提高训练速度。但是有可能收敛结果变差。如果显存大小允许，可以考虑从一个比较大的值开始尝试。因为batch size太大，一般不会对结果有太大的影响，而batch size太小的话，结果有可能很差。</li>
+<li>clip c(梯度裁剪): 限制最大梯度,其实是value = sqrt(w1^2+ w2^2….),如果value超过了阈值，就算一个衰减系系数,让value的值等于阈值: 5,10,15</li>
+<li>dropout： 0.5</li>
+<li>L2正则：1.0，超过10的很少见。</li>
+<li>词向量embedding大小：128，256</li>
+<li>正负样本比例： 这个是非常忽视，但是在很多分类问题上，又非常重要的参数。很多人往往习惯使用训练数据中默认的正负类别比例，当训练数据非常不平衡的时候，模型很有可能会偏向数目较大的类别，从而影响最终训练结果。除了尝试训练数据默认的正负类别比例之外，建议对数目较小的样本做过采样，例如进行复制。提高他们的比例，看看效果如何，这个对多分类问题同样适用。 在使用mini-batch方法进行训练的时候，尽量让一个batch内，各类别的比例平衡，这个在图像识别等多分类任务上非常重要。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>自动调参：</strong></p>
+</li>
+<li><p>Gird Search. 这个是最常见的。具体说，就是每种参数确定好几个要尝试的值，然后像一个网格一样，把所有参数值的组合遍历一下。优点是实现简单暴力，如果能全部遍历的话，结果比较可靠。缺点是太费时间了，特别像神经网络，一般尝试不了太多的参数组合。</p>
+</li>
+<li><p>Random Search。Bengio在<a href="http://link.zhihu.com/?target=http%3A//www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf" target="_blank" rel="noopener">Random Search for Hyper-Parameter Optimization</a>中指出，Random Search比Gird Search更有效。实际操作的时候，一般也是先用Gird Search的方法，得到所有候选参数，然后每次从中随机选择进行训练。</p>
+</li>
+<li>Bayesian Optimization. 贝叶斯优化，考虑到了不同参数对应的实验结果值，因此更节省时间。和网络搜索相比简直就是老牛和跑车的区别。具体原理可以参考这个论文： <a href="http://link.zhihu.com/?target=http%3A//papers.nips.cc/paper/4522-practical-bayesian-optimization-of-machine-learning-algorithms.pdf" target="_blank" rel="noopener">Practical Bayesian Optimization of Machine Learning Algorithms</a> ，这里同时推荐两个实现了贝叶斯调参的Python库，可以上手即用：<ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/jaberg/hyperopt" target="_blank" rel="noopener">jaberg/hyperopt</a>, 比较简单。</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/fmfn/BayesianOptimization" target="_blank" rel="noopener">fmfn/BayesianOptimization</a>， 比较复杂，支持并行调参。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>原文链接：<a href="https://blog.csdn.net/anshiquanshu/article/details/77938831" target="_blank" rel="noopener">https://blog.csdn.net/anshiquanshu/article/details/77938831</a></p>
+</blockquote>
+<hr>
+<h2 id="UNIT-3"><a href="#UNIT-3" class="headerlink" title="UNIT 3"></a><strong>UNIT 3</strong></h2><h3 id="一些大的注意事项"><a href="#一些大的注意事项" class="headerlink" title="一些大的注意事项"></a><strong>一些大的注意事项</strong></h3><ul>
+<li>刚开始, 先上<strong>小规模数据，模型往大了放</strong>，只要不爆显存，能用256个filter你就别用128个。直接奔着<strong>过拟合</strong>去。没错，就是训练过拟合网络, 连测试集验证集这些都可以不用。如果小数据量下，这么粗暴的大网络奔着过拟合去都没效果，那么有可能是：模型的输入输出是不是有问题? 代码错误? 模型解决的问题定义是不是有问题? 你对应用场景的理解是不是有错?* <strong>Loss设计要合理</strong>。一般来说分类就是Softmax, 回归就是L2的loss. 但是要注意loss的错误范围(主要是回归), 你预测一个label是10000的值, 模型输出0, 你算算这loss多大, 这还是单变量的情况下. 一般结果都是nan. 所以不仅仅输入要做normalization, 输出也要这么弄。多任务情况下, 各loss想法限制在一个量级上, 或者最终限制在一个量级上, 初期可以着重一个任务的loss。</li>
+<li><strong>观察loss胜于观察准确率。</strong>准确率虽然是评测指标，但是训练过程中还是要注意loss的。你会发现有些情况下，准确率是突变的，原来一直是0, 可能保持上千迭代, 然后突然变1。要是因为这个你提前中断训练了, 只有老天替你惋惜了. 而loss是不会有这么诡异的情况发生的, 毕竟优化目标是loss。给NN一点时间, 要根据任务留给NN的学习一定空间. 不能说前面一段时间没起色就不管了. 有些情况下就是前面一段时间看不出起色, 然后开始稳定学习。</li>
+<li><strong>确认分类网络学习充分。</strong>分类网络就是学习类别之间的界限. 你会发现, 网络就是慢慢的从类别模糊到类别清晰的. 怎么发现? 看Softmax输出的概率的分布. 如果是二分类, 你会发现, 刚开始的网络预测都是在0.5上下, 很模糊. 随着学习过程, 网络预测会慢慢的移动到0,1这种极值附近. 所以, 如果你的网络预测分布靠中间, 再学习学习。</li>
+<li><strong>Learning Rate设置合理。</strong>太大: loss爆炸, 或者nan。太小: 半天loss没反映。需要进一步降低了: loss在当前LR下一路降了下来, 但是半天不再降了。如果上面的Loss设计那块你没法合理, 初始情况下容易爆, 先上一个小LR保证不爆, 等loss降下来了, 再慢慢升LR, 之后当然还会慢慢再降LR。</li>
+<li><strong>对比训练集和验证集的loss。</strong> 判断过拟合, 训练是否足够, 是否需要early stop的依据。</li>
+<li><strong>清楚receptive field的大小。</strong>CV的任务, context window是很重要的. 所以你对自己模型的receptive field的大小要心中有数. 这个对效果的影响还是很显著的. 特别是用FCN, 大目标需要很大的receptive field。</li>
+</ul>
+<h3 id="简短的注意事项"><a href="#简短的注意事项" class="headerlink" title="简短的注意事项"></a><strong>简短的注意事项</strong></h3><ul>
+<li>预处理：-mean/std zero-center就够了, PCA, 白化什么的都用不上。</li>
+<li>shuffle, shuffle, shuffle。</li>
+<li>网络原理的理解最重要，CNN的conv这块，你得明白sobel算子的边界检测。</li>
+<li>Dropout, Dropout, Dropout(不仅仅可以防止过拟合, 其实这相当于做人力成本最低的Ensemble, 当然, 训练起来会比没有Dropout的要慢一点, 同时网络参数你最好相应加一点, 对, 这会再慢一点)。</li>
+<li>CNN更加适合训练回答是否的问题, 如果任务比较复杂, 考虑先用分类任务训练一个模型再finetune。</li>
+<li>无脑用ReLU(CV领域)。</li>
+<li>无脑用3x3。</li>
+<li>无脑用xavier。</li>
+<li>LRN一类的, 其实可以不用. 不行可以再拿来试试看。</li>
+<li>filter数量2^n</li>
+<li>多尺度的图片输入(或者网络内部利用多尺度下的结果)有很好的提升效果。</li>
+<li>第一层的filter, 数量不要太少. 否则根本学不出来(底层特征很重要)。</li>
+<li>sgd adam 这些选择上, 看你个人选择. 一般对网络不是决定性的. 反正我无脑用sgd + momentum。</li>
+<li>batch normalization我一直没用, 虽然我知道这个很好, 我不用仅仅是因为我懒. 所以要鼓励使用batch normalization。</li>
+<li>不要完全相信论文里面的东西. 结构什么的觉得可能有效果, 可以拿去试试。</li>
+<li>你有95%概率不会使用超过40层的模型。</li>
+<li>shortcut的联接是有作用的。</li>
+</ul>
+<blockquote>
+<p>原文链接：<a href="https://www.imooc.com/article/30562" target="_blank" rel="noopener">https://www.imooc.com/article/30562</a></p>
+</blockquote>
+<hr>
+<h2 id="UNIT-4"><a href="#UNIT-4" class="headerlink" title="UNIT 4"></a><strong>UNIT 4</strong></h2><h3 id="1-从繁就简"><a href="#1-从繁就简" class="headerlink" title="1. 从繁就简"></a>1. 从繁就简</h3><p>具有正规化和学习率（learning rate）调度器的复杂架构的神经网络，较单一神经网络更难调试。<strong>首先</strong>，构建一个相对简单的模型：构建一个具有单个隐藏层的小模型，并进行验证；然后逐渐添加模型的复杂性，同时检验模型结构的每个层面（附加层、参数等）是否有效。<strong>其次</strong>，在单个数据节点上训练模型：可以使用一两个训练数据点（data point）以确认模型是否过度拟合。神经网络应立即过度拟合，训练准确率为 100%，这表明模型符合；如果模型无法过度拟合这些数据点，就证明太小或存在 bug。</p>
+<h3 id="2-确认模型损失"><a href="#2-确认模型损失" class="headerlink" title="2. 确认模型损失"></a>2. 确认模型损失</h3><p>模型损失是评估模型性能的主要方式，也是模型设置重要参数以进行评估的依据，因此需要确保：</p>
+<ul>
+<li><p>模型损失适用于任务（使用分类交叉熵损失（cross-entropy los）进行多分类问题或使用 focal loss 以解决不平衡问题）；</p>
+</li>
+<li><p>正确衡量损失函数的重要性。如果你使用多种类型的损失函数，如 MSE、对抗性、L1、feature loss,，那么请确保所有损失以正确的方式排序。</p>
+</li>
+</ul>
+<h3 id="3-检查中间输出和连接"><a href="#3-检查中间输出和连接" class="headerlink" title="3. 检查中间输出和连接"></a>3. 检查中间输出和连接</h3><p>为了调试神经网络，你需要理解神经网络内部的动态、不同中间层所起的作用，以及层与层之间是如何连接起来的。不过，你可能遇到以下问题：</p>
+<ul>
+<li><p>不正确的梯度更新表达式</p>
+</li>
+<li><p>权重未得到应用</p>
+</li>
+<li><p>梯度消失或爆发</p>
+</li>
+</ul>
+<p>如果梯度值为 0，则意味着优化器中的学习率可能太小，且梯度更新的表达式不正确。</p>
+<p>除了关注梯度的绝对值之外，还要确保监视每个层匹配的激活、权重的大小。例如，参数更新的大小（权重和偏差）应为 1-e3。</p>
+<p>需要指出的是，一种称为 “Dying ReLU” 或“梯度消失”的现象中，ReLU 神经元在学习其权重的负偏差项后将输出为 0。这些神经元不会在任何数据点上得到激活。</p>
+<p>你可以采用梯度检验（gradient checking）通过数值方法逼近梯度以检验这些错误。如果它接近计算梯度，则正确实施反向传播。</p>
+<p>关于可视化神经网络的主要方法，Faizan Shaikh 举出了三个例子：</p>
+<ul>
+<li><p>初始方法：展现训练模型的整体结构，这些方法包括展示神经网络各个层的形状或过滤器（filters）以及每个层中的参数；</p>
+</li>
+<li><p>基于激活的方法：破译单个神经元或一组神经元的激活函数；</p>
+</li>
+<li><p>基于梯度的方法：在训练模型时，操作由前向或后向通道形成的梯度。</p>
+</li>
+</ul>
+<p>还有有许多可用的工具可用于可视化各个层的激活和连接，例如 ConX 和 Tensorboard。</p>
+<h3 id="4-诊断参数"><a href="#4-诊断参数" class="headerlink" title="4. 诊断参数"></a>4. 诊断参数</h3><p>神经网络具有大量彼此相互作用的参数，使得优化也变得非常困难。</p>
+<p><strong>Batch size：</strong>你希望 batch size 可大到足以准确评估误差梯度，小到足以使随机梯度下降（SGD）可以规范网络。batch size 将导致学习过程在训练过程中以噪声成本快速瘦脸，并可能导致优化困难。</p>
+<p><strong>学习率（Learning rate）：</strong>太低会导致收敛缓慢或陷入局部最小值的风险，太高则会导致优化发散。</p>
+<p>机器学习框架，如 Keras、Tensorflow、PyTorch、MXNet 现在都有关于使用学习率收敛缓慢文档或示例：</p>
+<p>Keras： <a href="https://keras.io/callbacks/#learningratescheduler" target="_blank" rel="noopener">https://keras.io/callbacks/#learningratescheduler</a></p>
+<p>Tensorflow： <a href="https://www.tensorflow.org/api_docs/python/tf/train/exponential_decay" target="_blank" rel="noopener">https://www.tensorflow.org/api_docs/python/tf/train/exponential_decay</a></p>
+<p>PyTorch： <a href="https://pytorch.org/docs/stable/_modules/torch/optim/lr_scheduler.html" target="_blank" rel="noopener">https://pytorch.org/docs/stable/_modules/torch/optim/lr_scheduler.html</a></p>
+<p>MXNet： <a href="https://mxnet.incubator.apache.org/versions/master/tutorials/gluon/learning_rate_schedules.html" target="_blank" rel="noopener">https://mxnet.incubator.apache.org/versions/master/tutorials/gluon/learning_rate_schedules.html</a></p>
+<p><strong>梯度剪切（Gradient clipping ）：</strong>在反向传播中，用于剪切参数梯度的最大值或最大范数。</p>
+<p><strong>Batch 标准化（normalization ）：</strong>用于标准化每层的输入，以对抗内部协变量移位问题。</p>
+<p><strong>随机梯度下降（Stochastic Gradient Descent ，SGD）：</strong>使用动量、自适应学习率、Nesterov 更新。</p>
+<p><strong>正则化：</strong>对于构建可推广模型至关重要，因为它增加了对模型复杂性或极端参数值的惩罚。同时，它显著降低了模型的方差，并且不显著增加偏差。</p>
+<p><strong>Dropout：</strong>是另一种规范网络以防止过度拟合的技术。在训练时，以某个概率 p（超参数）保持神经元活动来实现丢失，否则将其设置为 0。结果，网络必须在每个训练 batch 中使用不同的参数子集，这减少了特定参数的变化而变得优于其他参数。</p>
+<h3 id="全称跟踪工作"><a href="#全称跟踪工作" class="headerlink" title="全称跟踪工作"></a>全称跟踪工作</h3><p>通过对工作更好地跟踪，可以轻松查看和重现之前的试验，以减少重复工作。不过，手动记录信息可能很难做到且进行多次实验，像 comet.ml 这样的工具可以帮助自动追踪数据集、更改代码、实验历史和生产模型，包括关于模型的关键信息，如超参数、模型性能指标和环境细节。神经网络对数据、参数，甚至 packages 的微小变化都非常敏感，这导致了模型的性能下降。工作跟踪是标准化环境和建模工作流程的第一步。</p>
+<blockquote>
+<p>原文链接：<a href="https://mp.weixin.qq.com/s?__biz=MzI0ODcxODk5OA==&amp;mid=2247503598&amp;idx=4&amp;sn=6f0f0d69917dec6479856768deef026f&amp;chksm=e99efd17dee97401940fbde1b827e25af2de0f7a2c976318ca9704167954ecd064f2a0b48f40&amp;mpshare=1&amp;scene=23&amp;srcid=0319l7CrzcTA1SGejFL2ylHO#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI0ODcxODk5OA==&amp;mid=2247503598&amp;idx=4&amp;sn=6f0f0d69917dec6479856768deef026f&amp;chksm=e99efd17dee97401940fbde1b827e25af2de0f7a2c976318ca9704167954ecd064f2a0b48f40&amp;mpshare=1&amp;scene=23&amp;srcid=0319l7CrzcTA1SGejFL2ylHO#rd</a></p>
+</blockquote>
+<hr>
+<h2 id="UNIT-5"><a href="#UNIT-5" class="headerlink" title="UNIT 5"></a><strong>UNIT 5</strong></h2><h3 id="1、数据梳理"><a href="#1、数据梳理" class="headerlink" title="1、数据梳理"></a><strong>1、数据梳理</strong></h3><p>训练神经网络的第一步是不要碰代码，先彻底检查自己的数据。这一步非常关键。我喜欢用大量时间浏览数千个样本，理解它们的分布，寻找其中的模式。幸运的是，人类大脑很擅长做这件事。有一次，我发现数据中包含重复的样本，还有一次我发现了损坏的图像／标签。我会查找数据不均衡和偏差。我通常还会注意自己的数据分类过程，它会揭示我们最终探索的架构。比如，只需要局部特征就够了还是需要全局语境？标签噪声多大？此外，由于神经网络是数据集的压缩／编译版本，你能够查看网络（错误）预测，理解预测从哪里来。如果网络预测与你在数据中发现的不一致，那么一定是什么地方出问题了。在你对数据有了一些感知之后，你可以写一些简单的代码来搜索／过滤／排序标签类型、标注规模、标注数量等，并沿任意轴可视化其分布和异常值。异常值通常能够揭示数据质量或预处理中的 bug。</p>
+<h3 id="2、配置端到端训练-评估架构、获取基线结果"><a href="#2、配置端到端训练-评估架构、获取基线结果" class="headerlink" title="2、配置端到端训练/评估架构、获取基线结果"></a><strong>2、配置端到端训练/评估架构、获取基线结果</strong></h3><p>现在我们已经理解了数据，那我们就可以开始构建高大上的多尺度 ASPP FPN ResNet 并训练强大的模型了吗？当然还不到时候，这是一个充满荆棘的道路。我们下一步需要构建一个完整的训练、评估架构，并通过一系列实验确定我们对准确率的置信度。在这个阶段，你们最好选择一些不会出错的简单模型，例如线性分类器或非常精简的 ConvNet 等。我们希望训练这些模型，并可视化训练损失、模型预测和其它度量指标（例如准确率）。当然在这个过程中，我们还需要基于一些明确假设，从而执行一系列对照实验（ablation experiments）。该阶段的一些技巧与注意事项：</p>
+<ul>
+<li><p><strong>固定随机seed</strong>：始终使用固定的随机 seed 能保证很多属性，例如在我们两次运行相同代码时能得到相同的输出。这能消除变化因子，从进行合理的判断。</p>
+</li>
+<li><p><strong>简化</strong>：确保禁用不必要的技巧。例如，在这个阶段肯定需要关闭数据增强。数据增强可以在后期引入，并作为一种强大的正则化策略。不过在这个阶段引入的话，它就有机会带来一些愚蠢的 bug。</p>
+</li>
+<li><p><strong>使用多数据、少次数的验证评估</strong>：当我们在绘制测试损失时，我们需要在整个比较大的测试集中执行评估。不要过几个批量就绘制一次测试损失，然后再依赖 TensorBoard 的平滑处理。我们虽然追求的是准确率，但也要防止犯这些低级错误。</p>
+</li>
+<li><p><strong>在初始化中验证损失</strong>：验证你的损失函数在初始化中有比较合理的损失值。例如，如果你正确地初始化最终层，那么你应该通过-log(1/n_classes) 度量初始化的 Softmax 值。L2 回归和 Huber 损失函数等都有相同的默认值。</p>
+</li>
+<li><p><strong>优秀的初始化</strong>：正确地初始化最终层。例如，如果你正在对均值为 50 的一些数据做回归处理，那么初始化的最终偏置项就应该为 50。如果你有一个非平衡数据集（两类样本数 1：10），那么就需要在 logits 上设置偏置项，令模型在初始化时预测概率为 0.1。正确配置这些偏置项将加快收敛速度，因为网络在前面几次迭代中基本上只在学习偏置。</p>
+</li>
+<li><p><strong>人类基线结果</strong>：监控损失值等其他度量指标（例如准确度），这些指标应该是人类能解释并检查的。尽可能评估你自己（人类）获得的准确率，并与构建的模型做对比。或者对测试数据进行两次标注，其中一次为预测值，另一次为标注值。</p>
+</li>
+<li><p><strong>独立于输入的基线结果</strong>：训练一个独立于输入的基线模型，例如最简单的方法就是将所有输入都设置为 0。这样的模型应该比实际输入数据表现更差，你的模型是否准备好从任何输入中抽取任何信息？</p>
+</li>
+<li><p><strong>在批数据上过拟合</strong>：在单个批数据上使得过拟合（两个或多个少样本）。为此，我们需要增加模型拟合能力，并验证我们能达到的最低损失值（即 0）。我还想在同一张图中显示标签和预测值，并确保损失值一旦达到最小，它们就能完美地对齐了。</p>
+</li>
+<li><p><strong>验证训练损失的下降</strong>：在这一阶段，你可能希望在数据集上实现欠拟合，该阶段的模型应该是极简的。然后我们尝试增加一点模型的拟合能力，再看看训练损失是否稍微下降了一些。</p>
+</li>
+<li><p><strong>在输入网络前可视化</strong>：在运行模型之前，我们需要可视化数据。也就是说，我们需要可视化输入到网络的具体数据，即可视化原始张量的数据和标签。这是唯一的「真实来源」，我有很多次都是因为这个过程而节省了大量时间，并揭示了数据预处理和数据增强过程中的问题。</p>
+</li>
+<li><p><strong>可视化预测过程</strong>：我喜欢在训练过程中对一个固定的测试批数据进行模型预测的可视化。这展示了预测值如何变化的过程，能为我们提供关于训练过程的优秀直觉。很多时候，如果网络以某种方式小幅度波动，那么模型最可能在尝试拟合数据，这也展示了一些不稳定性。太低或太高的学习率也很容易注意到，因为抖动量比较大。</p>
+</li>
+<li><p><strong>使用反向传播绘制依赖性</strong>：你的深度学习代码通常包括复杂的、矢量化的、Boardcast 操作。一个常见的 bug 是，人们会无意间使用 view 而不是 transpose/permute，从而混合了批量数据中的维度信息。然而，你的网络仍然可以正常训练，只不过它们学会忽略了其它样本中的数据。一种 debug 的方法是将某些样本 i 的损失设置为 1.0，然后运行反向传播一直到输入，并确保第 i 个样本的梯度不为零。更一般的，梯度为我们提供了网络中的依赖性关系，它们在 debug 中非常有用。</p>
+</li>
+<li><p><strong>一般化特殊案例</strong>：这是一种更为通用的代码技巧，但是我经常看到人们在使用这些技巧时会新产生 Bug，尤其是在从头构建一般函数时。相反，我喜欢直接写非常具体的函数，它只包含我现在需要做的事情。我会先让这个函数能 work，然后再一般化好函数，并确保能取得相同的结果。通常这个过程会体现在向量化代码中，我会先用循环编写某个过程，然后再一次一个循环地将它们转化为向量化化代码。</p>
+</li>
+</ul>
+<h3 id="3、过拟合"><a href="#3、过拟合" class="headerlink" title="3、过拟合"></a><strong>3、过拟合</strong></h3><p>到了这个阶段，我们应该对数据集有所了解了，而且有了完整的训练+评估流程。对于任何给定的模型，我们可以计算出我们信任的度量。而且还为独立于输入的基线准备了性能，一些 dumb 基线的性能（最好超过这些），我们人类的表现有大致的了解（并希望达到这一点）。现在，我们已经为迭代一个好的模型做好了准备。我准备用来寻找好模型的方法有两个阶段：首先获得足够大的模型，这样它能够过拟合（即关注训练损失），然后对其进行适当的正则化（弃掉一些训练损失以改进验证损失）。我喜欢这两个阶段的原因是，如果我们不能用任何模型实现较低的误差率，则可能再次表明一些问题、bug 和配置错误。该阶段的一些技巧与注意事项：</p>
+<ul>
+<li><p><strong>选择模型</strong>：为了达到理想的训练损失，我们可能希望为数据选择一个合适的架构。当我们在挑选模型时，我的第一个建议即别好高骛远。我看到很多人都非常渴望一开始就堆叠一些新的模块，或创造性地用于各种异质架构，从而想一步到位做好。我建议可以找最相关的论文，并直接利用它们的简单架构，从而获得良好性能。后面再基于这个架构做修改和改进，并将我们的想法加进去就行了。</p>
+</li>
+<li><p><strong>Adam是一般选择</strong>：在配置基线模型地早期阶段，我喜欢使用 Adam 算法（学习率为 3e-4）。在我的经验中，Adam 对超参数的容忍度更高，不太好的学习率也能获得一般的效果。对于卷积网络来说，一般经过仔细调整的 SGD 几乎总会略优于 Adam，但最佳学习率的可能区域要窄得多。</p>
+</li>
+<li><p><strong>一次复杂化一个</strong>：如果你有多个特性插入分类器，我建议你一个个插入，从而确保能获得期待的性能提升。不要在最开始时就一次性全加上，这样你会弄不清楚性能提升到底是哪个特性带来的。还有其它增加复杂性的方法，例如你可以先尝试插入较小的图像，然后再慢慢地加大。</p>
+</li>
+<li><p><strong>别相信默认的学习率衰减</strong>：如果你修改来自其它领域的代码，你应该小心使用学习率衰减方法。对于不同问题，你不仅希望使用不同的衰减策略，同时因为 Epoch 的数量不同，衰减过程也会不一样。例如数据集的大小，会影响 Epoch 的数量，而很多学习率衰减策略是直接与 Epoch 相关的。在我自己的工作中，我经常整个地关闭学习率衰减，即使用常数学习率。</p>
+</li>
+</ul>
+<h3 id="4、正则化"><a href="#4、正则化" class="headerlink" title="4、正则化"></a><strong>4、正则化</strong></h3><p>理想情况下，我们现在至少有了一个拟合训练集的大模型。现在是时候对它进行正则化，并通过放弃一些训练准确率来提升验证准确率了。技巧包括：</p>
+<ul>
+<li><p><strong>更多数据</strong>：首先，在当前任何实际环境中正则化模型的最好方式是增加更多真实的训练数据。在你能收集更多数据时，花费大量工程时间试图从小数据集上取得更好结果是很常见的一个错误。我认为增加更多数据是单调提升一个较好配置神经网络性能的唯一可靠方式。</p>
+</li>
+<li><p><strong>数据增强</strong>：比真实数据较次的方法是半假数据，试验下更激进的数据增强。</p>
+</li>
+<li><p><strong>创造性增强</strong>：如果半假数据也没有，假数据也还可以。人们在寻求扩展数据集的创造性方法。例如，域随机化、使用模拟数据、把数据插入场景这样机智的混合方法，甚至可以用 GAN。</p>
+</li>
+<li><p><strong>预训练</strong>：即使你有足够的数据，你也可以使用预训练网络，基本没什么损失。</p>
+</li>
+<li><p><strong>坚持监督式学习</strong>：不要对无监督学习过于激动。据我所知，没有什么无监督学习方法在当前计算机视觉任务上有很强的结果（尽管 NLP 领域现在有了 BERT 和其他类似模型，但这更多归功于文本更成熟的本质以及对噪声比更好的信号）。</p>
+</li>
+<li><p><strong>更小的输入维度</strong>：移除可能包含假信号的特征。如果你的数据集很小，任何加入的假输入只会增加过拟合的可能。类似地，如果低级细节作用不大，试试输入更小的图像。</p>
+</li>
+<li><p><strong>更小的模型</strong>：在许多情况下，你可以在网络上使用域知识约束来降低模型大小。例如，在 ImageNet 主干网络顶部使用全连接层一度很流行，但它们后来被简单的平均池化取代，消除了这一过程中大量的参数。</p>
+</li>
+<li><p><strong>减小批大小</strong>：由于 BN 基于批量大小来做归一化，较小的批量大小具有更强的正则化效果。这主要因为一个批量的统计均值与标准差是实际均值和标准差的近似，所以缩放量和偏移量在小批量内波动地更大。</p>
+</li>
+<li><p><strong>drop</strong>：增加 dropout。在卷积网络上使用 dropout2d（空间 dropout）。保守谨慎的使用 dropout，因为它对 batch 归一化好像不太友好。</p>
+</li>
+<li><p><strong>权重衰减</strong>：增加权重衰减惩罚。</p>
+</li>
+<li><p><strong>早停（early stopping）</strong>：基于你得到的验证损失停止训练，从而在即将过拟合之前获取模型。</p>
+</li>
+<li><p><strong>尝试更大的模型</strong>：我过去多次发现更大模型最终都会很大程度的过拟合，但它们「早停」后的性能要比小模型好得多。</p>
+</li>
+</ul>
+<p>最后，为了更加确保网络是个合理的分类器，我喜欢可视化网络第一层的权重，确保自己获得了有意义的边缘。如果第一层的滤波器看起来像噪声，那需要去掉些东西。类似地，网络内的激活函数有时候也会揭示出一些问题。</p>
+<h3 id="5、精调"><a href="#5、精调" class="headerlink" title="5、精调"></a><strong>5、精调</strong></h3><p>现在你应该位于数据集一环，探索取得较低验证损失的架构模型空间。这一步的一些技巧包括：</p>
+<ul>
+<li><p><strong>随机网格搜索</strong>：在同时精调多个超参数时，使用网格搜索听起来更诱惑，能够确保覆盖到所有环境。但记住，使用随机搜索反而是最佳方式。直观上，因为神经网络对一些参数更为敏感。在极限情况下，如果参数 a 很重要，改变 b 却没有影响，然后相比于多次在固定点采样，你宁可彻底采样a。</p>
+</li>
+<li><p><strong>超参数优化</strong>：如今社区内有大量好的贝叶斯超参数优化工具箱，我的一些朋友用过后觉得很成功。但我的个人经验是，探索好的、宽的模型空间和超参数的最佳方法是找个实习生。开玩笑而已，哈哈哈。</p>
+</li>
+</ul>
+<h3 id="6、最后的压榨"><a href="#6、最后的压榨" class="headerlink" title="6、最后的压榨"></a><strong>6、最后的压榨</strong></h3><p>一旦你找到最好的架构类型和超参数，依然可以使用更多的技巧让系统变得更好：</p>
+<ul>
+<li><p><strong>集成</strong>：模型集成是能将准确率稳定提升 2% 的一种好方式。如果你承担不起测试阶段的计算成本，试着使用《Distilling the Knowledge in a Neural Network》中的方法把你的模型蒸馏到一个网络。</p>
+</li>
+<li><p><strong>一直训练</strong>：我经常看到一些人在验证损失趋平时会中断模型训练，以我的经验来看，网络会长时间保持非直观的训练。寒假时有一次我忘了关掉模型训练，一月回来后发现它取得了 SOTA 结果。</p>
+</li>
+</ul>
+<blockquote>
+<p>原文链接：<a href="https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&amp;mid=2650761143&amp;idx=1&amp;sn=e39d7da6124ab2c2516688f67cdb793c&amp;chksm=871aa3c9b06d2adf6d13a3601468e2791a0350863a20bc7bd17713bf2f70f087810711c47512&amp;mpshare=1&amp;scene=23&amp;srcid=0510T8zlZRVwq1aBT62cNGlM#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&amp;mid=2650761143&amp;idx=1&amp;sn=e39d7da6124ab2c2516688f67cdb793c&amp;chksm=871aa3c9b06d2adf6d13a3601468e2791a0350863a20bc7bd17713bf2f70f087810711c47512&amp;mpshare=1&amp;scene=23&amp;srcid=0510T8zlZRVwq1aBT62cNGlM#rd</a></p>
+</blockquote>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/机器学习文摘/">机器学习文摘</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/深度学习/">深度学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/调参/">调参</a>
+                    
+                      <a class="hover-with-bg" href="/tags/经验/">经验</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/03/01/既要担起生活的责任，又要对得起梦想/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">既要担起生活的责任，又要对得起梦想</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/03/01/AboutMe/">
+                        <span class="hidden-mobile">AboutMe</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/03/01/深度学习调参经验汇总/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>AutoDL论文解读（一）：基于强化学习的开创性工作 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                AutoDL论文解读（一）：基于强化学习的开创性工作
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-09-30 16:06">
+      2019年9月30日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      58
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：9 小时前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p>
+<p><strong>此系列的文章列表：</strong></p>
+<ul>
+<li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li>
+<li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li>
+<li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li>
+<li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li>
+<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li>
+<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li>
+<li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li>
+</ul>
+</blockquote>
+<p>本文解读两篇基于强化学习的开创性论文：谷歌的《Neural Architecture Search with Reinforcement Learning》和MIT的《Designing Neural Network Architectures Using Reinforcement Learning》。用到的强化学习方法分别为策略梯度（Policy Gradient）和Q-learning。</p>
+<h1 id="一、强化学习相关背景知识"><a href="#一、强化学习相关背景知识" class="headerlink" title="一、强化学习相关背景知识"></a><strong>一、强化学习相关背景知识</strong></h1><p>强化学习任务包括量大主体：<strong>智能体</strong>（Agent）和<strong>环境</strong>（Environment），智能体通过与环境交互获得奖励，来学习相应的策略。强化学习有三种基本方法：动图规划、蒙特卡洛方法和时序差分方法，如下框图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190930173357326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt></p>
+<p>第一篇论文用到的方法是基于策略的策略梯度法，第二篇用到的方法是Q-learning。关于强化学习笔者会在另一篇文章中详细介绍。</p>
+<h1 id="二、Neural-Architecture-Search-with-Reinforcement-Learning"><a href="#二、Neural-Architecture-Search-with-Reinforcement-Learning" class="headerlink" title="二、Neural Architecture Search with Reinforcement Learning"></a>二、<strong>Neural Architecture Search with Reinforcement Learning</strong></h1><h2 id="1、总览"><a href="#1、总览" class="headerlink" title="1、总览"></a><strong>1、总览</strong></h2><p>这篇论文的大体框架和思路如下图所示。在这篇论文中作者使用一个RNN作为智能体。作者考虑到神经网络的结构和连接可以用一个可变长度的字符串表示，这样可以用RNN生成这样的字符串。RNN采样生成了这样的字符串，一个网络，即子网络（child network）就被确定了。训练这个子网络，得到验证集在这个网络上的准确率，作为奖励信号。然后根据奖励计算策略梯度，更新RNN。在下一轮迭代，RNN会给出可能在验证集上准确率高的一个网络结构。也就是说，RNN会随着时间提升它的搜索质量。<br><img src="https://img-blog.csdnimg.cn/20190929224347896.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<h2 id="2、控制器RNN的实现"><a href="#2、控制器RNN的实现" class="headerlink" title="2、控制器RNN的实现"></a><strong>2、控制器RNN的实现</strong></h2><p>首先作者假设要生成一个前向的只包含卷积的网络（没有跨连接）。使用RNN可以生成卷积层的超参数，超参数表示为一个标记序列：<br><img src="https://img-blog.csdnimg.cn/20190929225459124.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>RNN会预测每一层的滤波器的高度、宽度，步长的高度、宽度，和滤波器个数，一个5个参数。每一个预测是通过softmax分类器实现的，这个时间步的预测会作为下个时间步的输入。当层数达到一个特定的值，这个生成的过程就会停止。这个值会随着训练过程增加。一旦RNN生成了一个结构，即子网络，这个子网络就会被训练，验证集的准确率被记录下来被作为奖励。然后控制器RNN的参数$\theta _{c}$被更新以生成期望验证集准确率最大的结构。</p>
+<h2 id="3、策略梯度"><a href="#3、策略梯度" class="headerlink" title="3、策略梯度"></a><strong>3、策略梯度</strong></h2><p>RNN生成一个子网络后，其生成的标记序列可以被看作一系列动作$a_{1:T}$。验证集在其上取得的准确率作为奖励$R$，然后训练RNN。为了找到最优的结构，我们网RNN取最大化期望奖励$J(\theta _{c})$：</p>
+<script type="math/tex; mode=display">
+J(\theta _{c})=E_{P(a_{1:T};\theta_{c})}[R]</script><p>但奖励信号是不可微分的，我们使用策略梯度算法去迭代地更新$J(\theta _{c})$：</p>
+<script type="math/tex; mode=display">
+\nabla _{\theta_{c}} J\left(\theta_{c}\right)=\sum_{t=1}^{T} E_{P\left(a_{1 : T} ; \theta_{c}\right)}\left[\nabla \theta_{c} \log P\left(a_{t} | a_{(t-1) : 1} ; \theta_{c}\right) R\right]</script><p>上式的经验估计如下：</p>
+<script type="math/tex; mode=display">
+\frac{1}{m} \sum_{k=1}^{m} \sum_{t=1}^{T} \nabla_{\theta_{c}} \log P\left(a_{t} | a_{(t-1) : 1} ; \theta_{c}\right) R_{k}</script><p>这里$m$是控制器在训练过程中一个batch生成的子网络数量，$T$是生成的每个子网络的超参数数量，$R_{k}$是第k个子网络在验证集上的准确率。上述的估计是无偏的，还会有很高的方差，为了降低方差，作者使用了baseline function：</p>
+<script type="math/tex; mode=display">
+\frac{1}{m} \sum_{k=1}^{m} \sum_{t=1}^{T} \nabla_{\theta_{c}} \log P\left(a_{t} | a_{(t-1) : 1 ; \theta_{c}}\right)\left(R_{k}-b\right)</script><p>这里$b$是之前子网络准确率的指数移动平均值。</p>
+<h2 id="4、增加网络复杂度：跨连接和其他类型的层"><a href="#4、增加网络复杂度：跨连接和其他类型的层" class="headerlink" title="4、增加网络复杂度：跨连接和其他类型的层"></a><strong>4、增加网络复杂度：跨连接和其他类型的层</strong></h2><p>现代网基本都会有跨连接层，比如残差网络和谷歌网络。为了能生成类似这样的网络结构，作者用了基于注意力机制的set-selection。<br><img src="https://img-blog.csdnimg.cn/20190929234027239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>主要做法就是，在RNN的预测上多加一个锚点（anchor point）。比如，在第N层的预测中，锚点会指示连接前N-1层中的哪几个。相当于有N-1个sigmoid函数，每个sigmoid是当前RNN隐藏状态和前N-1个锚点隐藏状态的函数：</p>
+<script type="math/tex; mode=display">
+\mathrm{P}(\text { Layer } \mathrm{j} \text { is an input to layer i })=\operatorname{sigmoid}\left(v^{\mathrm{T}} \tanh \left(W_{\text {prev}} * h_{j}+W_{\text {curr}} * h_{i}\right)\right)</script><p>$h_{j}$是RNN在第$j$层锚点的隐藏状态，$j$从0到N-1。然后从这些sigmoid中参与决定当前层和前几层中的哪些连接。矩阵$W_{prev}, W_{curr}, v$是可训练的参数。</p>
+<p>上面的做法可能会导致“compilation failures”。第一，如果一个层有很多个输入，那么这些输入会在特征图的深度这个维度上被连接，这可能导致各个输入特征图的尺寸不兼容。第二，有些层可能没有输入或输出。作者使用了三个技巧：（1）如果一个层没有输入，那么最一开始的图片作为输入；（2）在最后一层，我们将所有没有被连接的输出都连接起来，然后送入分类器；（3）如果输入特征图的尺寸不一致，，那就填充他们使其有相同的尺寸。</p>
+<h2 id="5、生成循环神经网络的cell"><a href="#5、生成循环神经网络的cell" class="headerlink" title="5、生成循环神经网络的cell"></a><strong>5、生成循环神经网络的cell</strong></h2><p>作者在这部分给出了生成训练神经网络的方法。对的，NAS不仅可以生成CNN，还可以生成RNN。在每个时间步t，控制器需要找到$h_{t}$关于$h_{t-1}, x_{t}$的函数类型。例如最基本的RNN的cell是$h_{t}=\tanh \left(W_{1} \ast x_{t}+W_{2} \ast h_{t-1}\right)$</p>
+<p>RNN和LSTM的cell可以看做以$h_{t-1}, x_{t}$为输入去生成$h_{t}$的一系列步骤的树状结构。控制器需要标记树种每个节点的连接方式（加、对应元素相乘等）和激活函数（tanh，sigmoid等），然后融合两个输入作为输出。然后两个输出再作为下个节点的输入。<br>对于LSTM，还需要处理记忆状态$c_{t}$和$c_{t-1}$，我们需要控制器预测树中的哪两个节点和这两个记忆状态相连。<br>以两个节点的树为例，下图展示了其搜索过程：<br><img src="https://img-blog.csdnimg.cn/20190930001816958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>左节点标号为0，右节点标号为1，内节点标号为2。控制器的前三个block预测了每个节点的连接方式和激活函数，后两个block预测了$c_{t}$和$c_{t-1}$如何和树中节点相连。整个计算步骤如下：</p>
+<ul>
+<li>对于节点0，控制器预测了Add和Tanh，即：$a_{0}={\rm tanh} (W_{1} \ast x_{t}+W_{2} \ast h_{t-1})$</li>
+<li>对于节点1，控制器预测了ElemMult​和​ReLu​，即：$a_{1}={\rm ReLU}((W_{3} \ast x_{t}) \odot (W_{4} \ast h_{t-1}))$</li>
+<li>在cell index这个block里，第二个元素预测了0，表示$c_{t-1}$会连接节点0；cell inject这个block里，预测了Add和ReLu，即节点0的输出会和$c_{t-1}$重新连接：$a_{0}^{new}={\rm ReLu}(a_{0}+c_{t-1})$</li>
+<li>对于节点2，控制器预测了ElemMult​和sigmoid，即$h_{t}=a{2}={\rm sigmoid}(a_{0}^{new}\bigodot a_{1})$</li>
+<li>在cell index这个block里，第一个元素预测了1，表示将节点1未经激活函数的输出作为$c_{t}$，即：$c_{t}=(W_{3} \ast x_{t}) \odot(W_{4} \ast h_{t-1})$</li>
+</ul>
+<p>上述例子中，树有两个叶子节点，作者在实际的实验中，使用了8个叶子节点。</p>
+<p>以上就是此篇论文最核心的方法，有关更多的实验细节和结果可以参看原文。此方法使用强化学习去搜索网络结构，由于每生成一种结构都要训练一遍并评估，而且强化学习需要采样很多很多次，整个搜索会非常耗时。在CIRAR-10数据及上搜索网络，作者用了800块GPU同时训练，可见其有多耗时耗力。NAS的方法如果都这么耗时的话是非常不划算的，如何快速有效地搜索是AutoDL努力的方向之一。</p>
+<h1 id="三、Designing-Neural-Network-Architectures-Using-Reinforcement-Learning"><a href="#三、Designing-Neural-Network-Architectures-Using-Reinforcement-Learning" class="headerlink" title="三、Designing Neural Network Architectures Using Reinforcement Learning"></a><strong>三、Designing Neural Network Architectures Using Reinforcement Learning</strong></h1><p>在传统的强化学习设置中，过度的探索（exploration）可能会导致收敛变慢，而过度的利用（exploitation）会导致收敛到局部最优。最这篇论文中，作者组合了两种解决方法：带$\epsilon$贪婪决策和经验回收（experience replay）的Q-learning。</p>
+<h2 id="1、Q-learning相关"><a href="#1、Q-learning相关" class="headerlink" title="1、Q-learning相关"></a><strong>1、Q-learning相关</strong></h2><p>假定在一个有限状态的环境里，我们教智能体以马尔科夫决策过程（Markov Decision Process， MDP）寻找最优路径。环境是有限状态的这样保证智能体可以在有限步里确切地终止搜索。我们同时限制环境的状态空间$\mathcal S$和动作空间$\mathcal U$是离散的和有限的。对于任一状态$s_{i} \in \mathcal S$，都有有限的动作集合$\mathcal U(s_{i}) \subseteq \mathcal U$可以选择。智能体以$p_{s^{\prime}|s,u}(s_{j}|s_{i},u)$的概率，从状态$s_{i}$采取某一动作$u \in \mathcal U(s_{i})$转移到状态$s_{j}$。在每一个时间步t，智能体将得到奖励$r_{t}$。智能体的目标是在所有可能的轨迹上最大化总体期望奖励：${\rm max}_{\mathcal T_{i} \in \mathcal T}R_{\mathcal T_{i}}$。对于一条轨迹它的总体期望奖励为：</p>
+<script type="math/tex; mode=display">
+R_{\mathcal{T}_{i}}=\sum_{\left(s, u, s^{\prime}\right) \in \mathcal{T}_{i}} \mathbb{E}_{r | s, u, s^{\prime}}\left[r | s, u, s^{\prime}\right]</script><p>对于任一状态$s_{i} \in \mathcal S$和动作$u \in \mathcal U(s_{i})$，我们定义最大化的期望奖励为$Q^{\ast}(s_{i}, u)$。$Q^{\ast}(\cdot)$称为动作值函数，$Q^{\ast}(s_{i}, u)$的值称为Q-值。用贝尔曼方差递归地最大化这个值：</p>
+<script type="math/tex; mode=display">
+Q^{\ast}\left(s_{i}, u\right)=\mathbb{E}_{s_{j} | s_{i}, u}\left[\mathbb{E}_{r | s_{i}, u, s_{j}}\left[r | s_{i}, u, s_{j}\right]+\gamma \max _{u^{\prime} \in \mathcal{U}\left(s_{j}\right)} Q^{\ast}\left(s_{j}, u^{\prime}\right)\right]</script><p>在很多情况下，得到这个方差的解析解是不可能的，我们可以迭代地求解：</p>
+<script type="math/tex; mode=display">
+Q_{t+1}\left(s_{i}, u\right)=(1-\alpha) Q_{t}\left(s_{i}, u\right)+\alpha\left[r_{t}+\gamma \max _{u^{\prime} \in \mathcal{U}\left(s_{j}\right)} Q_{t}\left(s_{j}, u^{\prime}\right)\right]</script><p>此方差包括两个参数：（1）$\alpha$是Q-learning rate，决定了新信息相对于旧信息的权重；（2）$\gamma$是折扣因子（discount factor），决定了短期奖励相对于长期奖励的权重。Q-learning是免模型的算法，即不需要明确地构建环境的估计。此外Q-learning是off policy的，这意味着它可以通过非最优行为分布来探索最优策略。</p>
+<p>我们通过$\epsilon$贪婪策略选择动作，以$\epsilon$的概率选择随机动作，以$1-\epsilon$的概率选择贪婪动作${\rm max}_{u \in {\mathcal u(s_{i})}}Q(s_{i}, u)$。我们慢慢地将$\epsilon$从1降为0，智能体从探索阶段慢慢变为利用阶段。当探索的代价比较大时，可以使用经验回放来加速收敛。在经验回放里，之前被探索过的路径和奖励被存储下来，智能体在探索的过程中可以利用之前的信息更新Q-值。</p>
+<h2 id="2、搜索方法总览"><a href="#2、搜索方法总览" class="headerlink" title="2、搜索方法总览"></a><strong>2、搜索方法总览</strong></h2><p>下图展示了一个例子：<br><img src="https://img-blog.csdnimg.cn/2019093010560382.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>上图中左边显示了可行状态和动作空间，以及agent可能采取的潜在轨迹；右边展示了该轨迹定义的CNN架构。智能体循序地选择神经网络层。选择层的过程是马尔科夫决策过程，假设在一个网络中表现最好的层在另一个网络中应该也是表现最好的。智能体通过$\epsilon$贪婪策略选择层，直到终止条件。训练在此路径下构建的网络，得到验证集上的准确率。验证集准确率和结构描述被存储起来，用于经验回放。智能体遵循着$\epsilon$变化表，从探索阶段过渡到利用阶段。</p>
+<h2 id="3、状态空间"><a href="#3、状态空间" class="headerlink" title="3、状态空间"></a><strong>3、状态空间</strong></h2><p>每个状态被定义为相关层的所有参数组成的元组，。这里采用五种不同的层：卷积层（C），池化层（P），全连接层（FC），全局平均池化（GAP），和softmax（SM）。下图展示了相关层的参数：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190930111043506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>其中每个层有个参数：layer depth层深度。向状态空间添加层深度允许我们压缩操作空间，以便状态操作图是有向无环图(DAG)，还允许我们指定智能体在终止之前可以选择的最大层数。每个层还有另一个参数：representations size（R-size）。通过池化和卷积，原始图像被逐渐地压缩尺寸，这可能会导致在采样过程中，特征图被压缩得太小以至于无法继续往下进行。例如五个$2 \times 2$大小步长为2的池化会将$32 \times 32$的图像压缩至$1 \times 1$，使接下来的操作无法进行。使用R-size可以限制一些操作，这些操作使大小为n的特征图变为小于等于n的特征图。在实际构建状态空间时，R-size被分箱成3个桶：$\{(\infty, 8], (8, 4], (4, 1] \}$。这样的分箱操作会增加状态转移的不确定性：根据当前特征图的大小，池化或卷积可能会改变R-size，也可能不会。例如下图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190930112703623.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>假设有两个R-size bins, R-size Bin1: $[8, \infty)$和R-size Bin2:$(0, 7]$，图a给出了初始状态为R-size Bin1，真实的表示大小为18的情况。当代理选择使stride为2大小为2×2的池化后，真实的表示大小减小到9，但是R-size bin没有变化。在图b中，stride为2大小为2×2的池层将实际表示大小从14减小到7，但是bin更改为R-size Bin2。因此，在图a和b中，智能体最终处于不同的最终状态，尽管初始状态相同，并且选择了相同的操作。图c显示，在我们的状态-操作空间中，当智能体采取降低表示大小的操作时，它将不确定将转换到哪个状态。</p>
+<h2 id="4、动作空间"><a href="#4、动作空间" class="headerlink" title="4、动作空间"></a><strong>4、动作空间</strong></h2><p>首先，我们允许智能体在路径上的任一点终止。此外我们只允许从layer depth为$i$的状态转移到layer depth为$i-1$的状态，这样保证是有向无环图。任何达到最大layer depth的层都会转移到终止状态。<br>接下来，作者将FC层的数量限制为最多两个，因为大量的FC层可能导致太多可学习的参数。当且仅当连续FC状态的数量小于允许的最大值时，位于FC状态的才可以转换到另一个FC类型状态。并且，有$d$个节点的FC只能转移到$d^{\prime}&lt;d$的FC。<br>然后是一些其他的限制。卷积层可以转移到其他任何类型的层，池化层可以转移到除池化层以外的其他任何层，因为连续的池化相当于一个不在可选状态空间里的大尺寸池化层。只有R-size为(8, 4]和(4, 1]的状态才能转移到FC层，这样保证权重参数不会特别巨大。</p>
+<h2 id="5、Q-learning训练过程"><a href="#5、Q-learning训练过程" class="headerlink" title="5、Q-learning训练过程"></a><strong>5、Q-learning训练过程</strong></h2><p>在训练部分，作者设置Q-learning rate（$\alpha$）为0.01，折扣因子$\gamma$为1。$\epsilon$以一定的步长从1.0逐渐降为0.1，步长由训练的唯一模型的数量决定，如下表所示：<br><img src="https://img-blog.csdnimg.cn/20190930151230188.png" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>每一条被智能体采样的轨迹，即一个网络结构，被训练，然后得到验证集的准确率，这个网络结构描述和准确率被记录下来。从上表可以看出，在$\epsilon =1$的时候相对于其他值训练了大量的模型，这是为了保证智能体在“利用”之前有充足的机会去“探索”。智能体在$\epsilon =0.1$的时候终止搜索，以获得随机的最终决策。因为$\epsilon =0$表示确定的决策，而作者希望能获得几个比较好的模型去做集成，所以使$\epsilon =0.1$以保证最终的决策是随机的。<br>对于整个训练过程，一个“回放字典”（replay dictionary）被维护，这里存储被采样过的网络及验证集在上面的准确率。如果采样到的模型已经在这个字典里，那这个模型不用背重新训练，其验证集准确率会直接被拿来使用。当每个模型被采样后和训练后，智能体从回放字典里随机采样100个模型，并对每个采样轨迹中的所有转移序列应用到公式3中，转移序列在时间上被倒转，这样做可以加快Q-值的收敛。</p>
+<h2 id="6、伪代码"><a href="#6、伪代码" class="headerlink" title="6、伪代码"></a><strong>6、伪代码</strong></h2><p><img src="https://img-blog.csdnimg.cn/20190930154238520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>算法1描述了训练的主循环，参数$M$决定了在给定一个$\epsilon$的情况下训练多少个模型，参数$K$表示在每一轮迭代中，从回放字典中采样多少次取更新Q-值。TRAIN 函数表示训练一个确定的模型并返回验证集准确率。</p>
+<p><img src="https://img-blog.csdnimg.cn/2019093015470935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>算法2描述了使用$\epsilon$贪婪策略采样新网络的细节。TRANSITION函数在给定一个状态和动作的情况下返回下一步的状态。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190930155055517.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>算法3描述了公式3的实现细节，折扣因子设为1，对整个状态序列进行时间倒转。</p>
+<p>上述所有就是此论文的核心方法，此方法也是非常耗时，对于每个数据集，作者使用10块GPU训练了8-10天。（这篇论文在写作上感觉要比上篇的好，细节清楚）</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h1><ol>
+<li><a href="https://www.automl.org/best-practices-for-scientific-research-on-neural-architecture-search/" target="_blank" rel="noopener">https://www.automl.org/best-practices-for-scientific-research-on-neural-architecture-search/</a></li>
+<li>Zoph B , Le Q V . Neural Architecture Search with Reinforcement Learning[J]. 2016.</li>
+<li>Designing Neural Network Architectures using Reinforcement Learning</li>
+<li><a href="https://blog.csdn.net/u014380165/article/details/78525500" target="_blank" rel="noopener">https://blog.csdn.net/u014380165/article/details/78525500</a></li>
+<li><a href="https://blog.csdn.net/xjz18298268521/article/details/79078835/" target="_blank" rel="noopener">https://blog.csdn.net/xjz18298268521/article/details/79078835/</a></li>
+<li>《深入理解AutoML和AutoDL》</li>
+</ol>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/深度学习/">深度学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/自动化/">自动化</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NAS/">NAS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/AutoDL/">AutoDL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AutoDL论文解读（二）：基于遗传算法的典型工作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/23/机器学习的数学基础：概率论/">
+                        <span class="hidden-mobile">机器学习的数学基础：概率论</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

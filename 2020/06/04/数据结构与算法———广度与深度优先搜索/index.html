@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>数据结构与算法———广度与深度优先搜索 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                数据结构与算法———广度与深度优先搜索
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-04 15:05">
+      2020年6月4日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 个月前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="一、广度优先搜索"><a href="#一、广度优先搜索" class="headerlink" title="一、广度优先搜索"></a><strong>一、广度优先搜索</strong></h1><p><strong>广度优先搜索（BFS，Breadth First Search）</strong> 的一个常见应用是找出从根结点到目标结点的最短路径，其实现用到了队列。下面用一个例子来说明BFS的原理，在下图中，我们BFS 来找出根结点 A 和目标结点 G 之间的最短路径。</p>
+<p align="center">
+    <img src="https://img-blog.csdnimg.cn/20200315192813260.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="250" height="150">
+    </p><p align="center">
+        <em>图3：BFS例子</em>
+    </p>
+<p></p>
+
+<ul>
+<li>首先初始化一个队列<code>Q</code>，将根节点入队：<code>A</code></li>
+<li><code>A</code>出队，将与<code>A</code>相邻的节点入队，此时队列为<code>BCD</code></li>
+<li><code>B</code>出队，将与<code>B</code>相邻的节点入队，此时队列为<code>CDE</code></li>
+<li><code>C</code>出队，将与<code>C</code>相邻的节点入队，此时队列为<code>DEF</code>（节点<code>E</code>已经被遍历过，不需要再入队）</li>
+<li><code>D</code>出队，将与<code>D</code>相邻的节点入队，此时队列为<code>EFG</code></li>
+<li><code>E</code>出队，下面没有节点</li>
+<li><code>F</code>出队，下面是<code>G</code>，已遍历过，为目标值，遍历结束</li>
+</ul>
+<p><strong>BFS代码模板：</strong></p>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">BFS</span><span class="hljs-params">(graph, start, end)</span>:</span>
+	queue = []
+	queue.append([start])
+	visited.add(start)	<span class="hljs-comment"># 对于图来说，要标记节点已经被访问过，防止重复访问</span>
+	
+	<span class="hljs-keyword">while</span> queue:
+		node = queue.pop()	<span class="hljs-comment"># 出队</span>
+		visited.add(node)	<span class="hljs-comment"># 标记访问</span>
+		
+		process(node)	<span class="hljs-comment"># 对节点进行一些处理</span>
+		nodes = generate_related_nodes(node)	<span class="hljs-comment"># 得到当前节点的后继节点，并且没有被访问过</span>
+		queue.push(nodes)
+	<span class="hljs-comment"># 其他处理部分</span>
+	...</code></pre>
+<h1 id="二、深度优先搜索"><a href="#二、深度优先搜索" class="headerlink" title="二、深度优先搜索"></a><strong>二、深度优先搜索</strong></h1><p>与 BFS 类似，<strong>深度优先搜索（DFS，Depth-First-Search）</strong> 也可用于查找从根结点到目标结点的路径。下面通过一个例子，用DFS 找出从根结点 A 到目标结点 G 的路径。</p>
+<p align="center">
+    <img src="https://img-blog.csdnimg.cn/20200315192813260.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="250" height="150">
+    </p><p align="center">
+        <em>图3：BFS例子</em>
+    </p>
+<p></p>
+
+<p>在上面的例子中，我们从根结点 <code>A</code> 开始。首先，我们选择结点 <code>B</code>的路径，并进行回溯，直到我们到达结点 <code>E</code>，我们无法更进一步深入。然后我们回溯到<code>A</code>并选择第二条路径到结点 <code>C</code>。从 <code>C</code> 开始，我们尝试第一条路径到 <code>E</code> 但是 <code>E</code>已被访问过。所以我们回到 <code>C</code> 并尝试从另一条路径到 <code>F</code>。最后，我们找到了 <code>G</code>。虽然我们成功找出了路径 <code>A-&gt; C-&gt; F-&gt; G</code> ，但这不是从 A 到 G 的最短路径。</p>
+<p><strong>DFS代码模板：</strong></p>
+<pre><code class="hljs python"><span class="hljs-comment"># 递归写法</span>
+visited = set()
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">DFS</span><span class="hljs-params">(node, visited)</span>:</span>
+	visited.add(node)
+	<span class="hljs-comment"># process current node here</span>
+	...
+	<span class="hljs-keyword">for</span> next_node <span class="hljs-keyword">in</span> node.children():
+		<span class="hljs-keyword">if</span> next_node <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:
+			DFS(next_node, visited)</code></pre>
+<h1 id="三、例题"><a href="#三、例题" class="headerlink" title="三、例题"></a><strong>三、例题</strong></h1><h3 id="（1）岛屿数量问题"><a href="#（1）岛屿数量问题" class="headerlink" title="（1）岛屿数量问题"></a><strong>（1）岛屿数量问题</strong></h3><p>此题为leetcode的<a href="https://leetcode-cn.com/problems/number-of-islands/" target="_blank" rel="noopener">第200题</a>。有两个思路：</p>
+<ul>
+<li><strong>Flood fill 算法：</strong> 深度优先搜索或广度优先搜索</li>
+<li><strong>并查集</strong></li>
+</ul>
+<blockquote>
+<p>Flood fill 算法的含义：是从一个区域中提取若干个连通的点与其他相邻区域区分开（或分别染成不同颜色）的经典 算法。因为其思路类似洪水从一个区域扩散到所有能到达的区域而得名。在 GNU Go 和 扫雷 中，Flood Fill算法被用来计算需要被清除的区域。</p>
+</blockquote>
+<p><strong>对于这类问题，其实就是从一个点开始，遍历与这个起点连着的格子，遍历过的格子就标上“被访问过”的记号，找到与之相连的所有格子后，就是发现了一个岛屿。而这个遍历的过程可以用广度优先或深度优先实现</strong>，具体讲解可以参考<a href="https://leetcode-cn.com/problems/number-of-islands/solution/dfs-bfs-bing-cha-ji-python-dai-ma-java-dai-ma-by-l/" target="_blank" rel="noopener">这里</a>，动画很明白，这里只贴上代码：</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 广度优先搜索</span>
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> List
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-comment">#          x-1,y</span>
+    <span class="hljs-comment"># x,y-1     x, y      x,y+1</span>
+    <span class="hljs-comment">#          x+1,y</span>
+    <span class="hljs-comment"># 方向数组，它表示了相对于当前位置的 4 个方向的横、纵坐标的偏移量，这是一个常见的技巧</span>
+    directions = [(<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">numIslands</span><span class="hljs-params">(self, grid: List[List[str]])</span> -&gt; int:</span>
+        m = len(grid)
+        <span class="hljs-keyword">if</span> m == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        n = len(grid[<span class="hljs-number">0</span>])
+        marked = [[<span class="hljs-literal">False</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(m)]
+        count = <span class="hljs-number">0</span>
+        <span class="hljs-comment"># 从第 1 行、第 1 格开始，对每一格尝试进行一次 DFS 操作</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(m):
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(n):
+                <span class="hljs-comment"># 只要是陆地，且没有被访问过的，就可以使用 BFS 发现与之相连的陆地，并进行标记</span>
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> marked[i][j] <span class="hljs-keyword">and</span> grid[i][j] == <span class="hljs-string">'1'</span>:
+                    <span class="hljs-comment"># count 可以理解为连通分量，你可以在广度优先遍历完成以后，再计数，</span>
+                    <span class="hljs-comment"># 即这行代码放在【位置 1】也是可以的</span>
+                    count += <span class="hljs-number">1</span>
+                    queue = deque()
+                    queue.append((i, j))
+                    <span class="hljs-comment"># 注意：这里要标记上已经访问过</span>
+                    marked[i][j] = <span class="hljs-literal">True</span>
+                    <span class="hljs-keyword">while</span> queue:
+                        cur_x, cur_y = queue.popleft()
+                        <span class="hljs-comment"># 得到 4 个方向的坐标</span>
+                        <span class="hljs-keyword">for</span> direction <span class="hljs-keyword">in</span> self.directions:
+                            new_i = cur_x + direction[<span class="hljs-number">0</span>]
+                            new_j = cur_y + direction[<span class="hljs-number">1</span>]
+                            <span class="hljs-comment"># 如果不越界、没有被访问过、并且还要是陆地，就入队</span>
+                            <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt;= new_i &lt; m <span class="hljs-keyword">and</span> <span class="hljs-number">0</span> &lt;= new_j &lt; n <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> marked[new_i][new_j] <span class="hljs-keyword">and</span> grid[new_i][new_j] == <span class="hljs-string">'1'</span>:
+                                queue.append((new_i, new_j))
+                                <span class="hljs-comment"># 入队后马上要标记为“被访问过”</span>
+                                marked[new_i][new_j] = <span class="hljs-literal">True</span>
+                    <span class="hljs-comment">#【位置 1】</span>
+        <span class="hljs-keyword">return</span> count</code></pre>
+<pre><code class="hljs python"><span class="hljs-comment"># 深度优先搜索</span>
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> List
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-comment">#        x-1,y</span>
+    <span class="hljs-comment"># x,y-1    x,y      x,y+1</span>
+    <span class="hljs-comment">#        x+1,y</span>
+    <span class="hljs-comment"># 方向数组，它表示了相对于当前位置的 4 个方向的横、纵坐标的偏移量，这是一个常见的技巧</span>
+    directions = [(<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">numIslands</span><span class="hljs-params">(self, grid: List[List[str]])</span> -&gt; int:</span>
+        m = len(grid)
+        <span class="hljs-keyword">if</span> m == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        n = len(grid[<span class="hljs-number">0</span>])
+        marked = [[<span class="hljs-literal">False</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(m)]
+        count = <span class="hljs-number">0</span>
+        <span class="hljs-comment"># 从第 1 行、第 1 格开始，对每一格尝试进行一次 DFS 操作</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(m):
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(n):
+                <span class="hljs-comment"># 只要是陆地，且没有被访问过的，就可以使用 DFS 发现与之相连的陆地，并进行标记</span>
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> marked[i][j] <span class="hljs-keyword">and</span> grid[i][j] == <span class="hljs-string">'1'</span>:
+                    <span class="hljs-comment"># 连通分量计数</span>
+                    count += <span class="hljs-number">1</span>
+                    <span class="hljs-comment"># DFS搜索</span>
+                    self.__dfs(grid, i, j, m, n, marked)
+        <span class="hljs-keyword">return</span> count
+	
+	<span class="hljs-comment"># 递归进行深度优先搜索</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__dfs</span><span class="hljs-params">(self, grid, i, j, m, n, marked)</span>:</span>
+        marked[i][j] = <span class="hljs-literal">True</span>
+        <span class="hljs-keyword">for</span> direction <span class="hljs-keyword">in</span> self.directions:
+            new_i = i + direction[<span class="hljs-number">0</span>]
+            new_j = j + direction[<span class="hljs-number">1</span>]
+            <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt;= new_i &lt; m <span class="hljs-keyword">and</span> <span class="hljs-number">0</span> &lt;= new_j &lt; n <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> marked[new_i][new_j] <span class="hljs-keyword">and</span> grid[new_i][new_j] == <span class="hljs-string">'1'</span>:
+                self.__dfs(grid, new_i, new_j, m, n, marked)</code></pre>
+<h3 id="（2）二叉树的最大深度"><a href="#（2）二叉树的最大深度" class="headerlink" title="（2）二叉树的最大深度"></a><strong>（2）二叉树的最大深度</strong></h3><p>此题为leetcode<a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener">第104题</a><br>给定一个二叉树，找出其最大深度。二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。<br><strong>深度优先解法：</strong><br><pre><code class="hljs python"><span class="hljs-comment"># 深度优先搜索</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxDepth</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; int:</span>
+        <span class="hljs-comment"># 递归，深度优先搜索</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: 
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> 
+        <span class="hljs-keyword">else</span>: 
+            left_height = self.maxDepth(root.left)    <span class="hljs-comment"># 左子树高度</span>
+            right_height = self.maxDepth(root.right)  <span class="hljs-comment"># 右子树高度</span>
+            <span class="hljs-keyword">return</span> max(left_height, right_height) + <span class="hljs-number">1</span></code></pre></p>
+<p><strong>广度优先解法：</strong><br><pre><code class="hljs python"><span class="hljs-comment"># 迭代，广度优先搜索</span>
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxDepth</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        
+        depth = <span class="hljs-number">0</span>
+        q = deque()
+        q.append((<span class="hljs-number">1</span>, root))
+        <span class="hljs-keyword">while</span> q:
+            curr_depth, node = q.pop()
+            depth = max(depth, curr_depth)
+
+            <span class="hljs-keyword">if</span> node.left:
+                q.append((curr_depth + <span class="hljs-number">1</span>, node.left))
+            <span class="hljs-keyword">if</span> node.right:
+                q.append((curr_depth + <span class="hljs-number">1</span>, node.right))
+        <span class="hljs-keyword">return</span> depth</code></pre></p>
+<h3 id="（3）二叉树的最小深度"><a href="#（3）二叉树的最小深度" class="headerlink" title="（3）二叉树的最小深度"></a><strong>（3）二叉树的最小深度</strong></h3><p>此题为leetcode<a href="https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener">第111题</a><br>给定一个二叉树，找出其最小深度。最小深度是从根节点到最近叶子节点的最短路径上的节点数量。<br><strong>深度优先解法：</strong><br><pre><code class="hljs python"><span class="hljs-comment"># 递归，深度优先搜索</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">minDepth</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; int:</span>
+        <span class="hljs-comment"># 递归，深度优先搜索</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>: 
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> 
+        <span class="hljs-keyword">if</span> root.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:   <span class="hljs-comment"># 若左子树为空，root的深度为1+右子树深度</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + self.minDepth(root.right)
+        <span class="hljs-keyword">if</span> root.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 若右子树为空，root的深入为1+左子树深度</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + self.minDepth(root.left)
+        
+        left_height = self.minDepth(root.left)    <span class="hljs-comment"># 左子树高度</span>
+        right_height = self.minDepth(root.right)  <span class="hljs-comment"># 右子树高度</span>
+        
+        <span class="hljs-keyword">return</span> min(left_height, right_height) + <span class="hljs-number">1</span></code></pre></p>
+<p><strong>广度优先解法：</strong><br><pre><code class="hljs python"><span class="hljs-comment"># 迭代，广度优先搜索</span>
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">minDepth</span><span class="hljs-params">(self, root: TreeNode)</span> -&gt; int:</span>
+        <span class="hljs-comment"># 迭代，广度优先搜索</span>
+        <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        
+        q = deque()
+        q.append((<span class="hljs-number">1</span>, root))
+        depth = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">while</span> q:
+            curr_depth, node = q.popleft()
+            <span class="hljs-comment"># 如果node为叶子节点，则此时深度为最小深度</span>
+            <span class="hljs-keyword">if</span> node.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> node.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+                <span class="hljs-keyword">return</span> curr_depth
+            
+            <span class="hljs-keyword">if</span> node.left:
+                q.append((curr_depth + <span class="hljs-number">1</span>, node.left))
+            <span class="hljs-keyword">if</span> node.right:
+                q.append((curr_depth + <span class="hljs-number">1</span>, node.right))</code></pre></p>
+<h3 id="（4）括号生成"><a href="#（4）括号生成" class="headerlink" title="（4）括号生成"></a><strong>（4）括号生成</strong></h3><p>此题为leetcode<a href="https://leetcode-cn.com/problems/generate-parentheses/" target="_blank" rel="noopener">第22题</a><br>数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 深度优先搜索加剪枝</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generateParenthesis</span><span class="hljs-params">(self, n: int)</span> -&gt; List[str]:</span>
+        self.res = []
+        self._gen(<span class="hljs-string">''</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, n)
+        <span class="hljs-keyword">return</span> self.res
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_gen</span><span class="hljs-params">(self, result, left, right, n)</span>:</span>
+        <span class="hljs-comment"># left为左括号用了几个，right为右括号用了几个</span>
+        <span class="hljs-keyword">if</span> left == n <span class="hljs-keyword">and</span> right == n:
+            self.res.append(result)
+            <span class="hljs-keyword">return</span> 
+        
+        <span class="hljs-comment"># 如果用的左括号小于n个，可以加左括号</span>
+        <span class="hljs-keyword">if</span> left &lt; n:
+            self._gen(result+<span class="hljs-string">'('</span>, left+<span class="hljs-number">1</span>, right, n)
+        <span class="hljs-comment"># 只有在用的右括号小于用的左括号时，才可以加右括号</span>
+        <span class="hljs-keyword">if</span> right &lt; left:
+            self._gen(result+<span class="hljs-string">')'</span>, left, right+<span class="hljs-number">1</span>, n)</code></pre>
+<h3 id="（5）N皇后问题"><a href="#（5）N皇后问题" class="headerlink" title="（5）N皇后问题"></a><strong>（5）N皇后问题</strong></h3><p>此题为leetcode<a href="https://leetcode-cn.com/problems/n-queens/submissions/" target="_blank" rel="noopener">第51题</a><br>n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。每一种解法包含一个明确的 n 皇后问题的棋子放置方案，该方案中 ‘Q’ 和 ‘.’ 分别代表了皇后和空位。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200413220734683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">solveNQueens</span><span class="hljs-params">(self, n: int)</span> -&gt; List[List[str]]:</span>
+        <span class="hljs-keyword">if</span> n &lt; <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> []
+        self.res = []   <span class="hljs-comment"># 记录最终结果</span>
+        self.cols, self.pie, self.na = set(), set(), set()  <span class="hljs-comment"># 标记横竖、斜角方向</span>
+        self.DFS(n, <span class="hljs-number">0</span>, [])
+        
+        <span class="hljs-keyword">return</span> [[<span class="hljs-string">'.'</span> * j + <span class="hljs-string">'Q'</span> + <span class="hljs-string">'.'</span> * (n - j - <span class="hljs-number">1</span>) <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> col] <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> self.res]
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">DFS</span><span class="hljs-params">(self, n, row, curr_state)</span>:</span>  <span class="hljs-comment"># curr_state代表每行的哪些列可以放置皇后，是一种可能的解决方案</span>
+        <span class="hljs-comment"># 如果递归可以走到最后一层，说明curr_state是一种合法的解决方案，将其放入self.res里</span>
+        <span class="hljs-keyword">if</span> row &gt;= n:
+            self.res.append(curr_state)
+            <span class="hljs-keyword">return</span>
+        
+        <span class="hljs-comment"># 遍历列</span>
+        <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> range(n):
+            <span class="hljs-comment"># 如果当前位置上，可以被横竖、斜角方向上的皇后攻击到，则continue</span>
+            <span class="hljs-keyword">if</span> col <span class="hljs-keyword">in</span> self.cols <span class="hljs-keyword">or</span> row + col <span class="hljs-keyword">in</span> self.pie <span class="hljs-keyword">or</span> row - col <span class="hljs-keyword">in</span> self.na:
+                <span class="hljs-keyword">continue</span>  
+            
+            <span class="hljs-comment"># 如果当前位置不会被攻击到，则标记横竖、斜角方向</span>
+            self.cols.add(col)
+            self.pie.add(row + col)
+            self.na.add(row - col)
+            
+            <span class="hljs-comment"># 递归，row+1进入下一行，curr_state+[col]保存一种可能的状态</span>
+            self.DFS(n, row + <span class="hljs-number">1</span>, curr_state + [col])
+            
+            <span class="hljs-comment"># 上面的递归出来后，清除横竖、斜角方向的标记</span>
+            <span class="hljs-comment"># 因为我们是在(n, col)位置上尝试放置皇后看是否可行</span>
+            self.cols.remove(col)
+            self.pie.remove(row + col)
+            self.na.remove(row - col)</code></pre>
+<h3 id="（6）解数独"><a href="#（6）解数独" class="headerlink" title="（6）解数独"></a><strong>（6）解数独</strong></h3><p>此题为leetcode<a href="https://leetcode-cn.com/problems/sudoku-solver/submissions/" target="_blank" rel="noopener">第37题</a><br>编写一个程序，通过已填充的空格来解决数独问题。下面给出最朴素的DFS：</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">solveSudoku</span><span class="hljs-params">(self, board: List[List[str]])</span> -&gt; <span class="hljs-keyword">None</span>:</span>
+        <span class="hljs-string">"""
+        Do not return anything, modify board in-place instead.
+        """</span>
+        <span class="hljs-keyword">if</span> board <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> len(board) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span>
+        self.solve(board)
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">solve</span><span class="hljs-params">(self, board)</span>:</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(board)):
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(len(board)):
+                <span class="hljs-comment"># 循环遍历，找到空位置</span>
+                <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">'.'</span>:
+                    <span class="hljs-comment"># 从1-9遍历</span>
+                    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>):
+                        c = str(k)
+                        <span class="hljs-keyword">if</span> self.isValid(board, i, j, c):    <span class="hljs-comment"># 判断c是否可以放在(i, j)上</span>
+                            <span class="hljs-comment"># 如果在(i, j)上放数字c可行的话，先将c放上去</span>
+                            board[i][j] = c
+                            <span class="hljs-comment"># 继续递归，看放上c后，后面的是否可行</span>
+                            <span class="hljs-keyword">if</span> self.solve(board):
+                                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>     <span class="hljs-comment"># 放上c后可以解决整个数独则返回True</span>
+                            <span class="hljs-keyword">else</span>:
+                                board[i][j] = <span class="hljs-string">'.'</span>   <span class="hljs-comment"># 不可行的话将c清空</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>    <span class="hljs-comment"># 1-9遍历完后还不行就返回False</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>    <span class="hljs-comment"># 可以遍历完整个board就返回True</span>
+    
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isValid</span><span class="hljs-params">(self, board, row, col, c)</span>:</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">9</span>):
+            <span class="hljs-keyword">if</span> board[i][col] != <span class="hljs-string">'.'</span> <span class="hljs-keyword">and</span> board[i][col] == c:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+            <span class="hljs-keyword">if</span> board[row][i] != <span class="hljs-string">'.'</span> <span class="hljs-keyword">and</span> board[row][i] == c:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+            <span class="hljs-keyword">if</span> board[<span class="hljs-number">3</span> * (row // <span class="hljs-number">3</span>) + i // <span class="hljs-number">3</span>][<span class="hljs-number">3</span> * (col // <span class="hljs-number">3</span>) + i % <span class="hljs-number">3</span>] != <span class="hljs-string">'.'</span> <span class="hljs-keyword">and</span> board[<span class="hljs-number">3</span> * (row // <span class="hljs-number">3</span>) + i // <span class="hljs-number">3</span>][<span class="hljs-number">3</span> * (col // <span class="hljs-number">3</span>) + i % <span class="hljs-number">3</span>] == c:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span></code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/算法/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/数据结构/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/04/数据结构与算法———递归/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据结构与算法———递归</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/04/数据结构与算法———队列与栈/">
+                        <span class="hidden-mobile">数据结构与算法———队列与栈</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/06/04/数据结构与算法———广度与深度优先搜索/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

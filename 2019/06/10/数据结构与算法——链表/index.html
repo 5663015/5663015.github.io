@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>数据结构与算法——链表 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                数据结构与算法——链表
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-06-10 14:35">
+      2019年6月10日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="一、单链表"><a href="#一、单链表" class="headerlink" title="一、单链表"></a><strong>一、单链表</strong></h1><p>表域元素<code>val</code>保存着数据项，链接域<code>next</code>保存同一表里的下个节点的标识，<code>P</code>为表头变量/表头指针</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC04NDkxZjkxY2Y3ZTNhZTY2LnBuZw" srcset="/img/loading.gif" alt="单链表.png"></p>
+<h2 id="1、插入新元素"><a href="#1、插入新元素" class="headerlink" title="1、插入新元素"></a><strong>1、插入新元素</strong></h2><ul>
+<li><p>初始化新节点<code>cur</code></p>
+</li>
+<li><p>将<code>cur</code>的<code>next</code>字段链接到<code>prev</code>的下个节点</p>
+</li>
+<li><p>将<code>prev</code>中的<code>next</code>字段链接到<code>cur</code></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC1hNmE2MzFjZTVhNzg4MWVjLnBuZw" srcset="/img/loading.gif" alt="单链表插新元素1.png"></p>
+</li>
+</ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC00ZDY4N2UyYjJiZDk2YWJkLnBuZw" srcset="/img/loading.gif" alt="单链表插新元素2.png"></p>
+<h2 id="2、在开头插入节点"><a href="#2、在开头插入节点" class="headerlink" title="2、在开头插入节点"></a><strong>2、在开头插入节点</strong></h2><ul>
+<li><p>初始化一个新节点<code>cur</code></p>
+</li>
+<li><p>将新节点链接到原始头结点<code>head</code></p>
+</li>
+<li><p>将<code>cur</code>指定为<code>head</code></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC0zODkxMzgxN2IyYjJkY2MxLnBuZw" srcset="/img/loading.gif" alt="单链表表头插入元素.png"></p>
+</li>
+</ul>
+<h2 id="3、删除操作"><a href="#3、删除操作" class="headerlink" title="3、删除操作"></a><strong>3、删除操作</strong></h2><ul>
+<li><p>找到<code>cur</code>的上一个结点<code>prev</code>及其下一个结点<code>next</code></p>
+</li>
+<li><p>链接<code>prev</code>到<code>cur</code>的下一个结点<code>next</code></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC1iZTRlMjFiMjMyNjg2ODQ2LnBuZw" srcset="/img/loading.gif" alt="单链表删除元素.png"></p>
+</li>
+</ul>
+<p>在第一步中，要找到<code>prev</code>和<code>next</code>，需要从头结点开始遍历链表，才能找到<code>prev</code>，平均时间复杂度是$O(n)$</p>
+<h2 id="4、删除第一个节点"><a href="#4、删除第一个节点" class="headerlink" title="4、删除第一个节点"></a><strong>4、删除第一个节点</strong></h2><ul>
+<li><p>给定原始链表和头结点<code>head</code></p>
+</li>
+<li><p>将头结点的下个节点指定为头结点<code>head</code></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC1lMTc4MTA3NTY0MzgwNWYzLnBuZw" srcset="/img/loading.gif" alt="单链表删除头结点.png"></p>
+</li>
+</ul>
+<h2 id="5、单链表操作的复杂度"><a href="#5、单链表操作的复杂度" class="headerlink" title="5、单链表操作的复杂度"></a><strong>5、单链表操作的复杂度</strong></h2><ul>
+<li>创建链表：$O(1)$</li>
+<li>删除链表：在python里是$O(1)$</li>
+<li>判断表空：$O(1)$</li>
+<li>首端加入元素：$O(1)$</li>
+<li>尾端加入元素，要找到表的最后节点：$O(n)$</li>
+<li><p>定位插入元素：$O(n)$</p>
+</li>
+<li><p>首端删除元素：$O(1)$</p>
+</li>
+<li>尾端删除元素：$O(n)$</li>
+<li>定位删除元素：$O(n)$</li>
+<li>扫描、定位、遍历：$O(n)$</li>
+</ul>
+<h2 id="6、循环单链表"><a href="#6、循环单链表" class="headerlink" title="6、循环单链表"></a><strong>6、循环单链表</strong></h2><p>在链表对象里记录尾节点，这样可以同时支持$O(1)$的表头/表尾插入和$O(1)$的表头删除</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC05OTAzNWEzNjkwN2Y2MWNjLnBuZw" srcset="/img/loading.gif" alt="循环单链表.png"></p>
+<h1 id="二、双链表"><a href="#二、双链表" class="headerlink" title="二、双链表"></a><strong>二、双链表</strong></h1><p>双链表除了<code>next</code>字段，还有一个<code>prev</code>字段，指向当前节点的前一个节点</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC1kNjhjMGZmMzRiZTUyYjYwLnBuZw" srcset="/img/loading.gif" alt="双链表.png"></p>
+<h2 id="1、添加操作"><a href="#1、添加操作" class="headerlink" title="1、添加操作"></a><strong>1、添加操作</strong></h2><ul>
+<li><p>初始化一个新节点<code>cur</code></p>
+</li>
+<li><p>链接<code>cur</code>与<code>prev</code>的<code>next</code>，链接<code>cur</code>的<code>prev</code>与<code>prev</code></p>
+</li>
+<li><p>用<code>cur</code>重新链接<code>prev</code>和<code>next</code></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC03MzZlZGE2MWVjNTgxNzE2LnBuZw" srcset="/img/loading.gif" alt="双链表的添加操作.png"></p>
+</li>
+</ul>
+<h2 id="2、删除操作"><a href="#2、删除操作" class="headerlink" title="2、删除操作"></a><strong>2、删除操作</strong></h2><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC0zYzlhODAzMTRiYjkyMzcxLnBuZw" srcset="/img/loading.gif" alt="双链表删除操作.png"></p>
+<h2 id="3、循环双链表"><a href="#3、循环双链表" class="headerlink" title="3、循环双链表"></a><strong>3、循环双链表</strong></h2><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTc2MTU0MC1lZTU2NDUzNzRmM2E1YmZhLnBuZw" srcset="/img/loading.gif" alt="循环双链表.png"></p>
+<h1 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a><strong>三、代码实现</strong></h1><h2 id="1、单链表"><a href="#1、单链表" class="headerlink" title="1、单链表"></a><strong>1、单链表</strong></h2><p>单链表中的节点应该具有两个属性：<code>val</code> 和 <code>next</code>。<code>val</code> 是当前节点的值，<code>next</code> 是指向下一个节点的指针/引用。假设链表中的所有节点都是 0-index 的。在链表类中实现这些功能：</p>
+<ul>
+<li><p>get(index)：获取链表中第 <code>index</code> 个节点的值。如果索引无效，则返回<code>-1</code>。</p>
+</li>
+<li><p>addAtHead(val)：在链表的第一个元素之前添加一个值为 <code>val</code> 的节点。插入后，新节点将成为链表的第一个节点。</p>
+</li>
+<li>addAtTail(val)：将值为 <code>val</code> 的节点追加到链表的最后一个元素。</li>
+<li>addAtIndex(index,val)：在链表中的第 <code>index</code> 个节点之前添加值为 <code>val</code>  的节点。如果 <code>index</code> 等于链表的长度，则该节点将附加到链表的末尾。如果 <code>index</code> 大于链表长度，则不会插入节点。</li>
+<li>deleteAtIndex(index)：如果索引 <code>index</code> 有效，则删除链表中的第 <code>index</code> 个节点。</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-comment"># 节点类，代表链表的每个节点</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, x, next_=None)</span>:</span>
+        <span class="hljs-comment"># 节点的值</span>
+        self.val = x
+        <span class="hljs-comment"># 节点的下个指向</span>
+        self.next = next_
+
+<span class="hljs-comment"># 链表类</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyLinkedList</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-comment"># 初始化</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-comment"># 初始化头部节点</span>
+        self.head = <span class="hljs-literal">None</span>
+        <span class="hljs-comment"># 记录链表长度</span>
+        self.length = <span class="hljs-number">0</span>
+        
+    <span class="hljs-comment"># 打印链表所有节点</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_all</span><span class="hljs-params">(self)</span>:</span>
+        p = self.head
+        res = []
+        res.append(p.val)
+        <span class="hljs-keyword">while</span> p.next:
+            p = p.next
+            res.append(p.val)
+        print(res)
+	
+    <span class="hljs-comment"># 根据索引index获得节点</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self, index)</span>:</span>
+        <span class="hljs-string">"""
+        获得第index个节点
+        """</span>
+        <span class="hljs-comment"># 头部节点</span>
+        p = self.head
+        <span class="hljs-comment"># 若链表为空或index小于0，则返回-1</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> p <span class="hljs-keyword">or</span> index &lt; <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+        <span class="hljs-comment"># 遍历链表找到第index个节点</span>
+        <span class="hljs-keyword">while</span> index &gt;= <span class="hljs-number">1</span>:
+            <span class="hljs-comment"># 若index大于链表长度</span>
+            <span class="hljs-keyword">if</span> p.next == <span class="hljs-literal">None</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+            <span class="hljs-keyword">else</span>:
+                p = p.next
+            index -= <span class="hljs-number">1</span>   
+        <span class="hljs-keyword">return</span> p.val
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addAtHead</span><span class="hljs-params">(self, val)</span>:</span>
+        <span class="hljs-string">"""
+        在头部添加节点
+        """</span>
+        <span class="hljs-comment"># 新建值为val的节点，next指向head节点的next，然后将此节点指定为head节点</span>
+        self.head = Node(val, self.head)
+        self.length += <span class="hljs-number">1</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addAtTail</span><span class="hljs-params">(self, val)</span>:</span>
+        <span class="hljs-string">"""
+        在尾部添加节点
+        """</span>
+        <span class="hljs-comment"># 如果链表为空，则在头部添加节点</span>
+        <span class="hljs-keyword">if</span> self.head == <span class="hljs-literal">None</span>:
+            self.head = Node(val)
+            self.length += <span class="hljs-number">1</span>
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-comment"># 链表不为空，先获得头部节点</span>
+        p = self.head
+        <span class="hljs-comment"># 遍历节点，找到最后一个节点</span>
+        <span class="hljs-keyword">while</span> p.next <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            p = p.next
+        <span class="hljs-comment"># 最后一个节点指向新建节点</span>
+        p.next = Node(val)
+        self.length += <span class="hljs-number">1</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addAtIndex</span><span class="hljs-params">(self, index, val)</span>:</span>
+        <span class="hljs-string">"""
+        在第index插入节点。若index等于链表长度，则在尾部添加，若大于节点长度，则节点不会被插入
+        """</span>
+		<span class="hljs-comment"># 若index等于链表长度，节点添加为尾部</span>
+        <span class="hljs-keyword">if</span> index == self.length:
+            self.addAtTail(val)
+        <span class="hljs-comment"># 若index==0，节点添加在头部</span>
+        <span class="hljs-keyword">elif</span> index == <span class="hljs-number">0</span>:
+            self.addAtHead(val)
+        <span class="hljs-comment"># 若index大于链表长度或为负，不插入节点</span>
+        <span class="hljs-keyword">elif</span> index + <span class="hljs-number">1</span> &gt; self.length <span class="hljs-keyword">or</span> index &lt; <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">else</span>:
+            p = self.head
+            <span class="hljs-comment"># 获得插入位置的前一个节点</span>
+            <span class="hljs-keyword">while</span> index &gt; <span class="hljs-number">1</span>:
+                index -= <span class="hljs-number">1</span>
+                p = p.next
+            <span class="hljs-comment"># 新建当前节点，next指向前一个节点的next</span>
+            cur = Node(val, p.next)
+            <span class="hljs-comment"># 前一个节点的next指向当前节点</span>
+            p.next = cur
+            self.length += <span class="hljs-number">1</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteAtIndex</span><span class="hljs-params">(self, index)</span>:</span>
+        <span class="hljs-string">"""
+        删除第index个节点
+        """</span>
+        <span class="hljs-comment"># 若index大于链表长度或为负，不删除节点</span>
+        <span class="hljs-keyword">if</span> index + <span class="hljs-number">1</span> &gt; self.length <span class="hljs-keyword">or</span> index &lt; <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-comment"># 若index==0，删除头部节点</span>
+        <span class="hljs-keyword">elif</span> index == <span class="hljs-number">0</span>:
+            <span class="hljs-comment"># 重新指定头部节点为当前头部的next</span>
+            self.head = self.head.next
+            self.length -= <span class="hljs-number">1</span>
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">else</span>:
+            p = self.head
+            <span class="hljs-comment"># 获得指定位置的前一个节点</span>
+            <span class="hljs-keyword">while</span> index &gt; <span class="hljs-number">1</span>:
+                p = p.next
+                index -= <span class="hljs-number">1</span>
+            <span class="hljs-comment"># 若前一个节点不为倒数第二个节点（也就是删除除头结点、尾节点以外的中间节点）</span>
+            <span class="hljs-keyword">if</span> p.next.next <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                p.next = p.next.next
+            <span class="hljs-comment"># 若指定位置的前一个节点为倒数第二个节点（也就是删除尾节点）</span>
+            <span class="hljs-keyword">else</span>:
+                p.next = <span class="hljs-literal">None</span>
+            self.length -= <span class="hljs-number">1</span></code></pre>
+<h2 id="2、双指针应用"><a href="#2、双指针应用" class="headerlink" title="2、双指针应用"></a><strong>2、双指针应用</strong></h2><h3 id="（1）判断环形链表"><a href="#（1）判断环形链表" class="headerlink" title="（1）判断环形链表"></a><strong>（1）判断环形链表</strong></h3><p>给定一个链表，判断链表中是否有环。为了表示给定链表中的环，我们使用整数 <code>pos</code> 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 <code>pos</code> 是 <code>-1</code>，则在该链表中没有环。</p>
+<p><strong>示例1：</strong></p>
+<pre><code class="hljs undefined">输入：head = [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-4</span>], pos = <span class="hljs-number">1</span>
+输出：<span class="hljs-literal">true</span>
+解释：链表中有一个环，其尾部连接到第二个节点。</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzA3L2NpcmN1bGFybGlua2VkbGlzdC5wbmc" srcset="/img/loading.gif" alt></p>
+<p><strong>示例2：</strong></p>
+<pre><code class="hljs undefined">输入：head = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], pos = <span class="hljs-number">0</span>
+输出：<span class="hljs-literal">true</span>
+解释：链表中有一个环，其尾部连接到第一个节点。</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzA3L2NpcmN1bGFybGlua2VkbGlzdF90ZXN0Mi5wbmc" srcset="/img/loading.gif" alt></p>
+<p><strong>示例3：</strong></p>
+<pre><code class="hljs undefined">输入：head = [<span class="hljs-number">1</span>], pos = <span class="hljs-number">-1</span>
+输出：<span class="hljs-literal">false</span>
+解释：链表中没有环。</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzA3L2NpcmN1bGFybGlua2VkbGlzdF90ZXN0My5wbmc" srcset="/img/loading.gif" alt></p>
+<pre><code class="hljs python"><span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-comment"># class ListNode(object):</span>
+<span class="hljs-comment">#     def __init__(self, x):</span>
+<span class="hljs-comment">#         self.val = x</span>
+<span class="hljs-comment">#         self.next = None</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(self, head)</span>:</span>
+        <span class="hljs-string">"""
+        :type head: ListNode
+        :rtype: bool
+        """</span>
+        <span class="hljs-string">'''
+        # 方法一 双链表
+        p1 = p2 = head
+        while p2 and p2.next:
+            p1 = p1.next
+            p2 = p2.next.next
+            if p1 == p2:
+                return True
+        return False
+        '''</span>
+        <span class="hljs-comment">### 方法二  哈希表</span>
+        <span class="hljs-keyword">if</span> head==<span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        hash_table=set()
+        q=head
+        <span class="hljs-keyword">while</span> head:
+            <span class="hljs-keyword">if</span> head <span class="hljs-keyword">in</span> hash_table:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+            <span class="hljs-keyword">else</span>:
+                hash_table.add(head)  <span class="hljs-comment">##set 没有append 只有add</span>
+                head=head.next
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span></code></pre>
+<h3 id="（2）环形链表（二）"><a href="#（2）环形链表（二）" class="headerlink" title="（2）环形链表（二）"></a><strong>（2）环形链表（二）</strong></h3><p>给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 <code>null</code>。为了表示给定链表中的环，我们使用整数 <code>pos</code> 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 <code>pos</code> 是 <code>-1</code>，则在该链表中没有环。<strong>说明：</strong>不允许修改给定的链表。</p>
+<p><strong>示例一：</strong></p>
+<pre><code class="hljs undefined">输入：head = [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-4</span>], pos = <span class="hljs-number">1</span>
+输出：tail connects to node index <span class="hljs-number">1</span>
+解释：链表中有一个环，其尾部连接到第二个节点。</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzA3L2NpcmN1bGFybGlua2VkbGlzdC5wbmc" srcset="/img/loading.gif" alt></p>
+<p><strong>示例二：</strong></p>
+<pre><code class="hljs undefined">输入：head = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], pos = <span class="hljs-number">0</span>
+输出：tail connects to node index <span class="hljs-number">0</span>
+解释：链表中有一个环，其尾部连接到第一个节点。</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzA3L2NpcmN1bGFybGlua2VkbGlzdF90ZXN0Mi5wbmc" srcset="/img/loading.gif" alt></p>
+<p><strong>示例三：</strong></p>
+<pre><code class="hljs undefined">输入：head = [<span class="hljs-number">1</span>], pos = <span class="hljs-number">-1</span>
+输出：no cycle
+解释：链表中没有环。</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzA3L2NpcmN1bGFybGlua2VkbGlzdF90ZXN0My5wbmc" srcset="/img/loading.gif" alt></p>
+<pre><code class="hljs python"><span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-comment"># class ListNode(object):</span>
+<span class="hljs-comment">#     def __init__(self, x):</span>
+<span class="hljs-comment">#         self.val = x</span>
+<span class="hljs-comment">#         self.next = None</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">detectCycle</span><span class="hljs-params">(self, head)</span>:</span>
+        <span class="hljs-string">"""
+        :type head: ListNode
+        :rtype: ListNode
+        """</span>
+        p1 = p2 = head
+        <span class="hljs-keyword">while</span> p2 <span class="hljs-keyword">and</span> p2.next:
+            p1 = p1.next
+            p2 = p2.next.next
+            <span class="hljs-keyword">if</span> p1 == p2:
+                p = head
+                <span class="hljs-keyword">while</span> p != p1:
+                    p = p.next
+                    p1 = p1.next
+                <span class="hljs-keyword">return</span> p
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span></code></pre>
+<h3 id="（3）相交链表"><a href="#（3）相交链表" class="headerlink" title="（3）相交链表"></a><strong>（3）相交链表</strong></h3><p>编写一个程序，找到两个单链表相交的起始节点。</p>
+<p><strong>示例一：</strong></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzE0LzE2MF9leGFtcGxlXzEucG5n" srcset="/img/loading.gif" alt></p>
+<pre><code class="hljs undefined">输入：<span class="hljs-built_in">int</span>ersectVal = <span class="hljs-number">8</span>, listA = [<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], listB = [<span class="hljs-number">5</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], skipA = <span class="hljs-number">2</span>, skipB = <span class="hljs-number">3</span>
+输出：Reference of the node with value = <span class="hljs-number">8</span>
+输入解释：相交节点的值为 <span class="hljs-number">8</span> （注意，如果两个列表相交则不能为 <span class="hljs-number">0</span>）。从各自的表头开始算起，链表 A 为 [<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]，链表 B 为 [<span class="hljs-number">5</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]。在 A 中，相交节点前有 <span class="hljs-number">2</span> 个节点；在 B 中，相交节点前有 <span class="hljs-number">3</span> 个节点。</code></pre>
+<p><strong>示例二：</strong></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzE0LzE2MF9leGFtcGxlXzIucG5n" srcset="/img/loading.gif" alt></p>
+<pre><code class="hljs undefined">输入：<span class="hljs-built_in">int</span>ersectVal = <span class="hljs-number">2</span>, listA = [<span class="hljs-number">0</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>], listB = [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>], skipA = <span class="hljs-number">3</span>, skipB = <span class="hljs-number">1</span>
+输出：Reference of the node with value = <span class="hljs-number">2</span>
+输入解释：相交节点的值为 <span class="hljs-number">2</span> （注意，如果两个列表相交则不能为 <span class="hljs-number">0</span>）。从各自的表头开始算起，链表 A 为 [<span class="hljs-number">0</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>]，链表 B 为 [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>]。在 A 中，相交节点前有 <span class="hljs-number">3</span> 个节点；在 B 中，相交节点前有 <span class="hljs-number">1</span> 个节点。</code></pre>
+<p><strong>示例三：</strong></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9hc3NldHMubGVldGNvZGUtY24uY29tL2FsaXl1bi1sYy11cGxvYWQvdXBsb2Fkcy8yMDE4LzEyLzE0LzE2MF9leGFtcGxlXzMucG5n" srcset="/img/loading.gif" alt></p>
+<pre><code class="hljs undefined">输入：<span class="hljs-built_in">int</span>ersectVal = <span class="hljs-number">0</span>, listA = [<span class="hljs-number">2</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>], listB = [<span class="hljs-number">1</span>,<span class="hljs-number">5</span>], skipA = <span class="hljs-number">3</span>, skipB = <span class="hljs-number">2</span>
+输出：<span class="hljs-literal">null</span>
+输入解释：从各自的表头开始算起，链表 A 为 [<span class="hljs-number">2</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>]，链表 B 为 [<span class="hljs-number">1</span>,<span class="hljs-number">5</span>]。由于这两个链表不相交，所以 <span class="hljs-built_in">int</span>ersectVal 必须为 <span class="hljs-number">0</span>，而 skipA 和 skipB 可以是任意值。
+解释：这两个链表不相交，因此返回 <span class="hljs-literal">null</span>。</code></pre>
+<p><strong>注意：</strong></p>
+<ul>
+<li>如果两个链表没有交点，返回 <code>null</code>.</li>
+<li>在返回结果后，两个链表仍须保持原有的结构。</li>
+<li>可假定整个链表结构中没有循环。</li>
+<li>程序尽量满足 O(<em>n</em>) 时间复杂度，且仅用 O(<em>1</em>) 内存。</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-comment"># class ListNode(object):</span>
+<span class="hljs-comment">#     def __init__(self, x):</span>
+<span class="hljs-comment">#         self.val = x</span>
+<span class="hljs-comment">#         self.next = None</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getIntersectionNode</span><span class="hljs-params">(self, headA, headB)</span>:</span>
+        <span class="hljs-string">"""
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """</span>
+        <span class="hljs-string">'''
+        # 方法一 哈希表
+        pa, pb = headA, headB
+        table = set()
+        while pa:
+            if pa not in table:
+                table.add(pa)
+            pa = pa.next
+        while pb:
+            if pb in table:
+                return pb
+            pb = pb.next
+        return None
+        '''</span>
+        <span class="hljs-comment"># 方法二 双指针</span>
+        pA = headA
+        pB = headB
+        <span class="hljs-keyword">while</span> pA != pB:
+            pA = pA.next <span class="hljs-keyword">if</span> pA <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> headB
+            pB = pB.next <span class="hljs-keyword">if</span> pB <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> headA
+        <span class="hljs-keyword">return</span> pA</code></pre>
+<h3 id="（4）删除链表的导数第N个节点"><a href="#（4）删除链表的导数第N个节点" class="headerlink" title="（4）删除链表的导数第N个节点"></a><strong>（4）删除链表的导数第N个节点</strong></h3><p>给定一个链表，删除链表的倒数第 <em>n</em> 个节点，并且返回链表的头结点。</p>
+<p><strong>示例：</strong></p>
+<pre><code class="hljs undefined">给定一个链表: <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">4</span>-&gt;<span class="hljs-number">5</span>, 和 n = <span class="hljs-number">2.</span>
+
+当删除了倒数第二个节点后，链表变为 <span class="hljs-number">1</span>-&gt;<span class="hljs-number">2</span>-&gt;<span class="hljs-number">3</span>-&gt;<span class="hljs-number">5.</span></code></pre>
+<p><strong>说明：</strong></p>
+<p>给定的 <em>n</em> 保证是有效的。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># Definition for singly-linked list.</span>
+<span class="hljs-comment"># class ListNode(object):</span>
+<span class="hljs-comment">#     def __init__(self, x):</span>
+<span class="hljs-comment">#         self.val = x</span>
+<span class="hljs-comment">#         self.next = None</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(self, head, n)</span>:</span>
+        <span class="hljs-string">"""
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """</span>
+        <span class="hljs-string">'''
+        p = head
+        length = 0
+        table = []
+        while p:
+            table.append(p)
+            length += 1
+            p = p.next
+        if n == 1:
+            if length == 1:
+                return None
+            else:
+                table[-n-1].next = None
+                return head
+        if n == length:
+            return table[-n+1]
+        table[-n-1].next = table[-n-1].next.next
+        return head
+        '''</span>
+        <span class="hljs-comment">#构建双指针p1与p2，p1先走n步，然后一同运动，当p1指向表尾，p2指向的next即是倒数第N个节点，删除即可。</span>
+        dummy = ListNode(<span class="hljs-number">0</span>)
+        dummy.next = head
+        
+        fast = slow = dummy
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+            fast = fast.next
+        <span class="hljs-keyword">while</span> fast.next:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        <span class="hljs-keyword">return</span> dummy.next</code></pre>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://leetcode-cn.com/explore/learn/card/linked-list/" target="_blank" rel="noopener">https://leetcode-cn.com/explore/learn/card/linked-list/</a></li>
+<li>《数据结构与算法：Python语言描述》</li>
+</ul>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/算法/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/数据结构/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/06/24/机器学习——线性模型/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">机器学习——线性模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/06/06/机器学习——模型评估与选择/">
+                        <span class="hidden-mobile">机器学习——模型评估与选择</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/06/10/数据结构与算法——链表/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

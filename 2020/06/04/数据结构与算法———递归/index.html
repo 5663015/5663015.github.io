@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>数据结构与算法———递归 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                数据结构与算法———递归
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-04 15:06">
+      2020年6月4日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 个月前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="一、递归"><a href="#一、递归" class="headerlink" title="一、递归"></a><strong>一、递归</strong></h1><p><strong>递归</strong>：在定义一个过程或函数时，出现本过程或本函数的成分称为递归。<br><strong>递归条件</strong>：可以用递归解决的问题应该满足以下三个条件：</p>
+<ul>
+<li>这个问题可以转化为一个或多个子问题来求解，而且这些子问题的求解方法与原问题完全相同</li>
+<li>递归调用的次数是有限的</li>
+<li>必须有终止条件</li>
+</ul>
+<p><strong>递归的底层原理</strong>： 函数调用操作包括从一块代码到另一块代码之间的双向数据传递和执行控制转移，大多数CPU使用栈来支持函数调用。单个函数调用操作所使用的的函数调用栈被称为<strong>栈帧</strong>。每次函数调用都会相应地创建一帧，返回函数地址、函数实参和局部变量值等，并将该帧压入调用栈。若该函数在返回之前又发生了新的调用，则将新函数对于的帧压入栈，成为栈顶。函数一旦执行完，对应的帧边出栈，控制权交给该函数的上层调用函数，并按照该帧保存的返回地址，确定程序中继续执行的位置。</p>
+<p><strong>递归问题一般解决步骤：</strong></p>
+<ul>
+<li>对问题$f(s_{n})$进行分析，<strong>假设出合理的小问题$f(s_{n-1})$</strong></li>
+<li>假设小问题$f(s_{n-1})$是可解的，在此基础上确定大问题$f(s_{n})$的解，<strong>即给出$f(s_{n})$与$f(s_{n-1})$之间的关系</strong></li>
+<li><strong>确定一个特殊情况</strong>（如$f(s_{1})$或$f(s_{0})$的解），由此作为递归出口</li>
+</ul>
+<p><strong>时间复杂度：</strong> 时间复杂度$O(T)$通常是递归调用的数量（记作 $R$） 和计算的时间复杂度的乘积（表示为 $O(s)$）的乘积：</p>
+<script type="math/tex; mode=display">
+O(T)=R*O(s)</script><p><strong>空间复杂度：</strong> 在计算递归算法的空间复杂度时，应该考虑造成空间消耗的两个部分：递归相关空间（recursion related space）和非递归相关空间（non-recursion related space）</p>
+<p><strong>代码模板：</strong></p>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">recursion</span><span class="hljs-params">(level, param1, param2, ...)</span>:</span>
+	<span class="hljs-comment"># 递归终止条件</span>
+	<span class="hljs-keyword">if</span> level &gt; MAX_LEVEL:
+		<span class="hljs-keyword">return</span> result
+	<span class="hljs-comment"># 当前level的逻辑</span>
+	process_data(level, data)
+	<span class="hljs-comment"># 递归</span>
+	self.recurison(level, param1, param2, ...)
+	<span class="hljs-comment"># 如果必要的话，还原此层的状态</span>
+	reverse_state(level)</code></pre>
+<h1 id="二、例题"><a href="#二、例题" class="headerlink" title="二、例题"></a><strong>二、例题</strong></h1><h2 id="1、两两交换链表中的节点"><a href="#1、两两交换链表中的节点" class="headerlink" title="1、两两交换链表中的节点"></a><strong>1、两两交换链表中的节点</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/" target="_blank" rel="noopener">第24题</a>。示例：<code>给定 1-&gt;2-&gt;3-&gt;4, 你应该返回 2-&gt;1-&gt;4-&gt;3</code>。我们假设有一个链表，已经走到了中间某个节点，当前节点为head，这个一般情况可以表示如下：<br><img src="https://img-blog.csdnimg.cn/20200318211845285.png" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>我们希望<code>head</code>和<code>next</code>能够互换，希望达到如下效果：<br><img src="https://img-blog.csdnimg.cn/20200318213225604.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<ul>
+<li>我们希望<code>head</code>和<code>next</code>互换，互换后<code>head</code>指向后面，<code>next</code>变为当前子链表的头结点</li>
+<li>交换后，<code>head</code>应该指向后面的子链表，而后面的子链表应该是交换完成了的，也就是说，后面的子链表两两交换是个子问题，解决方式和当前的方式一样，所以这个子链表的头结点（即<code>head.next.nex</code>应该传入递归函数中）</li>
+<li>因为交换后<code>next</code>为当前子链表的头结点，我们用一个指针指向它，即<code>res=head.next</code>，交换完后我们返回<code>res</code>即可，因为当前子链表也是上一层递归调用的子问题，我们要返回当前链表的头结点</li>
+<li>交换的过程：首先我们需要将<code>head.next</code>指向后面子问题返回的头结点，然后<code>next</code>指向<code>head</code>，即<code>res.next=head</code></li>
+<li>交换完后，返回此时当前子链表的头结点<code>res</code>即可</li>
+<li>终止条件：当<code>head=None</code>（无节点）或<code>head.next=None</code>（此时为最后一个节点）时，直接返回<code>head</code></li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">swapPairs</span><span class="hljs-params">(self, head: ListNode)</span> -&gt; ListNode:</span>
+    	<span class="hljs-comment"># 终止条件</span>
+        <span class="hljs-keyword">if</span> head == <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> head.next == <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> head
+        <span class="hljs-comment"># 交换后的头结点</span>
+        res = head.next
+        <span class="hljs-comment"># 子问题递归，head指向子问题返回来的节点</span>
+        head.next = self.swapPairs(head.next.next)
+        <span class="hljs-comment"># next指向head</span>
+        res.next = head
+        <span class="hljs-keyword">return</span> res</code></pre>
+<ul>
+<li>时间复杂度：$O(N)$，其中 $N$ 指的是链表的节点数量</li>
+<li><p>空间复杂度：$O(N)$，递归过程中使用的堆栈空间</p>
+<h2 id="2、反转链表"><a href="#2、反转链表" class="headerlink" title="2、反转链表"></a><strong>2、反转链表</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">第206题</a>。<br>示例：<code>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL    输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</code><br>假设我们有如下链表：<br><img src="https://img-blog.csdnimg.cn/20200318221055712.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>当前节点为<code>head</code>，假设子问题返回的链表已经两两反转，我们希望节点2能指向节点1，节点1指向<code>None</code>。递归过程如下图所示：<br><img src="https://img-blog.csdnimg.cn/20200318221626423.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+</li>
+<li><p>当前节点为<code>head</code>，我们期望后续的子链表指向<code>head</code>，而<code>head</code>指向<code>None</code>。那么后续子链表的两两交换问题为子问题。</p>
+</li>
+<li>子问题里的子链表节点两两交换后，原来的尾节点（图中的节点4）变成了头结点，并且要返回这个头结点；原来的头结点（图中的节点2）变为了尾节点，并且要指向<code>None</code>，因为尾节点最后都要指向<code>None</code>。注意此时<code>head</code>节点依然是指向节点2的，因为子问题并没有改变<code>head</code>的指向</li>
+<li>交换过程：需要将节点2指向节点1，即<code>head.next.next=head</code>，然后<code>head</code>指向<code>None</code></li>
+<li>终止条件：<code>head=None</code>（无节点）或<code>head.next=None</code>（最后一个节点）时，直接返回<code>head</code></li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverseList</span><span class="hljs-params">(self, head: ListNode)</span> -&gt; ListNode:</span>
+        <span class="hljs-comment"># 终止条件</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> head <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> head.next:
+            <span class="hljs-keyword">return</span> head
+    	<span class="hljs-comment"># 子问题递归，返回交换完后的子链表的头结点</span>
+        res = self.reverseList(head.next)
+        <span class="hljs-comment"># 交换</span>
+        head.next.next = head
+        head.next = <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">return</span> res</code></pre>
+<ul>
+<li>时间复杂度：$O(N)$，其中 $N$ 指的是链表的节点数量</li>
+<li>空间复杂度：$O(N)$，递归过程中使用的堆栈空间<h2 id="3、斐波那契数列"><a href="#3、斐波那契数列" class="headerlink" title="3、斐波那契数列"></a><strong>3、斐波那契数列</strong></h2>记忆化<br>此题为leetcode<a href="https://leetcode-cn.com/problems/fibonacci-number/" target="_blank" rel="noopener">第509题</a>。斐波那契数列有如下递归关系：<script type="math/tex; mode=display">
+f(0)=0, f(1)=1 \\
+f(n)=f(n-1) + f(n-2)，n>1</script>给定$n$计算$f(n)$。以计算$f(4)$为例，我们可以得到：$f(4)=f(3)+f(2)=f(2)+f(1)+f(1)+f(0)=f(1)+f(0)+f(1)+f(1)+f(0)$，把这个递归过程画出来如下图所示：<br><img src="https://img-blog.csdnimg.cn/20200318223456628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>按说这个很容易找到子问题，并且终止条件也明确，但是我们观察发现，这其中有很多重复的计算，比如$f(2)$重复了两次，这会导致内存占用较多。为此，我们可以将中间结果暂存起来，到时候直接用就可以。</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(self, N: int)</span> -&gt; int:</span>
+        <span class="hljs-comment"># 缓存字典</span>
+        catch = &#123;&#125;
+        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rec</span><span class="hljs-params">(N)</span>:</span>
+        	<span class="hljs-comment"># 若N在缓存中，直接返回对应值</span>
+            <span class="hljs-keyword">if</span> N <span class="hljs-keyword">in</span> catch:
+                <span class="hljs-keyword">return</span> catch[N]
+            <span class="hljs-comment"># N小于2时直接返回自己</span>
+            <span class="hljs-keyword">if</span> N &lt; <span class="hljs-number">2</span>:
+                res = N
+            <span class="hljs-keyword">else</span>:
+                res = rec(N<span class="hljs-number">-1</span>) + rec(N<span class="hljs-number">-2</span>)
+            <span class="hljs-comment"># 放入缓存中</span>
+            catch[N] = res
+            <span class="hljs-keyword">return</span> res
+        <span class="hljs-keyword">return</span> rec(N)</code></pre>
+<ul>
+<li>时间复杂度：$O(N)$</li>
+<li>空间复杂度：$O(N)$，缓存空间大小</li>
+</ul>
+<p>注意这里我们使用了一个额外的函数<code>rec(N)</code>，然后直接在<code>fib</code>函数中直接返回<code>rec(N)</code>，我们称这样的递归为<strong>尾递归：尾递归函数是递归函数的一种，其中递归调用是递归函数中的最后一条指令。并且在函数中应该只有一次递归调用。</strong> 尾递归的好处是，它可以避免递归调用期间栈空间开销的累积，因为系统可以为每个递归调用重用栈中的固定空间。</p>
+<h2 id="4、合并两个有序链表"><a href="#4、合并两个有序链表" class="headerlink" title="4、合并两个有序链表"></a><strong>4、合并两个有序链表</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/" target="_blank" rel="noopener">第21题</a>。示例：<code>输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4     输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</code>。我们假设有如下两个有序链表：<br><img src="https://img-blog.csdnimg.cn/20200318230106554.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>设<code>l1</code>指向了第一个链表中的某个位置，<code>l2</code>指向了第二个链表中的某个位置，我们比较这两个节点的大小。如果<code>l1&lt;l2</code>，那么<code>l1</code>应该在<code>l2</code>之后，<code>l2</code>应该和<code>l1</code>之后的子链表继续比较，由此形成子问题。如果<code>l1&gt;l2</code>，那么<code>l2</code>应该在<code>l1</code>之后，<code>l1</code>继续和<code>l2</code>之后的子链表比较。整个过程如下所示：<br><img src="https://img-blog.csdnimg.cn/20200318232602262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<ul>
+<li>若<code>l1&lt;l2</code>，则将<code>l1.next</code>和<code>l2</code>传入递归函数中，将<code>l1</code>指向递归函数返回的节点；反之将<code>l2.next</code>和<code>l1</code>传入递归函数中，<code>l2</code>指向递归函数返回的节点。</li>
+<li>当<code>l1=None</code>时，说明<code>l1</code>已提前遍历完（或<code>l1</code>本来为空），<code>l2</code>剩下的也不用比较了，直接返回<code>l2</code>；同理<code>l2=None</code>时，直接返回<code>l1</code>。</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(self, l1, l2)</span>:</span>
+        <span class="hljs-keyword">if</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> l2
+        <span class="hljs-keyword">elif</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> l1
+        <span class="hljs-keyword">elif</span> l1.val &lt; l2.val:
+            l1.next = self.mergeTwoLists(l1.next, l2)
+            <span class="hljs-keyword">return</span> l1
+        <span class="hljs-keyword">else</span>:
+            l2.next = self.mergeTwoLists(l1, l2.next)
+            <span class="hljs-keyword">return</span> l2</code></pre>
+<ul>
+<li>时间复杂度：$O(n + m)$。因为每次递归调用都会将指向 <code>l1</code> 或 <code>l2</code> 的指针递增一次（逐渐接近每个列表末尾的 null），所以每个列表中的每个元素都会对 <code>mergeTwoLists</code> 进行一次调用。 因此，时间复杂度与两个列表的大小之和是线性相关的。</li>
+<li>空间复杂度：$O(n + m)$。一旦调用 <code>mergetwolist</code>，直到到达 <code>l1</code>或 <code>l2</code> 的末尾时才会返回，因此 $n + m$的栈将会消耗 $O(n + m)$ 的空间。</li>
+</ul>
+<h2 id="5、Pow-x-n"><a href="#5、Pow-x-n" class="headerlink" title="5、Pow(x, n)"></a><strong>5、Pow(x, n)</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/powx-n/submissions/" target="_blank" rel="noopener">第50题</a></p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myPow</span><span class="hljs-params">(self, x: float, n: int)</span> -&gt; float:</span>
+        <span class="hljs-comment"># 递归1</span>
+        <span class="hljs-comment"># def func(x, n):</span>
+        <span class="hljs-comment">#     if n == 0:</span>
+        <span class="hljs-comment">#         return 1</span>
+        <span class="hljs-comment">#     if x == 0:</span>
+        <span class="hljs-comment">#         return 0</span>
+        <span class="hljs-comment">#     temp = func(x, n &gt;&gt; 1)</span>
+        <span class="hljs-comment">#     # 位运算判断奇偶</span>
+        <span class="hljs-comment">#     if n &amp; 1: # n为奇数</span>
+        <span class="hljs-comment">#         return temp * temp * x</span>
+        <span class="hljs-comment">#     else: # n为偶数</span>
+        <span class="hljs-comment">#         return temp * temp</span>
+        <span class="hljs-comment"># if n &gt;= 0:</span>
+        <span class="hljs-comment">#     res = func(x, n)</span>
+        <span class="hljs-comment"># else:</span>
+        <span class="hljs-comment">#     res = 1 / func(x, -n) </span>
+        <span class="hljs-comment"># return res</span>
+        
+        <span class="hljs-comment"># 递归2</span>
+        <span class="hljs-comment"># if n == 0:</span>
+        <span class="hljs-comment">#     return 1</span>
+        <span class="hljs-comment"># if n &lt; 0:</span>
+        <span class="hljs-comment">#     return 1. / self.myPow(x, -n)</span>
+        <span class="hljs-comment"># if n % 2:   # 如果n是奇数，在下一层算n/2</span>
+        <span class="hljs-comment">#     return x * self.myPow(x, n - 1)</span>
+        <span class="hljs-comment"># else:       # 如果n是偶数</span>
+        <span class="hljs-comment">#     return self.myPow(x * x, n/2)</span>
+        
+        <span class="hljs-comment"># 非递归</span>
+        <span class="hljs-keyword">if</span> n &lt; <span class="hljs-number">0</span>:
+            x = <span class="hljs-number">1.</span> / x
+            n = -n
+        res = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">while</span> n:
+            <span class="hljs-keyword">if</span> n &amp; <span class="hljs-number">1</span>:   <span class="hljs-comment"># n为奇数</span>
+                res *= x
+            x *= x
+            n &gt;&gt;= <span class="hljs-number">1</span> <span class="hljs-comment"># 右移一位，相当于n // 2</span>
+        <span class="hljs-keyword">return</span> res</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/算法/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/数据结构/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/04/数据结构与算法———哈希/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据结构与算法———哈希</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/04/数据结构与算法———广度与深度优先搜索/">
+                        <span class="hidden-mobile">数据结构与算法———广度与深度优先搜索</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/06/04/数据结构与算法———递归/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

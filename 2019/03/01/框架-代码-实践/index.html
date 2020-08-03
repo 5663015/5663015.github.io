@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>框架-代码-实践 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                框架-代码-实践
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-03-01 15:03">
+      2019年3月1日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      763 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>【更新日期】2019年5月10日</p>
+</blockquote>
+<ul>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MjM5ODU3OTIyOA==&amp;mid=2650669899&amp;idx=1&amp;sn=e3008ab5d1cbea396c253c1206e3ad20&amp;chksm=bec23e3889b5b72e479114d726eb6fbb4def665a25e01a41240028c0bda80f83bf2f9ecf3b40&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">教你用 Python 和 Keras 建立自己的 AlphaZero</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4MTQ2NjU5NA==&amp;mid=2247486710&amp;idx=2&amp;sn=be23bb79aa85948bbfd4a1a96442634d&amp;chksm=eba98f7bdcde066de38eebbc44a788dfc90bc0c394dcfa8bed6cff3cdbc0b68c861804d59a6b&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">如何利用深度学习写诗歌</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;mid=2651658936&amp;idx=1&amp;sn=f90d5cc14371fda9c974e88b4e286c73&amp;chksm=bd4c3d2b8a3bb43ddd35bcdab0ef30e8c274e43a3fd0dfdb921ffbc53504b84739c2e81e8bd7&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">手把手：用Python实现一个基于RSA算法的区块链客户端</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI0ODcxODk5OA==&amp;mid=2247494333&amp;idx=1&amp;sn=9a6f2b6a7d8aca5c573a3d2d8c931301&amp;chksm=e99ed944dee95052034b59d2ef836931ba685c90c88134dcd4a5e1f829eb1b2ba7deddd530db&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">python语音识别终极指南</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU3MzQ4NzE1OA==&amp;mid=2247485139&amp;idx=3&amp;sn=89fcb92060d1b243cbf9fef0a0470a71&amp;chksm=fcc1a78acbb62e9cb96ea224acb00b2fa6c1682b5ef673d5f92a9018ae3bd23afb25c0e7a08d&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">用 TensorFlow 让机器人唱首歌给你听</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MjM5ODU3OTIyOA==&amp;mid=2650670924&amp;idx=1&amp;sn=69a0a41779e2475d00f22f9e74526e5a&amp;chksm=bec23a3f89b5b329eae5cd34748ba0bbcd8355a9f3ce915119b3948ae397c895b3d27da1b376&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">用机器学习搞艺术，谷歌 Megenta 项目集锦（附 Github）</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU3MzQ4NzE1OA==&amp;mid=2247485152&amp;idx=4&amp;sn=8ea5fc30b0983ec85d4b116f5e251f85&amp;chksm=fcc1a7b9cbb62eafe6131cb0c29669f49c643eadaabf0d6989e07c0dee76d98b7eed7f5971b8&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">这些资源你肯定需要！超全的GAN PyTorch+Keras实现集合</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247490048&amp;idx=1&amp;sn=965b8db0c97feb1cc75377867e14ac82&amp;chksm=fc85fb13cbf27205a6f320ba4222f3e0c7864158211504c433ce1dc62beb730739331b397482&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">基于Keras的注意力机制实战</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MjM5ODU3OTIyOA==&amp;mid=2650671162&amp;idx=1&amp;sn=04d4505ff1c96c8120ec06a8464eab5a&amp;chksm=bec2354989b5bc5f046bf4b2ca78f09abb7029b07b2e151386417a4a121ba4a9a5658ad4c8a0&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">AI 开发者看过来，主流移动端深度学习框架大盘点</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1NTUxNTM0Mg==&amp;mid=2247488842&amp;idx=2&amp;sn=685cd580e455fffa62093559bf9b66fe&amp;chksm=fbd279ebcca5f0fd7ee235b52f82d2e73147be50e485d670c697874a123e7a6cbdeb88b5e792&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">【代码+教程】重现“世界模型”实验，无监督方式快速训练</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzIwMTc4ODE0Mw==&amp;mid=2247489330&amp;idx=1&amp;sn=310df03d408430e24f6046a07f037922&amp;chksm=96e9c8b2a19e41a44db4a6b99ed5c09088a1bfd8500e526f216cf1cf065c02fc63a06ae95787&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">高效CNN推理库、多款AlphaGo实现…你们喜欢的Github项目精选又来了！</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4MDMwMDM3NA==&amp;mid=2247485793&amp;idx=1&amp;sn=82f41d203aa1e58cc4c8faf70aee6d98&amp;chksm=ebbbd758dccc5e4e203ab3887f23632a7a67c51da889a1782269983a5f402063b7601d84c799&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">吴恩达授课，斯坦福CS230深度学习课程资源开放</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4MDMwMDM3NA==&amp;mid=2247485797&amp;idx=2&amp;sn=6dad06f6e1fb4368c5fc7d070e3a0f31&amp;chksm=ebbbd75cdccc5e4a388c1f337b7483e6e50c69d28099ada7c78e38773aa075b3943c3adacb33&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">10行代码实现目标检测，请收下这份教程</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247491285&amp;idx=1&amp;sn=7bb2c90bce24b63b7009cd688f2f8f12&amp;chksm=fc85ffc6cbf276d05bc5218de6357cae27e47b416f8524ee44400eb6fb9fd84fbde2f4daee30&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">Github上一些精致且实用的TensorFlow项目及相关论文</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzIwMTc4ODE0Mw==&amp;mid=2247490080&amp;idx=1&amp;sn=c462aecd7ae203fadac9bc794df9f191&amp;chksm=96e9c5a0a19e4cb6c2e09dd19892e839f55db19ed758dfc3b28df68ba799d4b533feb8b0ab98&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">貌离神合的RNN与ODE：花式RNN简介</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247491863&amp;idx=1&amp;sn=c811bd424a6c50e56aa5dc9515f73c91&amp;chksm=fc860004cbf1891226db4b4f2c07a1c26fcff82424ff0b8662981dfc65f5a5c282d3e656f117&amp;scene=0&amp;pass_ticket=ZDJeamP047kj9r7R3tW7yTDqYrt0GBJOmq7JwJgRkJoajbSds9imPYkAdVVHknKf#rd" target="_blank" rel="noopener">手把手教你Python实现自动贝叶斯调整超参数</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1OTMyNDcxMQ==&amp;mid=2247484714&amp;idx=1&amp;sn=86dff5dd2802ed8c9bfb4f4d384c519a&amp;chksm=fc184e62cb6fc774dd013de13375acc1ff78245103b496447ba0d49f4f64c412c0c189f455f1&amp;mpshare=1&amp;scene=23&amp;srcid=0901aRAWrUXFAYMEIgzvVnXd#rd" target="_blank" rel="noopener">想化身AI领域艺术家？使用 tf.keras 和 Eager Execution吧</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1OTMyNDcxMQ==&amp;mid=2247484802&amp;idx=1&amp;sn=08aaf5029ccaff25fa474eb5513de409&amp;chksm=fc184ecacb6fc7dc2d9e01618b939f5b8ead71bf0553af28e87be50d4ee8cc1fd8d6b112c5ba&amp;scene=0&amp;pass_ticket=NUhSTF2%2F99zfaZ0ov2%2Btq%2BLQ3mzzFHwPPsnShGBbJnMp1ZChyJjBtfNQp7PKWBCA#rd" target="_blank" rel="noopener">使用估算器、tf.keras 和 tf.data 进行多 GPU 训练</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247496930&amp;idx=3&amp;sn=933f2d251f5bf6ac2fad314fa75bac50&amp;chksm=fc8615f1cbf19ce7cd3bf24e3e639b48ededc09eb3a854ea39871e9251e87730953cf192c7d3&amp;scene=0&amp;pass_ticket=NUhSTF2%2F99zfaZ0ov2%2Btq%2BLQ3mzzFHwPPsnShGBbJnMp1ZChyJjBtfNQp7PKWBCA#rd" target="_blank" rel="noopener">深度学习TensorFlow实现集合</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247497753&amp;idx=1&amp;sn=a2804c2837c504491765e7b52ec777dd&amp;chksm=fc86190acbf1901ce3e0c4b5b2356a5bb321ecc2492ab79c06de5109de99117ccf9a7ff71b4d&amp;scene=0&amp;pass_ticket=NUhSTF2%2F99zfaZ0ov2%2Btq%2BLQ3mzzFHwPPsnShGBbJnMp1ZChyJjBtfNQp7PKWBCA#rd" target="_blank" rel="noopener">简单粗暴 TensorFlow Eager 教程</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247497830&amp;idx=2&amp;sn=3a6e4e6e5f0f64ecad35f1a0049a2471&amp;chksm=fc861975cbf19063ae4c4e65fabf754ab04307d059376cafaac7e4aff99bca8f1bcffded0b0e&amp;scene=0&amp;pass_ticket=NUhSTF2%2F99zfaZ0ov2%2Btq%2BLQ3mzzFHwPPsnShGBbJnMp1ZChyJjBtfNQp7PKWBCA#rd" target="_blank" rel="noopener">【GAN货】用神经网络生成音乐</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/Yw74C72_NMwz3Rv6jRvZWA" target="_blank" rel="noopener">谷歌开源集成学习工具AdaNet：2017年提出的算法终于实现了</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/n5ADrqEE_ySjFV6rCugUuQ" target="_blank" rel="noopener">以为GAN只能“炮制假图”？它还有这7种另类用途</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/zZ0k7sV5AXAfe0NKWzt1cg" target="_blank" rel="noopener">【干货】用神经网络识别歌曲流派（附代码）</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MjM5ODU3OTIyOA==&amp;mid=2650674125&amp;idx=2&amp;sn=d06cc69f9d8e883ebf929c0c0be2548c&amp;chksm=bec22ebe89b5a7a892a58bdaef148794cf76ee1f64a3c50e28a71cc001098329011997ab0e63&amp;mpshare=1&amp;scene=23&amp;srcid=0101iIRTRktfk3ZdIHBkvzzU#rd" target="_blank" rel="noopener">博客 | Github开源人体姿态识别项目OpenPose中文文档</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI3MTA0MTk1MA==&amp;mid=2652031781&amp;idx=5&amp;sn=dc0803025065c9e59a5a0548d2dee083&amp;chksm=f121bfd4c65636c266590eb8c451c1d8fd495c34ee89dbdc854a5b0f7dd68b78c9c0822714cc&amp;mpshare=1&amp;scene=23&amp;srcid=0101JHKyK1kV5t9mi0TOA4ce#rd" target="_blank" rel="noopener">一个模型搞定所有风格转换，直接在浏览器实现（demo+代码）</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzIwMTI4MzExMw==&amp;mid=2650680461&amp;idx=1&amp;sn=7cb9e309e1fa1d5f4655c2d8f099d6a7&amp;chksm=8efacfcbb98d46dddb15cbe8d2334cd610902976d06bd41e1c74c795f5f4e2c7fd8d18c4c2f5&amp;mpshare=1&amp;scene=23&amp;srcid=0101zDNQBxj8UpvRGPdZzINO#rd" target="_blank" rel="noopener">AI 入门 | “君子动口”，用语音控制智能家居</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI5NTIxNTg0OA==&amp;mid=2247493387&amp;idx=1&amp;sn=871c11759ace0bc32d48dcf0c3c984e4&amp;chksm=ec54508cdb23d99a67c88b9fbe70669a655bbd6fb8af4160a90914c4821f7c902ac1088c20fe&amp;mpshare=1&amp;scene=23&amp;srcid=0101fiHWIFrxt1NZF6I25u0A#rd" target="_blank" rel="noopener">玩转TensorFlow？你需要知道这30个功能</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1OTMyNDcxMQ==&amp;mid=2247485216&amp;idx=1&amp;sn=49344cfffb6a7a1b221ff4692ed4ea18&amp;chksm=fc184c68cb6fc57e5655a504e34e84d3bbd2c41aea6dac82e09d676e5fc0c7662b28d0c5ec79&amp;mpshare=1&amp;scene=23&amp;srcid=0101UBktlZeDa56AFFB9YsJN#rd" target="_blank" rel="noopener">TensorFlow 指南：GPU 的使用</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1OTMyNDcxMQ==&amp;mid=2247485228&amp;idx=1&amp;sn=ddc3702b27eeb29ad775847a959141e2&amp;chksm=fc184c64cb6fc572c3a618b610a7e17e6a56505d20114596fea2347e4249ac525e6340551f8b&amp;mpshare=1&amp;scene=23&amp;srcid=01013MEOEDJuyjd1IpD0ICUQ#rd" target="_blank" rel="noopener">TensorFlow 不仅用于机器学习，还能模拟偏微分方程</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&amp;mid=2247510096&amp;idx=3&amp;sn=5bfc19147e7e9aab122bf652ff0ecb7e&amp;chksm=e8d01f22dfa79634cae7e12dd08f321e96c7b89398c20162454159b091ae6ce4533ce508a915&amp;mpshare=1&amp;scene=23&amp;srcid=010169s7rybih4ifaucxt4P7#rd" target="_blank" rel="noopener">TensorFlow手把手教你概率编程：TF Probability内置了开源教材，新手友好</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247504452&amp;idx=1&amp;sn=2f8fc353784797e012a0575bf5663462&amp;chksm=fc863357cbf1ba4177dbccb5f0087692fd77a91909d26017214c5109da74ff3f725989fdfe29&amp;mpshare=1&amp;scene=23&amp;srcid=0101hzxsBB5kuRvSiWKtPjpp#rd" target="_blank" rel="noopener">Pytoch1.0深度学习如何玩？这一门含900页ppt和代码实例的深度学习课程带你飞</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1OTMyNDcxMQ==&amp;mid=2247485340&amp;idx=1&amp;sn=bc172c8d603a7b92f85932acd8cae8be&amp;chksm=fc184cd4cb6fc5c25d93de17903e18ec3cdd29cc665260bce0c77d4241a1e3b24deb9b507e33&amp;mpshare=1&amp;scene=23&amp;srcid=0101ndM6bGapWNIhXaFi80e2#rd" target="_blank" rel="noopener">简单的音频识别</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI5NTIxNTg0OA==&amp;mid=2247493655&amp;idx=3&amp;sn=6bc0ad4303b2e5c35be1a356e6b4ba07&amp;chksm=ec545f90db23d686703cc6fc4b876ba65e747daa6e73b62aa58b98e16c5cf4e1a8a2ee3c101a&amp;mpshare=1&amp;scene=23&amp;srcid=12229sXM74FH0ODXcoVEH7cG#rd" target="_blank" rel="noopener">工具 | Facebook 发布无梯度优化开源工具 Nevergrad，可应用于各类机器学习问题</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1OTMyNDcxMQ==&amp;mid=2247485365&amp;idx=1&amp;sn=d5c8dc8eebf4b1601283802e5aeda07f&amp;chksm=fc184cfdcb6fc5eb0699030d543916edd8f98d169edfd1827a6fc73bd0bf509bfe192e7e7910&amp;mpshare=1&amp;scene=23&amp;srcid=0101f44QET9YVCj6Ad2hO76d#rd" target="_blank" rel="noopener">快速上手 — TensorFlow Probability 内置概率编程教材</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI3MTA0MTk1MA==&amp;mid=2652034643&amp;idx=5&amp;sn=c5c9d6b9d18e99909bbd414bffc174dc&amp;chksm=f121a2a2c6562bb4995563dbe3cb2926a99ffe710831abdd1c3d246e9a4e087a986c720bdbd6&amp;mpshare=1&amp;scene=23&amp;srcid=0101RU8TrF5yd95HiVpbFd5c#rd" target="_blank" rel="noopener">秒变蒙娜丽莎毫无PS痕迹！AI神器已开源，嵌入任何名画</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1OTMyNDcxMQ==&amp;mid=2247485407&amp;idx=1&amp;sn=70ab65c7402e8c88757b99c47f1b30fb&amp;chksm=fc184c97cb6fc581c48c535e95c94ba314fc6997e5c61554df2bfab4f0ff39ce32ee8c074eea&amp;mpshare=1&amp;scene=23&amp;srcid=0101OcQEli4kCkbVcKxJJUF4#rd" target="_blank" rel="noopener">AutoGraph：图的简易控制流程</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&amp;mid=2650753378&amp;idx=2&amp;sn=66cd0204e55439476745b751da8ecd61&amp;chksm=871a8d1cb06d040a59581226fabbbfcdc2b70e8adcdfa33ee91662dbd99112cda94408858cc7&amp;mpshare=1&amp;scene=23&amp;srcid=1208Umty6S9cMXcgUfYAft9n#rd" target="_blank" rel="noopener">NYU、AWS联合推出：全新图神经网络框架DGL正式发布</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzA4NzE1NzYyMw==&amp;mid=2247498653&amp;idx=2&amp;sn=5732bf8dc926412c81e9c012dd80dd43&amp;chksm=903f0585a7488c93bda109eb1f0b7256c8f215d300b7b5f4042d552277db7d09f997bf5d3def&amp;mpshare=1&amp;scene=23&amp;srcid=0101CPnbUkPIfRVL9Z8qkiOy#rd" target="_blank" rel="noopener">将深度学习模型部署为web应用有多难？答案自己找</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4MDYzNzg4Mw==&amp;mid=2247489043&amp;idx=5&amp;sn=f68087ca91710963a5d08429f952100e&amp;chksm=ebb42ec7dcc3a7d159cfe903662295d9126718a99f40a891542934e2e9b87ad07e95fa41c4b1&amp;mpshare=1&amp;scene=23&amp;srcid=0314Kfydh7ko4N26WxPsnFjo#rd" target="_blank" rel="noopener">Keras作者：TF 2.0＋Keras深度学习研究你需要了解的12件事</a></p>
+</li>
+<li><p><a href="http://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&amp;mid=2247514635&amp;idx=4&amp;sn=f5862eef142e2a30b54f3abb222fc25c&amp;chksm=e8d00d79dfa7846f36de7b1ee2786d82b1cd5435473afe9585e79ccda53a52604cfb88d8d67c&amp;mpshare=1&amp;scene=23&amp;srcid=0314lDIvrHY3psfEJ6ycjK14#rd" target="_blank" rel="noopener">超强干货！TensorFlow易用代码大集合，请尽情复制粘贴</a></p>
+</li>
+<li><p><a href="http://mp.weixin.qq.com/s?__biz=MzU1NTUxNTM0Mg==&amp;mid=2247490107&amp;idx=2&amp;sn=87cc26a4e5fe17fe05d22d29597c6207&amp;chksm=fbd2769acca5ff8c8dc0eb497ac35eaa5df56dd572764ef787b46b766592833a13ecbac70580&amp;mpshare=1&amp;scene=23&amp;srcid=0112kDVoSbjd0YJhBFJ7nfb3#rd" target="_blank" rel="noopener">GitHub 项目推荐 | 用深度学习让你的照片变得美丽</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&amp;mid=2650761841&amp;idx=4&amp;sn=012cd254ecceb5800c758a6389526093&amp;chksm=871aae0fb06d271907e64b8e5b4394cb24289f585d9e01e4e59e6f738fe9261b1e40d2ce8c41&amp;mpshare=1&amp;scene=23&amp;srcid=0510uV1Arp8BghdkamZHYJon#rd" target="_blank" rel="noopener">在TensorFlow+Keras环境下使用RoI池化一步步实现注意力机制</a></p>
+</li>
+<li><p><a href="http://mp.weixin.qq.com/s?__biz=MzAxMzA2MDYxMw==&amp;mid=2651568317&amp;idx=1&amp;sn=6a0ddd328e2fdfbdfcec707063815539&amp;chksm=805747d7b720cec12dfab54d239f963890676785f1bd56db25417b339e3cd59211d251db4a54&amp;mpshare=1&amp;scene=23&amp;srcid=0510mrn8P5s3dTbidSxCd98L#rd" target="_blank" rel="noopener">AutoML：机器学习的下一波浪潮（附代码&amp;链接）</a></p>
+</li>
+<li><p><a href="http://mp.weixin.qq.com/s?__biz=MzU1OTMyNDcxMQ==&amp;mid=2247485786&amp;idx=1&amp;sn=6b89c8bc38268b0ef306252540afd9d0&amp;chksm=fc184212cb6fcb0434677143caac2d67a15d02378d5d64daa341a2afbd3e1152c30c879ff9c1&amp;mpshare=1&amp;scene=23&amp;srcid=0510pjfmQ7cxGFf41wqg97Gh#rd" target="_blank" rel="noopener">使用 TensorFlow Probability Layers 的变分自编码器</a></p>
+</li>
+</ul>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/机器学习文摘/">机器学习文摘</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/文摘/">文摘</a>
+                    
+                      <a class="hover-with-bg" href="/tags/框架/">框架</a>
+                    
+                      <a class="hover-with-bg" href="/tags/代码/">代码</a>
+                    
+                      <a class="hover-with-bg" href="/tags/实践/">实践</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/03/01/会议-论文/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">会议-论文</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/03/01/文档-ppt-教程-其他/">
+                        <span class="hidden-mobile">文档-ppt-教程-其他</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/03/01/框架-代码-实践/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

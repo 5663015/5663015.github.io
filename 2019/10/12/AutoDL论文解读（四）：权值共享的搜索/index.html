@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>AutoDL论文解读（四）：权值共享的搜索 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                AutoDL论文解读（四）：权值共享的搜索
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-10-12 12:34">
+      2019年10月12日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      51
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：8 个月前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>自动化机器学习（AutoML）最近变得越来越火，是机器学习下个发展方向之一。其中的神经网络结构搜索（NAS）是其中重要的技术之一。人工设计网络需要丰富的经验和专业知识，神经网络有众多的超参数，导致其搜索空间巨大。NAS即是在此巨大的搜索空间里自动地找到最优的网络结构，实现深度学习的自动化。自2017年谷歌与MIT各自在ICLR上各自发表基于强化学习的NAS以来，已产出200多篇论文，仅2019年上半年就有100多篇论文。此系列文章将解读AutoDL领域的经典论文与方法，笔者也是刚接触这个领域，有理解错误的地方还请批评指正！</p>
+<p><strong>此系列的文章列表：</strong></p>
+<ul>
+<li><a href="https://5663015.github.io/2019/09/30/AutoDL论文解读（一）：基于强化学习的开创性工作/" target="_blank" rel="noopener">AutoDL论文解读（一）：基于强化学习的开创性工作</a></li>
+<li><a href="https://5663015.github.io/2019/10/08/AutoDL论文解读（二）：基于遗传算法的典型工作/" target="_blank" rel="noopener">AutoDL论文解读（二）：基于遗传算法的典型方法</a></li>
+<li><a href="https://5663015.github.io/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/" target="_blank" rel="noopener">AutoDL论文解读（三）：基于块搜索的NAS</a></li>
+<li><a href="https://5663015.github.io/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/" target="_blank" rel="noopener">AutoDL论文解读（四）：权值共享的NAS</a></li>
+<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/" target="_blank" rel="noopener">AutoDL论文解读（五）：可微分方法的NAS</a></li>
+<li><a href="https://5663015.github.io/2019/10/15/AutoDL论文解读（六）：基于代理模型的NAS/" target="_blank" rel="noopener">AutoDL论文解读（六）：基于代理模型的NAS</a></li>
+<li><a href="https://5663015.github.io/2019/10/21/AutoDL论文解读（七）：基于one-shot的NAS/" target="_blank" rel="noopener">AutoDL论文解读（七）：基于one-shot的NAS</a></li>
+</ul>
+</blockquote>
+<p>本次介绍的两篇论文是谷歌的《Efficient Neural Architecture Search via Parameter Sharing》和自动化所、图森的《You Only Search Once: Single Shot Neural Architecture Search via Direct Sparse Optimization》。一般自动生成的网络模型庞大而冗余，且搜索过程耗时耗力，这次的论文是用权值共享的办法来加速模型搜索。</p>
+<h1 id="一、Efficient-Neural-Architecture-Search-via-Parameter-Sharing"><a href="#一、Efficient-Neural-Architecture-Search-via-Parameter-Sharing" class="headerlink" title="一、Efficient Neural Architecture Search via Parameter Sharing"></a><strong>一、Efficient Neural Architecture Search via Parameter Sharing</strong></h1><h2 id="1、总览"><a href="#1、总览" class="headerlink" title="1、总览"></a><strong>1、总览</strong></h2><p>这篇论文也是基于NAS的框架，对其进行了改进，称之为ENAS。NAS搜索到的图是一个更大的图的子图，也就是说NAS的搜索空间可以用<strong>一个</strong>有向无环图（DAG）来表示。下图给出了一个例子：<br><img src="https://img-blog.csdnimg.cn/20191011202939341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>上面的图是整个搜索空间，红色的线连起来的子图是控制器发现的模型。ENAS的DAG是NAS搜索空间里所有可能子模型的叠加，图中的结点表示具体的计算操作，边表示信息流动。每个节点都有其自己的参数，这些参数在所有的子模型中都可以共享。其实ENAS要学习的就是节点之间的连线关系，通过不同的连线产生大量的模型。</p>
+<h2 id="2、生成RNN的cell"><a href="#2、生成RNN的cell" class="headerlink" title="2、生成RNN的cell"></a><strong>2、生成RNN的cell</strong></h2><p>为了生成RNN的cell，作者使用一个有N个节点的DAG。ENAS的控制器是个RNN，它决定两个方面：（1）哪个边被激活；（2）DAG中的结点选择哪种操作。原NAS论文里的RNN生成，cell的结构被固定为二叉树结构，只决定树上每个节点的操作。而这里ENAS即设计节点操作也设计cell的结构。以下图为例说明控制器生成cell的过程：<br><img src="https://img-blog.csdnimg.cn/20191011204402393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>假设有N=4个节点，$x_{t}$是cell的输入，$h_{t-1}$是前一个时间步的输出。采样过程如下：</p>
+<ul>
+<li>在节点1：控制器采样一个激活函数。图中例子选择了tanh，那么节点1的计算为$h_{1}={\rm tanh}(x_{t} \cdot W^{x}+h_{t-1} \cdot W_{1}^{h})$</li>
+<li>在节点2：控制器采样之前节点的编号和激活函数。例子中选择了编号1和ReLU，则节点2的计算为$h_{2}={\rm ReLU}(h_{1} \cdot W_{2,1}^{h})$</li>
+<li>在节点3：控制器再次采样之前节点的编号和激活函数。例子中选择了编号2和ReLU，则节点3的计算为：$h_{3}={\rm ReLU}(h_{2} \cdot (W_{3,2}^{h}))$</li>
+<li>在节点4：控制器再次采样之前节点的编号和激活函数。例子中选择了编号1和tanh，则节点3的计算为：$h_{4}={\rm tanh}(h_{1} \cdot (W_{4,2}^{h}))$</li>
+<li>对于输出，将那么没有被选做其他任何节点输入的结点取平均。例子中，节点3和节点4没有被选为其他节点的输入，那么$h_{t}=(h_{3}+h_{4})/2$</li>
+</ul>
+<p>在上面的例子中可以看出，对于每个节点对$j&lt;l$都有独立的参数矩阵$W_{l,j}^{h}$，通过选择前面节点的彪悍，控制器也选择了使用哪个参数矩阵，因此搜索空间里所有的cell都共享同样的参数集合。如果一个cell有N个节点，选择4种激活函数（tahn，ReLU，identity，sigmoid），那么搜索空间有$4^{N} \times N!$种配置。</p>
+<h2 id="3、训练ENAS、导出网络结构"><a href="#3、训练ENAS、导出网络结构" class="headerlink" title="3、训练ENAS、导出网络结构"></a><strong>3、训练ENAS、导出网络结构</strong></h2><p>这里控制器LSTM有100个节点，通过softmax分类器进行采样。在ENAS中，有两类需要学习的参数：控制器LSTM的参数$\theta$和子模型共享的参数$\omega$。训练过程也包括两个阶段，第一个阶段用整个数据集训练$\omega$，第二个阶段是训练$\theta$，两个阶段轮流训练，具体细节如下：</p>
+<ul>
+<li><p>训练$\omega$。这步中，控制器的策略$\pi(m;\theta)$被固定，用SGD去最小化交叉熵损失函数${\Bbb E}_{m ~ \pi}[L(m_{i}, \omega)]$，$m$是从$\pi (m; \theta)$中采样得到的一个模型。梯度使用蒙特卡洛估计：</p>
+<script type="math/tex; mode=display">
+\nabla_{\omega} \mathbb{E}_{\mathbf{m} \sim \pi(\mathbf{m} ; \theta)}[\mathcal{L}(\mathbf{m} ; \omega)] \approx \frac{1}{M} \sum_{i=1}^{M} \nabla_{\omega} \mathcal{L}\left(\mathbf{m}_{i}, \omega\right)</script><p>上式是对梯度的无偏估计，有较大的方差。但作者发现当$M=1$的时候效果就比较好，也就是说使用从$\pi (m; \theta)$采样到的任意一个模型$m$上计算到的梯度就可以更新$\omega$。</p>
+</li>
+<li><p>训练参数$\theta$。在这步中固定$\omega$来更新$\theta$，以最大化期望奖励${\Bbb E}_{m ~ \pi(m; \theta)}[\mathcal R(m, \omega)]$。奖励$\mathcal R(m,\omega)$是在验证集上计算得到的。</p>
+</li>
+<li><p>导出网络结构。首先从训练的策略$\pi (m, \theta)$采样几个模型，对于每个采样的模型，直接在验证集上计算奖励，然后选择奖励最高的模型从头训练。实际上这个过程会进行很多次，共享的权重也会在一段时间后更新。</p>
+</li>
+</ul>
+<h2 id="4、设计卷积网络"><a href="#4、设计卷积网络" class="headerlink" title="4、设计卷积网络"></a><strong>4、设计卷积网络</strong></h2><p>在生成CNN时，控制器作出两个方面的决定：（1）连接前面的那个些节点；（2）使用哪种操作。这两个决策构造了一个卷积层。选择连接到前面的那些节点可以用来产生跨连接，在第$k$层，前面最多有$k-1$个可选的结点，这会有$2^{k-1}$种可能的决策。举例如下图：<br><img src="https://img-blog.csdnimg.cn/20191011222810163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>上图中，在第$k=4$层，控制器选择了前面的第1、3个节点，所以第1、3层的输出在深度这个轴连接起来送到第4层。</p>
+<p>对于可选的操作，一共有6种：3x3大小卷积、5x5大小卷积、3x3大小的可分离卷积、5x5大小可分离卷积、3x3的最大池化、3x3的平均池化。做这样的决策一共L次，可以得到一个L层的网络，在搜索空间里一共有$6^{L} \times 2^{L(L-1)/2}$种网络。</p>
+<h2 id="5、设计卷积cell"><a href="#5、设计卷积cell" class="headerlink" title="5、设计卷积cell"></a><strong>5、设计卷积cell</strong></h2><p>上述的搜索是从头搜索整个网络，也称作macro搜索。也可以只搜索卷积cell，然后将它们连接起来组成整个网络，这称为micro搜索。在每个cell里有B个节点，节点1和节点2作为cell的输入，是前两个cell的输出。对于剩下的B-2个节点，使用控制器取做两个决策：（1）选择两个前驱节点作为当前节点的输入；（2）选择两个操作作用在这两个前驱节点上。上述操作之后，将两个节点相加。可能的操作有5种：identity，3x3和5x5的可分离卷积，3x3的最大池化和平均池化。以B=4举例，如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191011225552811.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<ul>
+<li>对于节点1、2，其作为输入，控制器不对此作决策。用$h_{1}$和$h_{2}$表示。</li>
+<li>在节点3，控制器选择两个前驱节点和两种操作。这里选择了节点2和节点2，选择的操作为5x5可分离卷积和identity，所以$h_{3}={\rm sep_conv_5x5}(h_{2})+{\rm id}(h_2)$</li>
+<li>在节点4，控制器选择了节点3和节点1，选择的操作为3x3可分离卷积和3x3可分离卷积，所说$h_{4}={\rm sep_conv_3x3}(h_{3})+{\rm sep_conv_3x3}(h_{1})$</li>
+<li>最终除了$h_{4}$其他节点都作为了其他节点的输入，所以$h_{4}$作为cell的输出</li>
+</ul>
+<p>从此搜索空间中还可以生成reduction cell，只需：（1）采样一个卷积cell；（2）应用步长为2的操作。卷积cell和reduction cell同时采样，则控制器RNN一共作$2(B-2)$种决策。在节点$i(3 \leq i \leq B)$，控制器从前$i-1$个节点任意选择2个节点，从5种操作中任意选择2个，所以总共有$(5 \times (B-2))^{2}$种可能的cell，算上reduction cell，一共有$(5 \times (B-2))^{4}$种可能的cell。</p>
+<h1 id="二、You-Only-Search-Once-Single-Shot-Neural-Architecture-Search-via-Direct-Sparse-Optimization"><a href="#二、You-Only-Search-Once-Single-Shot-Neural-Architecture-Search-via-Direct-Sparse-Optimization" class="headerlink" title="二、You Only Search Once: Single Shot Neural Architecture Search via Direct Sparse Optimization"></a><strong>二、You Only Search Once: Single Shot Neural Architecture Search via Direct Sparse Optimization</strong></h1><h2 id="1、总览-1"><a href="#1、总览-1" class="headerlink" title="1、总览"></a><strong>1、总览</strong></h2><p>在这篇论文里，作者将NAS重新表述为从一个大型网络中剔除无用的连接，因此只需一个模型被训练。由于模型在训练阶段就直接被优化了，作者称之为直接稀疏优化NAS（Direct Sparse Optimization NAS， DSO-NAS）。作者进一步论证了这个稀疏正则化可以被改进的加速近端梯度（proximal gradient）方法优化，不需要任何的控制器、性能预测或者搜索空间松弛（搜索空间松弛是可微分方法的内容）。DSO-NAS也第一次论证了NAS可以直接在大型数据集上使用而没有块结构的共享。</p>
+<h2 id="2、Motivation"><a href="#2、Motivation" class="headerlink" title="2、Motivation"></a><strong>2、Motivation</strong></h2><p>DSO-NAS通用是根据神经网络的结构空间可以用有向无环图DAG表示，在此空间的任何结构都是其子图。也就是说一个特定的结构可以从整个图中选择节点和边来得到。这里作者用完整的图来表示单个block的搜索空间，整个网络是由这些block用跨连接堆叠起来。</p>
+<p>对于一个有T个节点的DAG，第$i$个节点的输出$h^{(i)}$可以通过变换所有前驱节点输出$h^{(j)},j&lt;i$的和来得到：</p>
+<script type="math/tex; mode=display">
+h^{(i)}={\mathcal O}^{(i)} \left(\sum_{j=1}^{i-1}h^{(j)} \right)</script><p>下图展示了DAG里的一个特定的block，节点表示操作$\mathcal O$,边表示信息流动。<br><img src="https://img-blog.csdnimg.cn/20191012104107591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>上图中节点1和节点6是输入节点和输出节点，虚线表示没被连接起来的结点。那么节点5的输出是$h^{(5)}={\mathcal O} ^{(5)}\left(\sum_{j=4}^{4}h^{(j)} \right)$，也就是$h^{(5)}={\mathcal O} ^{(5)}(h^{(2)} + h^{(4)})$</p>
+<p>然后结构搜索问题可以看作边裁剪问题。在搜索过程中，我们移除没有用的边和节点，留下最重要的结构。这里作者对每个节点的输出都乘上一个乘子，上式变成：</p>
+<script type="math/tex; mode=display">
+h^{(i)}={\mathcal O}^{(i)} \left(\sum_{j=1}^{i-1} \lambda_{(j)}^{(i)}  h^{(j)} \right)</script><p>$\lambda_{(j)}^{(i)}$是作用在从节点$j$到节点$i$的乘子，然后对这些乘子使用稀疏正则化，使其在搜索过程中有些为0。如果$\lambda_{(j)}^{(i)}$为0，则相关的边和节点就被移除了。</p>
+<h2 id="3、搜索空间"><a href="#3、搜索空间" class="headerlink" title="3、搜索空间"></a><strong>3、搜索空间</strong></h2><p>DSO-NAS可以搜索block然后堆叠起来（micro-search），也可以搜索不带block的整个网络（macro-search）。</p>
+<p>对于要搜索的block，设定里面有M个层级，每个层级包含N个不同的操作（也就是节点）。每个操作将其所有前层级的节点和block的输入连接起来，block的输出就是将block里的所有节点连接起来。对于每个连接，都乘上一个乘子$\lambda$。对其使用稀疏正则化，优化之后移除$\lambda$为0的连接和节点，得到最终的block结构。整个过程如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191012110538401.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>图（a）是完整的DAG，图（b）是优化每个边的乘子$\lambda$，图（c）是移除了没有用的边和节点后最终的block。</p>
+<p>第$b$个block里第$i$层级的第$j$个节点$h_{(b,i,j)}$可以用如下公式表示：</p>
+<script type="math/tex; mode=display">
+h_{(b,i,j)}={\mathcal O}_{(b,i,j)} \left(\sum_{m=1}^{i-1} \sum_{n=1}^{N} \lambda_{(b,m,n)}^{(i,j)}  h_{(b,m,n)}  + \lambda_{(b,0,0)}^{(i,j)} O_{(b-1)} \right)</script><p>这里$h_{(b,0,0)}=O_{(b-1)}$和$h_{(b, M+1,0)}=O_{(b)}$分别是第$b$个block的输入节点和输出节点。第$m$个层级有$(m-1)N+1$个输入。第$b$个block的输出$O_{(b)}$是对所有连接到输出的结点应用reduction操作（1x1的卷积）$\mathcal R$得到的：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} O_{(b)}=\mathcal{R}\left(\left[\lambda_{(b, 1,1)}^{(M+1,0)} h_{(b, 1,1)}\right], \lambda_{(b, 1,2)}^{(M+1,0)} h_{(b, 1,2)}, \ldots, \lambda_{(b, m, n)}^{(M+1,0)} h_{(b, m, n)}, \ldots \lambda_{(b, M, N)}^{(M+1,0)} h_{(b, M, N)}\right) \\+O_{(b-1)}, m \in[1, M], n \in[1, N] \end{aligned}</script><p>整个由block堆叠的完整网络如下图所示：<br><img src="https://img-blog.csdnimg.cn/20191012112322615.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>整个网络有$S$个stage，每个stage有$B$个卷积block。除了最后一个stage，每个stage的最后都有一个reduction block。这里作者尝试了两种搜索空间：（1）$\lambda$在所有block中都共享的搜索空间；（2）每个block中$\lambda$都不同的搜索空间。</p>
+<p>卷积操作遵循Conv-Bn-ReLU的顺序，使用下面几种操作：</p>
+<ul>
+<li>3x3的可分离卷积</li>
+<li>5x5的可分离卷积</li>
+<li>3x3的平均池化</li>
+<li>3x3的最大池化</li>
+</ul>
+<p>对于reduction block，使用1x1和3x3大小的卷积核，步长为2。</p>
+<p>搜索block的任务因此可以简化为学习每个边的$\lambda$，可以用下式表示：</p>
+<script type="math/tex; mode=display">
+\min _{\mathbf{W}, \boldsymbol{\lambda}} \frac{1}{K} \sum_{i=1}^{K} \mathcal{L}\left(\mathbf{y}_{i}, N e t\left(\mathbf{x}_{i}, \mathbf{W}, \boldsymbol{\lambda}\right)\right)+\delta\|\mathbf{W}\|_{F}^{2}+\gamma\|\boldsymbol{\lambda}\|_{1}</script><p>$\mathbf{x}_{i}$和$\mathbf{y}_{i}$是输入数据和标签，$K$表示训练样本的数目，$\mathbf{W}$表示网络的权重，$\delta$和$\lambda$表示正则化权重。可以设${\mathcal G}(\lambda)=\frac{1}{K} \sum_{i=1}^{K} \mathcal{L}\left(\mathbf{y}_{i},N e t\left(\mathbf{x}_{i}, \mathbf{W}, \boldsymbol{\lambda}\right)\right)$</p>
+<h2 id="4、优化、训练"><a href="#4、优化、训练" class="headerlink" title="4、优化、训练"></a><strong>4、优化、训练</strong></h2><p>正则化参数$\lambda$优化起来非常困难，尤其在有随机性的深度神经网络里，虽然启发式的阈值方法可行，但优化是不稳定的。不过使用稀疏结构选择（Sparse Structure Selection，SSS）可以解决这个问题，SSS通过修改理论上合理的优化方法加速近端梯度（Accelerated proximal Gradient，APG）方法，重写公式避免在计算梯度时重复地前向和反向计算：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}{\mathbf{z}_{(t)}=\boldsymbol{\lambda}_{(t-1)}-\eta_{(t)} \nabla \mathcal{G}\left(\boldsymbol{\lambda}_{(t-1)}\right)} \\ {\mathbf{v}_{(t)}=S_{\eta_{(t)} \gamma}\left(\mathbf{z}_{(t)}\right)-\boldsymbol{\lambda}_{(t-1)}+\mu_{(t-1)} \mathbf{v}_{(t-1)}} \\ {\boldsymbol{\lambda}_{(t)}=\mathcal{S}_{\eta_{(t)} \gamma}\left(\mathbf{z}_{(t)}\right)+\mu_{(t)} \mathbf{v}_{(t)}}\end{array}</script><p>$t$是迭代地轮数，${\mathcal S}_{\eta_{(t)} \gamma}$表示软阈值操作${\mathcal S}_{\alpha}(\mathbf{z})_{i}={\rm sign}(z_{i})(|z_{i}|-\alpha)_{+}$，${\eta}_{(t)}$表示梯度步长，$\mu$是动量大小。这种方法称之为APG-NAG。$\mathbf{W}$和$\mathbf{\lambda}$使用NAG（Nesterov Accelerated Gradient ）和APG-NAG同时被更新。然而APG-NAG不能直接用在这里，裁剪的搜索空间是有限的，会导致一定程度的过拟合。这里作者将训练数据分成两部分，一部分用来更新$\mathbf{W}$，另一部分用来更新$\mathbf{\lambda}$。</p>
+<p>整个方法包括三个阶段：</p>
+<ul>
+<li>训练DAG全部连接的网络，得到好的权重初始化</li>
+<li>从预训练的模型中搜索结构</li>
+<li>从头训练最终的网络</li>
+</ul>
+<p>在前两个阶段，BN层的参数被固定为1，为了避免影响$\mathbf{\lambda}$的学习。在第二步之后，作者通过一个全局宽度乘法器来调整每个操作中的滤波器数量，以满足计算预算。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h1><p>[1] Pham H, Guan M Y, Zoph B, et al. Efficient Neural Architecture Search via Parameter Sharing[J]. 2018.<br>[2] Zhang X , Huang Z , Wang N . You Only Search Once: Single Shot Neural Architecture Search via Direct Sparse Optimization[J]. 2018.<br>[3] <a href="http://nooverfit.com/wp/%E4%BD%A0%E6%83%B3%E8%A6%81%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%87%AA%E5%8A%A8%E8%AE%BE%E8%AE%A1%EF%BC%8C%E8%B0%B7%E6%AD%8C%E5%A4%A7%E8%84%91%E5%B8%AE%E4%BD%A0%E5%AE%9E%E7%8E%B0%E4%BA%86/" target="_blank" rel="noopener">你想要的神经网络自动设计，谷歌大脑帮你实现了：用参数共享高效地搜索神经网络架构（ENAS）</a><br>[4] <a href="https://blog.csdn.net/weixin_34319817/article/details/89581856" target="_blank" rel="noopener">https://blog.csdn.net/weixin_34319817/article/details/89581856</a><br>[5] Huang Z , Wang N . Data-Driven Sparse Structure Selection for Deep Neural Networks[J]. 2017.<br>[6] 《深入理解AutoML和AutoDL》</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/深度学习/">深度学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/自动化/">自动化</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NAS/">NAS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/AutoDL/">AutoDL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/10/15/AutoDL论文解读（五）：可微分方法的NAS/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AutoDL论文解读（五）：可微分方法的NAS</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/10/10/AutoDL论文解读（三）：基于层或块的搜索/">
+                        <span class="hidden-mobile">AutoDL论文解读（三）：基于层或块的搜索</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/10/12/AutoDL论文解读（四）：权值共享的搜索/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

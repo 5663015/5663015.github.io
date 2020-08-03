@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>Python的30个技巧 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                Python的30个技巧
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-03-05 10:35">
+      2019年3月5日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>从公众号上看到了一篇文章《30个python编程技巧！》，觉得有些挺有用的，有的也一直在用，就挨个实现了一下。</p>
+</blockquote>
+<h2 id="1-原地交换两个数字"><a href="#1-原地交换两个数字" class="headerlink" title="1.原地交换两个数字"></a>1.原地交换两个数字</h2><pre><code>x, y =10, 20
+print(x, y)
+y, x = x, y
+print(x, y)
+</code></pre><p>10 20</p>
+<p>20 10</p>
+<h2 id="2-链状比较操作符"><a href="#2-链状比较操作符" class="headerlink" title="2.链状比较操作符"></a>2.链状比较操作符</h2><pre><code>n = 10
+print(1 &lt; n &lt; 20)
+print(1 &gt; n &lt;= 9)
+</code></pre><p>True</p>
+<p>False</p>
+<h2 id="3-使用三元操作符来实现条件赋值"><a href="#3-使用三元操作符来实现条件赋值" class="headerlink" title="3.使用三元操作符来实现条件赋值"></a>3.使用三元操作符来实现条件赋值</h2><p>[表达式为真的返回值] if [表达式] else [表达式为假的返回值]</p>
+<pre><code>y = 20
+x = 9 if (y == 10) else 8
+print(x)
+</code></pre><p>8</p>
+<h2 id="4-找abc中最小的数"><a href="#4-找abc中最小的数" class="headerlink" title="4.找abc中最小的数"></a>4.找abc中最小的数</h2><pre><code>def small(a, b, c):
+    return a if a&lt;b and a&lt;c else (b if b&lt;a and b&lt;c else c)
+print(small(1, 0, 1))
+print(small(1, 2, 2))
+print(small(2, 2, 3))
+print(small(5, 4, 3))
+</code></pre><p>0<br>1<br>3<br>3</p>
+<h2 id="5-列表推导"><a href="#5-列表推导" class="headerlink" title="5.列表推导"></a>5.列表推导</h2><pre><code>x = [m**2 if m&gt;10 else m**4 for m in range(50)]
+print(x)
+</code></pre><pre>[0, 1, 16, 81, 256, 625, 1296, 2401, 4096, 6561, 10000, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 441, 484, 529, 576, 625, 676, 729, 784, 841, 900, 961, 1024, 1089, 1156, 1225, 1296, 1369, 1444, 1521, 1600, 1681, 1764, 1849, 1936, 2025, 2116, 2209, 2304, 2401]</pre>
+
+
+<h2 id="4-多行字符串"><a href="#4-多行字符串" class="headerlink" title="4.多行字符串"></a>4.多行字符串</h2><pre><code>multistr = "select * from multi_row \
+where row_id < 5"
+print(multistr)</code></pre>
+
+<p>select * from multi_row where row_id &lt; 5</p>
+<pre><code>multistr = &quot;&quot;&quot;select * from multi_row 
+where row_id &lt; 5&quot;&quot;&quot;
+print(multistr)
+</code></pre><p>select * from multi_row </p>
+<p>where row_id &lt; 5</p>
+<pre><code>multistr = (&quot;select * from multi_row&quot;
+&quot;where row_id &lt; 5&quot;
+&quot;order by age&quot;)
+print(multistr)
+</code></pre><p>select * from multi_rowwhere row_id &lt; 5order by age</p>
+<h2 id="5-存储列表元素到新的变量"><a href="#5-存储列表元素到新的变量" class="headerlink" title="5.存储列表元素到新的变量"></a>5.存储列表元素到新的变量</h2><pre><code>testList = [1, 2, 3]
+x, y, z = testList    # 变量个数应该和列表长度严格一致
+print(x, y, z)
+</code></pre><p>1 2 3</p>
+<h2 id="6-打印引入模块的绝对路径"><a href="#6-打印引入模块的绝对路径" class="headerlink" title="6.打印引入模块的绝对路径"></a>6.打印引入模块的绝对路径</h2><pre><code>import threading
+import socket
+print(threading)
+print(socket)
+</code></pre><module 'threading' from 'd:\\python351\\lib\\threading.py'>
+
+<module 'socket' from 'd:\\python351\\lib\\socket.py'>
+
+<h2 id="7-交互环境下的“-”操作符"><a href="#7-交互环境下的“-”操作符" class="headerlink" title="7.交互环境下的“_”操作符"></a>7.交互环境下的“_”操作符</h2><p>在python控制台，不论我们测试一个表达式还是调用一个方法，结果都会分配给一个临时变量“_”</p>
+<h2 id="8-字典-集合推导"><a href="#8-字典-集合推导" class="headerlink" title="8.字典/集合推导"></a>8.字典/集合推导</h2><pre><code>testDic = {i: i * i for i in range(10)}
+testSet = {i * 2 for i in range(10)}
+print(testDic)
+print(testSet)
+</code></pre><p>{0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64, 9: 81}</p>
+<p>{0, 2, 4, 6, 8, 10, 12, 14, 16, 18}</p>
+<h2 id="9-调试脚本"><a href="#9-调试脚本" class="headerlink" title="9.调试脚本"></a>9.调试脚本</h2><p>用pdb模块设置断点</p>
+<pre><code>import pdb
+pdb.ste_trace()
+</code></pre><h2 id="10-开启文件分享"><a href="#10-开启文件分享" class="headerlink" title="10.开启文件分享"></a>10.开启文件分享</h2><p>python允许开启一个HTTP服务器从根目录共享文件</p>
+<pre><code>python -m http.server
+</code></pre><h2 id="11-检查python中的对象"><a href="#11-检查python中的对象" class="headerlink" title="11.检查python中的对象"></a>11.检查python中的对象</h2><pre><code>test = [1, 3, 5, 7]
+print(dir(test))
+</code></pre><p>[‘<strong>add</strong>‘, ‘<strong>class</strong>‘, ‘<strong>contains</strong>‘, ‘<strong>delattr</strong>‘, ‘<strong>delitem</strong>‘, ‘<strong>dir</strong>‘, ‘<strong>doc</strong>‘, ‘<strong>eq</strong>‘, ‘<strong>format</strong>‘, ‘<strong>ge</strong>‘, ‘<strong>getattribute</strong>‘, ‘<strong>getitem</strong>‘, ‘<strong>gt</strong>‘, ‘<strong>hash</strong>‘, ‘<strong>iadd</strong>‘, ‘<strong>imul</strong>‘, ‘<strong>init</strong>‘, ‘<strong>iter</strong>‘, ‘<strong>le</strong>‘, ‘<strong>len</strong>‘, ‘<strong>lt</strong>‘, ‘<strong>mul</strong>‘, ‘<strong>ne</strong>‘, ‘<strong>new</strong>‘, ‘<strong>reduce</strong>‘, ‘<strong>reduce_ex</strong>‘, ‘<strong>repr</strong>‘, ‘<strong>reversed</strong>‘, ‘<strong>rmul</strong>‘, ‘<strong>setattr</strong>‘, ‘<strong>setitem</strong>‘, ‘<strong>sizeof</strong>‘, ‘<strong>str</strong>‘, ‘<strong>subclasshook</strong>‘, ‘append’, ‘clear’, ‘copy’, ‘count’, ‘extend’, ‘index’, ‘insert’, ‘pop’, ‘remove’, ‘reverse’, ‘sort’]</p>
+<pre><code>test = range(10)
+print(dir(test))
+</code></pre><p>[‘<strong>class</strong>‘, ‘<strong>contains</strong>‘, ‘<strong>delattr</strong>‘, ‘<strong>dir</strong>‘, ‘<strong>doc</strong>‘, ‘<strong>eq</strong>‘, ‘<strong>format</strong>‘, ‘<strong>ge</strong>‘, ‘<strong>getattribute</strong>‘, ‘<strong>getitem</strong>‘, ‘<strong>gt</strong>‘, ‘<strong>hash</strong>‘, ‘<strong>init</strong>‘, ‘<strong>iter</strong>‘, ‘<strong>le</strong>‘, ‘<strong>len</strong>‘, ‘<strong>lt</strong>‘, ‘<strong>ne</strong>‘, ‘<strong>new</strong>‘, ‘<strong>reduce</strong>‘, ‘<strong>reduce_ex</strong>‘, ‘<strong>repr</strong>‘, ‘<strong>reversed</strong>‘, ‘<strong>setattr</strong>‘, ‘<strong>sizeof</strong>‘, ‘<strong>str</strong>‘, ‘<strong>subclasshook</strong>‘, ‘count’, ‘index’, ‘start’, ‘step’, ‘stop’]</p>
+<h2 id="12-简化if语句"><a href="#12-简化if语句" class="headerlink" title="12.简化if语句"></a>12.简化if语句</h2><pre><code># use following way to verify multi values
+if m in [1, 2, 3, 4]:
+# do not use following way
+if m==1 or m==2 or m==3 or m==4:
+</code></pre><h2 id="13-运行时检测python版本"><a href="#13-运行时检测python版本" class="headerlink" title="13.运行时检测python版本"></a>13.运行时检测python版本</h2><pre><code>import sys
+if not hasattr(sys, &quot;hexversion&quot;) or sys.version_info != (2, 7):
+    print(&quot;sorry, you are not running on python 2.7&quot;)
+    print(&quot;current python version:&quot;, sys.version)
+</code></pre><p>sorry, you are not running on python 2.7</p>
+<p>current python version: 3.5.1 (v3.5.1:37a07cee5969, Dec  6 2015, 01:54:25) [MSC v.1900 64 bit (AMD64)]</p>
+<h2 id="14-组合多个字符串"><a href="#14-组合多个字符串" class="headerlink" title="14.组合多个字符串"></a>14.组合多个字符串</h2><pre><code>test = [&quot;I&quot;, &quot;Like&quot;, &quot;Python&quot;]
+print(test)
+print(&quot;&quot;.join(test))
+</code></pre><p>[‘I’, ‘Like’, ‘Python’]</p>
+<p>ILikePython</p>
+<h2 id="15-四种翻转字符串、列表的方式"><a href="#15-四种翻转字符串、列表的方式" class="headerlink" title="15.四种翻转字符串、列表的方式"></a>15.四种翻转字符串、列表的方式</h2><pre><code># 翻转列表本身
+testList = [1, 3, 5]
+testList.reverse()
+print(testList)
+</code></pre><p>[5, 3, 1]</p>
+<pre><code># 在一个循环中翻转并迭代输出
+for element in reversed([1, 3, 5]):
+    print(element)
+</code></pre><p>5</p>
+<p>3</p>
+<p>1</p>
+<pre><code># 翻转字符串
+print(&quot;Test Python&quot;[::-1])
+</code></pre><p>nohtyP tseT</p>
+<pre><code># 用切片翻转列表
+print([1, 3, 5][::-1])
+</code></pre><p>[5, 3, 1]</p>
+<h2 id="16-用枚举在循环中找到索引"><a href="#16-用枚举在循环中找到索引" class="headerlink" title="16.用枚举在循环中找到索引"></a>16.用枚举在循环中找到索引</h2><pre><code>test = [10, 20, 30]
+for i, value in enumerate(test):
+    print(i, &#39;:&#39;, value)
+</code></pre><p>0 : 10</p>
+<p>1 : 20</p>
+<p>2 : 30</p>
+<h2 id="17-定义枚举量"><a href="#17-定义枚举量" class="headerlink" title="17.定义枚举量"></a>17.定义枚举量</h2><pre><code>class shapes:
+    circle, square, triangle, quadrangle = range(4)
+print(shapes.circle)
+print(shapes.square)
+print(shapes.triangle)
+print(shapes.quadrangle)
+</code></pre><p>0</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<h2 id="18-从方法中返回多个值"><a href="#18-从方法中返回多个值" class="headerlink" title="18.从方法中返回多个值"></a>18.从方法中返回多个值</h2><pre><code>def x():
+    return 1, 2, 3, 4
+a, b, c, d = x()
+print(a, b, c, d)
+</code></pre><p>1 2 3 4</p>
+<h2 id="19-使用-运算符unpack函数参数"><a href="#19-使用-运算符unpack函数参数" class="headerlink" title="19.使用*运算符unpack函数参数"></a>19.使用*运算符unpack函数参数</h2><pre><code>def test(x, y, z):
+    print(x, y, z)
+testDic = {&#39;x&#39;:1, &#39;y&#39;:2, &#39;z&#39;:3}
+testList = [10, 20, 30]
+test(*testDic)
+test(**testDic)
+test(*testList)
+</code></pre><p>z x y</p>
+<p>1 2 3</p>
+<p>10 20 30</p>
+<h2 id="20-用字典来存储表达式"><a href="#20-用字典来存储表达式" class="headerlink" title="20.用字典来存储表达式"></a>20.用字典来存储表达式</h2><pre><code>stdcalc = {
+    &quot;sum&quot;: lambda x, y: x + y,
+    &quot;subtract&quot;: lambda x, y: x - y
+}
+print(stdcalc[&quot;sum&quot;](9, 3))
+print(stdcalc[&quot;subtract&quot;](9, 3))
+</code></pre><p>12</p>
+<p>6</p>
+<h2 id="21-计算任何数的阶乘"><a href="#21-计算任何数的阶乘" class="headerlink" title="21.计算任何数的阶乘"></a>21.计算任何数的阶乘</h2><pre><code>import functools
+result = (lambda k: functools.reduce(int.__mul__, range(1, k+1), 1))(3)
+print(result)
+</code></pre><p>6</p>
+<h2 id="22-找到列表中出现次数最多的数"><a href="#22-找到列表中出现次数最多的数" class="headerlink" title="22.找到列表中出现次数最多的数"></a>22.找到列表中出现次数最多的数</h2><pre><code>test = [1, 2, 3, 4, 2, 2, 3, 1, 4, 4, 4, 4]
+print(max(set(test), key=test.count))
+</code></pre><p>4</p>
+<h2 id="23-重置递归限制"><a href="#23-重置递归限制" class="headerlink" title="23.重置递归限制"></a>23.重置递归限制</h2><p>python限制递归次数到1000，可以用下面方法重置</p>
+<pre><code>import sys
+x = 1200
+print(sys.getrecursionlimit())
+sys.setrecursionlimit(x)
+print(sys.getrecursionlimit())
+</code></pre><p>1000<br>1200</p>
+<h2 id="24-检查一个对象的内存使用"><a href="#24-检查一个对象的内存使用" class="headerlink" title="24.检查一个对象的内存使用"></a>24.检查一个对象的内存使用</h2><pre><code>import sys
+x = 1
+print(sys.getsizeof(x))   # python3.5中一个32比特的整数占用28字节
+</code></pre><p>28</p>
+<h2 id="25-使用slots减少内存开支"><a href="#25-使用slots减少内存开支" class="headerlink" title="25.使用slots减少内存开支"></a>25.使用slots减少内存开支</h2><pre><code>import sys
+# 原始类
+class FileSystem(object):
+    def __init__(self, files, folders, devices):
+        self.files = files
+        self.folder = folders
+        self.devices = devices
+        print(sys.getsizeof(FileSystem))
+# 减少内存后
+class FileSystem(object):
+    __slots__ = [&#39;files&#39;, &#39;folders&#39;, &#39;devices&#39;]
+    def __init__(self, files, folders, devices):
+        self.files = files
+        self.folder = folders
+        self.devices = devices
+        print(sys.getsizeof(FileSystem))
+</code></pre><p>1016</p>
+<p>888</p>
+<h2 id="26-用lambda-来模仿输出方法"><a href="#26-用lambda-来模仿输出方法" class="headerlink" title="26.用lambda 来模仿输出方法"></a>26.用lambda 来模仿输出方法</h2><pre><code>import sys
+lprint = lambda *args: sys.stdout.write(&quot; &quot;.join(map(str, args)))
+lprint(&quot;python&quot;, &quot;tips&quot;, 1000, 1001)
+</code></pre><p>python tips 1000 1001</p>
+<h2 id="27-从两个相关序列构建一个字典"><a href="#27-从两个相关序列构建一个字典" class="headerlink" title="27.从两个相关序列构建一个字典"></a>27.从两个相关序列构建一个字典</h2><pre><code>t1 = (1, 2, 3)
+t2 = (10, 20, 30)
+print(dict(zip(t1, t2)))
+</code></pre><p>{1: 10, 2: 20, 3: 30}</p>
+<h2 id="28-搜索字符串的多个前后缀"><a href="#28-搜索字符串的多个前后缀" class="headerlink" title="28.搜索字符串的多个前后缀"></a>28.搜索字符串的多个前后缀</h2><pre><code>print(&quot;http://localhost:8888/notebooks/Untitled6.ipynb&quot;.startswith((&quot;http://&quot;, &quot;https://&quot;)))
+print(&quot;http://localhost:8888/notebooks/Untitled6.ipynb&quot;.endswith((&quot;.ipynb&quot;, &quot;.py&quot;)))
+</code></pre><p>True</p>
+<p>True</p>
+<h2 id="29-不使用循环构造一个列表"><a href="#29-不使用循环构造一个列表" class="headerlink" title="29.不使用循环构造一个列表"></a>29.不使用循环构造一个列表</h2><pre><code>import itertools
+import numpy as np
+test = [[-1, -2], [30, 40], [25, 35]]
+print(list(itertools.chain.from_iterable(test)))
+</code></pre><p>[-1, -2, 30, 40, 25, 35]</p>
+<h2 id="30-实现switch-case语句"><a href="#30-实现switch-case语句" class="headerlink" title="30.实现switch-case语句"></a>30.实现switch-case语句</h2><pre><code>def xswitch(x):
+    return  xswitch._system_dict.get(x, None)
+xswitch._system_dict = {&quot;files&quot;:10, &quot;folders&quot;:5, &quot;devices&quot;:2}
+print(xswitch(&quot;default&quot;))
+print(xswitch(&quot;devices&quot;))
+</code></pre><p>None</p>
+<p>2</p>
+</module></module>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/原创/">原创</a>
+                    
+                      <a class="hover-with-bg" href="/tags/编程语言/">编程语言</a>
+                    
+                      <a class="hover-with-bg" href="/tags/python/">python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/03/11/github高星项目/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">github高星项目</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/03/04/PHM专栏-文献汇总/">
+                        <span class="hidden-mobile">PHM专栏-文献汇总</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/03/05/Python的30个技巧/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

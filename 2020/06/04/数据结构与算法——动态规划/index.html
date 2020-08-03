@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>数据结构与算法——动态规划 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                数据结构与算法——动态规划
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-04 15:12">
+      2020年6月4日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      61
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 个月前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="一、动态规划"><a href="#一、动态规划" class="headerlink" title="一、动态规划"></a><strong>一、动态规划</strong></h1><h2 id="1、从斐波那契数列说起"><a href="#1、从斐波那契数列说起" class="headerlink" title="1、从斐波那契数列说起"></a><strong>1、从斐波那契数列说起</strong></h2><p>斐波那契数列我们比较熟悉了，它的递推公式为$f(n)=f(n-1)+f(n-2)$，它的解法在<a href="https://blog.csdn.net/u014157632/article/details/104950741" target="_blank" rel="noopener">《数据结构与算法——递归》</a>这一节里也说过了。直接使用递归会造成很多重复计算，它的时间复杂度为$O(2^N)$；而使用记忆化，即将中间过程缓存起来，可以降到$O(N)$的时间复杂度。实际上这样的递归是“从上而下”的，我们可以“从下而上”地做，由$f(0)$和$f(1)$得到$f(2)$，再由$f(1)$和$f(2)$得到$f(3)$……这样的写法如下所示：<br><pre><code class="hljs python">F[<span class="hljs-number">0</span>], F[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>, <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>, n):
+	F[i] = F[i<span class="hljs-number">-1</span>] + F[i<span class="hljs-number">-2</span>]</code></pre></p>
+<p>上面的“由下而上地使用递推公式”代表了动态规划的基本思想。上面的斐波那契数列的解法，是最最简单的动态规划，实际上的递推公式会更复杂，比如会有各种限制条件。</p>
+<p><strong>动态规划的基本思想</strong>：问题的最优解如果可以由子问题的最优解推导得到，则可以先求解子问题的最优解，再构造原问题的最优解；若子问题有较多的重复出现，则可以自底向上从最终子问题向原问题逐步求解。[1]<br><strong>状态</strong>：在动规解题中，我们将和子问题相关的各个变量的一组取值，称之为一个“状态”。[2]<br><strong>状态转移方程</strong>：即递推公式。上面的斐波那契数列的递推公式是给定的，而一般情况下需要我们自己推导出来递推公式。</p>
+<h2 id="2、举例进一步说明"><a href="#2、举例进一步说明" class="headerlink" title="2、举例进一步说明"></a><strong>2、举例进一步说明</strong></h2><p>现在举个例子进一步说明动态规划：数路径问题。有下面一个$m$行$n$列的方格格，从最左上角的$(0, 0)$出发，达到最右下角的$(m-1, n-1)$，一共有几条路？图上颜色的格子是障碍物不能走，并且只能向右或向下走。</p>
+<p align="center">
+    <img src="https://img-blog.csdnimg.cn/20200323225820923.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="350" height="300">
+    </p><p align="center">
+    </p>
+<p></p>
+
+<p>对于这个问题，我们可以递归地求解，如下图所示。从一开始，可以向右走到B，也可以向下走到A，那么<code>从start到end的有多少条路径=从B到end的路径数+从A到end的路径数</code>。同样<code>从B到end的路径数=从E到end的路径数+从C到end的路径树</code>，对于A也是类似的，这样可以一直递归下去。但是这样会有个问题，和斐波那契数列的原始递归解法一样，有很多路径被重复计算了，比如<code>从C到end的路径</code>，它的时间复杂度也会是指数级的。</p>
+<p align="center">
+    <img src="https://img-blog.csdnimg.cn/20200323230042806.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="650" height="300">
+    </p><p align="center">
+    </p>
+<p></p>
+
+<p>根据上节对斐波那契数列的分析，我们可以采用“自底向上”的方式，如下图所示，我们从end开始往前推。要到达end，只有从红色箭头指的两个格子那里走（因为只能向右走或向下走）。也就是说，当处于这两个格子之一的时候，只有一条路可以走，我们在格子里记“1”。对于最下面一排的格子，我们都只能向右走，所以都标记为“1”。从蓝色箭头指的格子出发，我们可以向右走也可以向下走，有两条路所以标记为“2”。这个“2”其实是<code>右边格子到end的路径数+下面格子到end的路径数</code>，也就是“1+1”。同理，白色箭头指的格子应该标记为<code>1+1=2</code>，也有两条路可走；绿色箭头指的格子应该标记为<code>2+1=3</code>，则有3条路可走。</p>
+<p align="center">
+    <img src="https://img-blog.csdnimg.cn/20200323230936954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="400" height="330">
+    </p><p align="center">
+    </p>
+<p></p>
+
+<p>就这样从end开始一直往上遍历每个格子，我们可以把格子都标记上，一直到start。最后start右边是17，下边是10，因此这个题的结果就是27。</p>
+<p align="center">
+    <img src="https://img-blog.csdnimg.cn/20200323231914295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="400" height="400">
+    </p><p align="center">
+    </p>
+<p></p>
+
+<p><strong>动态规划模板：</strong></p>
+<pre><code class="hljs python"><span class="hljs-comment"># 以二维为例，只是一个大概的框架</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">DP</span><span class="hljs-params">()</span>:</span>
+	<span class="hljs-comment"># 定义状态</span>
+	dp = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(m + <span class="hljs-number">1</span>)] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(n + <span class="hljs-number">1</span>)]
+	<span class="hljs-comment"># 状态初始化</span>
+	dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], dp[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>], ... = x, y, ...
+	<span class="hljs-comment"># DP状态的推导</span>
+	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(m):
+		<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(n):
+			dp[i][j] = min(dp[i<span class="hljs-number">-1</span>][j], dp[i][j<span class="hljs-number">-1</span>])
+	<span class="hljs-keyword">return</span> dp[m][n]	<span class="hljs-comment"># 最优解</span></code></pre>
+<h1 id="二、例题"><a href="#二、例题" class="headerlink" title="二、例题"></a><strong>二、例题</strong></h1><h2 id="1、爬楼梯"><a href="#1、爬楼梯" class="headerlink" title="1、爬楼梯"></a><strong>1、爬楼梯</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/climbing-stairs/" target="_blank" rel="noopener">第70题</a>。</p>
+<p align="center">
+    <img src="https://img-blog.csdnimg.cn/20200324224153777.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="300" height="300">
+    </p><p align="center">
+    </p>
+<p></p>
+
+<p>假设我们现在在第n个阶梯，我们要求的是走到第n个阶梯有多少种走法，即$F(n)$。我们知道只能走1步或2步，那么要走到第n个阶梯，只能从第n-1个阶梯或第n-2个阶梯走，那么走到第n个阶梯的走法个数等于走到第n-1个阶梯的走法个数加上走到第n-2个阶梯的走法个数。上述过程我们可以总结出此题的状态及状态转移方程：</p>
+<ul>
+<li>状态：$F(n)$，到第n个阶梯的走法个数</li>
+<li>状态转移方程：$F(n)=F(n-1)+F(n-2)$</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">climbStairs</span><span class="hljs-params">(self, n: int)</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">return</span> n
+        a, b = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>, n):
+            c = a + b
+            b, a = c, b
+        <span class="hljs-keyword">return</span> c</code></pre>
+<ul>
+<li>时间复杂度：$O(n)$</li>
+<li>空间复杂度：$O(1)$</li>
+</ul>
+<h2 id="2、三角形最小路径和"><a href="#2、三角形最小路径和" class="headerlink" title="2、三角形最小路径和"></a><strong>2、三角形最小路径和</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/triangle/submissions/" target="_blank" rel="noopener">第120题</a></p>
+<p align="center">
+    <img src="https://img-blog.csdnimg.cn/20200324230515825.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="350" height="280">
+    <img src="https://img-blog.csdnimg.cn/20200324230940884.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="Sample" width="350" height="280">
+    </p><p align="center">
+    </p>
+<p></p>
+
+<p>三角形是个二维数组，我们要求得从最上面的$(0, 01)$出发，到最底下一层的最小路径和，即DF(0, 0)。比如上图的最小路径和的路径是$2  \to 3 \to 5 \to 1$。此题不可以用贪心算法，反例如上面右图所示。要用动态规划，我们要从底向上地去思考。加入我们处于第$i$行，那么从$(i, j)$出发到底部的最小路径和为：（它的左下方格的最小路径和，它的右下方格的最小路径和）的最小值加上它自己。注意我们需要得到是“最小路径和”，而不是方格本身的最小值。由此我们可以确定本题的状态和状态转移方程：</p>
+<ul>
+<li>状态：$DF(i, j)$，第$(i, j)$个方格到最底部的最小路径和</li>
+<li>状态转移方程：$DF[i, j] = min(DF[i+1, j], DF[i+1,j+1]) + Triangle[i, j]$，初始值为$DF[m-1, j]=Triangle[-1, j]$</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">minimumTotal</span><span class="hljs-params">(self, triangle: List[List[int]])</span> -&gt; int:</span>
+        m, n = len(triangle), len(triangle[<span class="hljs-number">-1</span>])
+        DP = triangle[<span class="hljs-number">-1</span>]
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(m<span class="hljs-number">-1</span>)[::<span class="hljs-number">-1</span>]:
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(len(triangle[i])):
+                DP[j] = min(DP[j], DP[j+<span class="hljs-number">1</span>]) + triangle[i][j]
+        <span class="hljs-keyword">return</span> DP[<span class="hljs-number">0</span>]</code></pre>
+<ul>
+<li>时间复杂度：$O(m \times n)$</li>
+<li>空间复杂度：$O(n)$</li>
+</ul>
+<h2 id="3、乘积最大子序列"><a href="#3、乘积最大子序列" class="headerlink" title="3、乘积最大子序列"></a><strong>3、乘积最大子序列</strong></h2><p>此题是leetcode<a href="https://leetcode-cn.com/problems/maximum-product-subarray/" target="_blank" rel="noopener">第152题</a>。<br>我们设有一个数组<code>a=[2, 3, -2, 4]</code>，其乘积最大的子序列为<code>2, 3</code>，最大乘积为6。假设我们在第<code>i</code>位，因为这个数可能为正也可能为负，所以我们需要记录最大乘积子序列和最小乘积子序列。我们可以这样定义状态和状态转移方程：</p>
+<ul>
+<li>状态：$DP_{max}[i]$和$DP_{min}[i]$。代表的意思是，在第$i$个数时，从$0 \to i$的最大乘积子序列的乘积值，注意这里包括第$i$个数。</li>
+<li>状态转移方程：因为$a[i]$可能为正也可能为负，为负时要乘前面的最小子序列的乘积才能变为最大值，因此要区分$a[i]$为正负的情况：<script type="math/tex; mode=display">
+DP_{max}[i]=
+\begin{cases}
+DP_{max}[i-1] \times a[i], a[i] \geq 0 \\
+DP_{min}[i-1] \times a[i], a[i] < 0
+\end{cases}</script><script type="math/tex; mode=display">
+DP_{min}[i]=
+\begin{cases}
+DP_{min}[i-1] \times a[i], a[i] \geq 0 \\
+DP_{max}[i-1] \times a[i], a[i] < 0
+\end{cases}</script></li>
+</ul>
+<p>最后的结果为$max\{DP_{max}\}$</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxProduct</span><span class="hljs-params">(self, nums: List[int])</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> nums <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+        <span class="hljs-comment"># 这里我们不需要为nums里的每个元素都开辟一个存储最大最小值的空间</span>
+        <span class="hljs-comment"># 只需要当前元素和前一个元素的就行</span>
+        DP_max, DP_min, res = [nums[<span class="hljs-number">0</span>], nums[<span class="hljs-number">0</span>]], [nums[<span class="hljs-number">0</span>], nums[<span class="hljs-number">0</span>]], nums[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, len(nums)):
+            num = nums[i]
+            x, y = i % <span class="hljs-number">2</span>, (i - <span class="hljs-number">1</span>) % <span class="hljs-number">2</span>
+            DP_max[x] = max(DP_max[y] * num, DP_min[y] * num, num)
+            DP_min[x] = min(DP_max[y] * num, DP_min[y] * num, num)
+            res = max(DP_max[x], res)
+        <span class="hljs-keyword">return</span> res</code></pre>
+<ul>
+<li>时间复杂度：$O(N^2)$</li>
+<li>空间复杂度：$O(1)$</li>
+</ul>
+<h2 id="4、最长上升子序列"><a href="#4、最长上升子序列" class="headerlink" title="4、最长上升子序列"></a><strong>4、最长上升子序列</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">第300题</a>。<br>假设有一序列<code>a=[10, 9, 2, 5, 3, 7, 101, 18, 20]</code>，其最长上升子序列为<code>2, 3, 7, 18, 20</code>，长度为5。假如我们处于第$i$个位置，对于它前面的每个元素$j$，都有个从0到$j$的最长上升子序列长度，如果$a[i]&gt;a[j]$，那么$a[0]$到$a[j]$的最长上升子序列再加上$a[i]$通用可以构成上升序列。所以对应每个$j$，我们找到他们当中加上$a[j]$后最长上升子序列的长度即可。</p>
+<ul>
+<li>状态：$DP[i]$，从0到$i$的最长上升子序列的长度（包含第$i$个元素）</li>
+<li>状态转移方程：对于$i \in[0, n-1]$，$DP[i]=max\{DP[i], DP[j]+1\}$，其中$j \in [0, i-1]$且$a[j] &lt; a[i]$</li>
+</ul>
+<p>最后的结果为$max\{DP[0], DP[1], \cdots, DP[n-1]\}$</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">lengthOfLIS</span><span class="hljs-params">(self, nums: List[int])</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> nums <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> len(nums) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        
+        DP = [<span class="hljs-number">1</span>] * len(nums)
+        res = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, len(nums)):
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, i):
+                <span class="hljs-keyword">if</span> nums[j] &lt; nums[i]:
+                    DP[i] = max(DP[j] + <span class="hljs-number">1</span>, DP[i])
+            res = max(DP[i], res)
+        <span class="hljs-keyword">return</span> res</code></pre>
+<h2 id="5、零钱兑换"><a href="#5、零钱兑换" class="headerlink" title="5、零钱兑换"></a><strong>5、零钱兑换</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/coin-change/" target="_blank" rel="noopener">第322题</a>。<br>设有不同面额的硬币<code>coins=[1, 2, 5]</code>，和一个总金额<code>amount=11</code>。这个题可以转为类似爬楼梯的问题（上面第1题），每次可以爬1、2、5步，一共有11级台阶，所需的最少步数是多少。</p>
+<ul>
+<li>状态：$DP[i]$，到达第$i$阶时最少的步数</li>
+<li>状态转移方程：$DP[i]=min\{DP[i-coins[j]]\} +1,j \in [0, n-1] \space \space \text{and} \space \space coins[j] \leq i$</li>
+</ul>
+<p>最终结果为$DP[amount]$</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(self, coins: List[int], amount: int)</span> -&gt; int:</span>
+    	<span class="hljs-comment"># 初始化一个长度为amount + 1的数组</span>
+        DP = [<span class="hljs-number">0</span>] + [amount+<span class="hljs-number">1</span>] * (amount)
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, amount+<span class="hljs-number">1</span>):
+            <span class="hljs-keyword">for</span> coin <span class="hljs-keyword">in</span> coins:
+                <span class="hljs-keyword">if</span> coin &lt;= i:
+                    DP[i] = min(DP[i], DP[i-coin] + <span class="hljs-number">1</span>)
+        <span class="hljs-keyword">if</span> DP[amount] &gt; amount:	<span class="hljs-comment"># 说明DP[i]没有被更新，没有可以组成amount的组合</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> DP[amount]</code></pre>
+<ul>
+<li>时间复杂度：$O(amount \times n)$</li>
+<li>空间复杂度：$O(amount)$</li>
+</ul>
+<h2 id="6、编辑距离"><a href="#6、编辑距离" class="headerlink" title="6、编辑距离"></a><strong>6、编辑距离</strong></h2><p>此题为leetcode<a href="https://leetcode-cn.com/problems/edit-distance/" target="_blank" rel="noopener">第72题</a><br>有两个单词<code>word1</code>和<code>word2</code>，假设我们处于<code>word1</code>的第$i$位和<code>word2</code>的第$j$位，分为两种情况。<strong>第一种情况</strong>，$w[i]==w[j]$，此时不需要任何变化，此时的最少的操作数为<code>word1的第0到i-1个字符变为word2第0至j-1个字符所需的最少操作数</code>。<strong>第二种情况</strong>，$w[i]!=w[j]$，那么可能执行三种操作（插入，删除，替换）。如果执行插入操作，那么到此步需要懂得最少操作数为<code>word1的第0至i-1个字符变为word2第0至j个字符所需的最少操作数</code>；如果执行删除操作，那么到此步需要懂得最少操作数为<code>word1的第0至i个字符变为word2第0至j-1个字符所需的最少操作数</code>；如果执行替换操作，那么和第一种情况是类似的。那到底选哪种操作呢，答案是选择使得当前状态最小的操作，即上面的三个操作中取$min$。<br><img src="https://img-blog.csdnimg.cn/20200328183436156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQxNTc2MzI=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<ul>
+<li>状态：$DP[i][j]$，<code>word1</code>的前$i$个字符变为<code>word2</code>的前$j$个字符所需的最少步数</li>
+<li>状态转移方程：<script type="math/tex; mode=display">
+DP[i][j] = 
+\begin{cases}
+DP[i-1][j-1], \space \space if \space \space word[i] == word[j] \\
+min\{\underbrace{DP[i-1,j]}_{insert}, \underbrace{DP[i, j-1]}_{delete}, \underbrace{DP[i-1, j-1]}_{replace}\} + 1, \space \space if \space \space word[i] != word[j]
+\end{cases}</script></li>
+</ul>
+<p>最终结果为$DP[m][n]$</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">minDistance</span><span class="hljs-params">(self, word1: str, word2: str)</span> -&gt; int:</span>
+        m, n = len(word1), len(word2)
+        
+        <span class="hljs-comment"># 初始化一个二维数组，为(m+1) x (n+1)大小</span>
+        DP = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(n + <span class="hljs-number">1</span>)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(m + <span class="hljs-number">1</span>)]
+        <span class="hljs-comment"># 初值</span>
+        <span class="hljs-comment"># word1的第0至i个字符变为空需要i步操作</span>
+        <span class="hljs-comment"># word1由空变为word的第0至j个字符需要j步操作</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(m + <span class="hljs-number">1</span>): DP[i][<span class="hljs-number">0</span>] = i
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(n + <span class="hljs-number">1</span>): DP[<span class="hljs-number">0</span>][j] = j
+        
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, m + <span class="hljs-number">1</span>):
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, n + <span class="hljs-number">1</span>):
+                <span class="hljs-keyword">if</span> word1[i - <span class="hljs-number">1</span>] == word2[j - <span class="hljs-number">1</span>]:
+                    DP[i][j] = DP[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]
+                <span class="hljs-keyword">else</span>:
+                    DP[i][j] = min(DP[i - <span class="hljs-number">1</span>][j], DP[i][j - <span class="hljs-number">1</span>], DP[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]) + <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> DP[m][n]</code></pre>
+<ul>
+<li>时间复杂度：$O(m \times n)$</li>
+<li>空间复杂度：$O(m \times n)$</li>
+</ul>
+<h2 id="7、股票买卖问题"><a href="#7、股票买卖问题" class="headerlink" title="7、股票买卖问题"></a><strong>7、股票买卖问题</strong></h2><p>这里我们讲解关于股票买卖的6道系列题：<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener">121</a>、<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/" target="_blank" rel="noopener">122</a>、<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener">123</a>、<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/" target="_blank" rel="noopener">188</a>、<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/" target="_blank" rel="noopener">309</a>、<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/" target="_blank" rel="noopener">714</a>。以上题目均可以用一个状态转移方程解决，只需稍微修改既可以。我们以一个通用的情况为例，即“每天可以完成$K$笔交易”。注意：（1）一次交易是包括买和卖的过程；（2）当前有股票时只能卖，不能再次买入</p>
+<p>我们设数组$a$的长度为$N$，我们可以设状态为到第$i$天时所获得的最大利润，是一个一维数组。但我们会发现，在写状态转移方程时无法判断当前有无股票（无法判断当前应该买还是卖）、无法判断当前是第几次交易（达到最大交易次数则无法再交易），因此上面两个信息也应该出现在状态里。那么我们需要定义一个三维的状态：</p>
+<ul>
+<li><p>状态的定义：$DP[i][k][j]$，到第$i$天时的最大利润。其中：（1）$k \in [0, K]$，表示$i$之前总共进行了多少次交易；（2）$j=0 \space or \space 1$，0表示当前无股票，只能不动或买，1表示当前有股票，只能不动或卖。</p>
+</li>
+<li><p>状态转移方程：当处于第$i$天第$k$次交易时，可能出现有股票也可能无股票的情况，即$j$可取值为0或1。当$j=0$即没有股票时，可能是前一天也没有股票，当下也不做交易；也可能是前一天有股票，当下把它卖掉了，注意前一天有股票依然是第$k$次交易，因为只有再次卖掉才算一次交易。同理当$j=1$即有股票时，可能是前一天有股票，当下不做交易；也可能是前一天无股票，当下买入了，注意前一天无股票那么就是已经完成了$k-1$次交易。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+DP[i, k, 0]=max
+\begin{cases}
+DP[i-1, k, 0]   \text{，前一天无股票，不动}\\
+DP[i-1, k, 1] + a[i] \text{，前一天有股票，卖掉}
+\end{cases}</script><script type="math/tex; mode=display">
+DP[i, k, 1]=max
+\begin{cases}
+DP[i-1, k, 1]   \text{，前一天有股票，不动}\\
+DP[i-1, k-1, 0] - a[i] \text{，前一天无股票，买入}
+\end{cases}</script><p>最终结果为$max\{DP[n-1, k, 0], k \in [0, K]\}$。在这样的状态和状态转移方程下，时间复杂度为$O(N \times K)$，空间复杂度为$O(N \times K)$。</p>
+<p>用这么一个状态转移方程就可以解决下面6道类似的题目：</p>
+<p><strong>188题：</strong> 最多可以完成$K$笔交易</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(self, K: int, prices: List[int])</span> -&gt; int:</span>
+    	<span class="hljs-comment"># 特殊情况，只有0天或1天无法完成一次完整的交易，利润为0</span>
+        <span class="hljs-keyword">if</span> len(prices) &lt;= <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        <span class="hljs-comment"># 这里需要对K进行一下讨论：若K大于prices长度的一半，那么实际上可以进行不限次数的交易，和122题的情况一样</span>
+        <span class="hljs-comment"># 不区分这样的情况也可以，但在leetcode上会超时</span>
+        <span class="hljs-keyword">if</span> K &lt; len(prices) // <span class="hljs-number">2</span>:
+        	<span class="hljs-comment"># 定义状态，三维数组</span>
+            DP = [[[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(K + <span class="hljs-number">1</span>)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(len(prices))]
+            <span class="hljs-comment"># 初始化状态，第0天的每次交易有股票的情况下，利润为-prices[0]</span>
+            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, K+<span class="hljs-number">1</span>):
+                DP[<span class="hljs-number">0</span>][k][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>]
+            <span class="hljs-comment"># 根据状态方程遍历每天和每天的交易次数</span>
+            res = <span class="hljs-number">0</span>
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, len(prices)):
+                <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, K+<span class="hljs-number">1</span>):
+                    DP[i][k][<span class="hljs-number">0</span>] = max(DP[i<span class="hljs-number">-1</span>][k][<span class="hljs-number">0</span>], DP[i<span class="hljs-number">-1</span>][k][<span class="hljs-number">1</span>] + prices[i])
+                    DP[i][k][<span class="hljs-number">1</span>] = max(DP[i<span class="hljs-number">-1</span>][k][<span class="hljs-number">1</span>], DP[i<span class="hljs-number">-1</span>][k<span class="hljs-number">-1</span>][<span class="hljs-number">0</span>] - prices[i])
+
+                    <span class="hljs-keyword">if</span> res &lt; DP[i][k][<span class="hljs-number">0</span>]:
+                        res = DP[i][k][<span class="hljs-number">0</span>]
+            <span class="hljs-keyword">return</span> res
+        <span class="hljs-comment"># 和122题一样的情况，解释见下面的122题</span>
+        <span class="hljs-keyword">else</span>:
+            DP = [<span class="hljs-number">0</span>, -prices[<span class="hljs-number">0</span>]]
+            <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> prices[<span class="hljs-number">1</span>:]:
+                DP[<span class="hljs-number">0</span>] = max(DP[<span class="hljs-number">0</span>], DP[<span class="hljs-number">1</span>] + price)
+                DP[<span class="hljs-number">1</span>] = max(DP[<span class="hljs-number">1</span>], DP[<span class="hljs-number">0</span>] - price)
+            <span class="hljs-keyword">return</span> DP[<span class="hljs-number">0</span>]</code></pre>
+<p><strong>121题</strong>：只能进行一次交易</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(self, prices: List[int])</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> len(prices) &lt;= <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        <span class="hljs-comment"># 只能进行一次交易的话可以把K这一维去掉，同时我们只关注相邻的状态，DP的空间复杂度可以由O(N)变为O(1)</span>
+        DP = [<span class="hljs-number">0</span>, -prices[<span class="hljs-number">0</span>]]
+        <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> prices[<span class="hljs-number">1</span>:]:
+            DP[<span class="hljs-number">0</span>] = max(DP[<span class="hljs-number">0</span>], DP[<span class="hljs-number">1</span>] + price)
+            DP[<span class="hljs-number">1</span>] = max(DP[<span class="hljs-number">1</span>], -price)
+        <span class="hljs-keyword">return</span> DP[<span class="hljs-number">0</span>]</code></pre>
+<p><strong>122题：</strong> 可以交易无限次</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(self, prices: List[int])</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> len(prices) &lt;= <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        DP = [<span class="hljs-number">0</span>, -prices[<span class="hljs-number">0</span>]]
+        <span class="hljs-comment"># 可以交易无限次的话K这个维度也没有意义了，可以去掉</span>
+        <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> prices[<span class="hljs-number">1</span>:]:
+            DP[<span class="hljs-number">0</span>] = max(DP[<span class="hljs-number">0</span>], DP[<span class="hljs-number">1</span>] + price)
+            DP[<span class="hljs-number">1</span>] = max(DP[<span class="hljs-number">1</span>], DP[<span class="hljs-number">0</span>] - price)
+        <span class="hljs-keyword">return</span> DP[<span class="hljs-number">0</span>]</code></pre>
+<p><strong>123题：</strong> 最多可以完成2笔交易</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(self, prices: List[int])</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> len(prices) &lt;= <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        <span class="hljs-comment"># 是188题的特殊情况，可以直接设K=2</span>
+        K = <span class="hljs-number">2</span>
+        DP = [[[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(K + <span class="hljs-number">1</span>)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(len(prices))]
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, K+<span class="hljs-number">1</span>):
+            DP[<span class="hljs-number">0</span>][k][<span class="hljs-number">1</span>] = -prices[<span class="hljs-number">0</span>]
+        res = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, len(prices)):
+            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, K+<span class="hljs-number">1</span>):
+                DP[i][k][<span class="hljs-number">0</span>] = max(DP[i<span class="hljs-number">-1</span>][k][<span class="hljs-number">0</span>], DP[i<span class="hljs-number">-1</span>][k][<span class="hljs-number">1</span>] + prices[i])
+                DP[i][k][<span class="hljs-number">1</span>] = max(DP[i<span class="hljs-number">-1</span>][k][<span class="hljs-number">1</span>], DP[i<span class="hljs-number">-1</span>][k<span class="hljs-number">-1</span>][<span class="hljs-number">0</span>] - prices[i])
+
+                <span class="hljs-keyword">if</span> res &lt; DP[i][k][<span class="hljs-number">0</span>]:
+                    res = DP[i][k][<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">return</span> res</code></pre>
+<p><strong>309题：</strong> 不限交易次数，但有一天冷冻期，即卖出股票后，你无法在第二天买入股票 </p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(self, prices: List[int])</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> len(prices) &lt;= <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        DP = [<span class="hljs-number">0</span>, -prices[<span class="hljs-number">0</span>]]
+        prev_prev = <span class="hljs-number">0</span>	<span class="hljs-comment"># 只有在前前一天卖掉后才能买</span>
+        <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> prices[<span class="hljs-number">1</span>:]:
+            temp = DP[<span class="hljs-number">0</span>]	<span class="hljs-comment"># 用一个临时变量保存前一天的DP[0]</span>
+            DP[<span class="hljs-number">0</span>] = max(DP[<span class="hljs-number">0</span>], DP[<span class="hljs-number">1</span>] + price)
+            DP[<span class="hljs-number">1</span>] = max(DP[<span class="hljs-number">1</span>], prev_prev - price)
+            prev_prev = temp	<span class="hljs-comment"># 当前操作完成后，temp就成了前前一天</span>
+        <span class="hljs-keyword">return</span> DP[<span class="hljs-number">0</span>]</code></pre>
+<p><strong>714题：</strong> 不限交易次数，但买的时候有交易费。</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(self, prices: List[int], fee: int)</span> -&gt; int:</span>
+        <span class="hljs-keyword">if</span> len(prices) &lt;= <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+        <span class="hljs-comment"># 整体和122题一样</span>
+        DP = [<span class="hljs-number">0</span>, -prices[<span class="hljs-number">0</span>]-fee]	<span class="hljs-comment"># 在买的时候减去交易费</span>
+        <span class="hljs-keyword">for</span> price <span class="hljs-keyword">in</span> prices[<span class="hljs-number">1</span>:]:
+            DP[<span class="hljs-number">0</span>] = max(DP[<span class="hljs-number">0</span>], DP[<span class="hljs-number">1</span>] + price)
+            DP[<span class="hljs-number">1</span>] = max(DP[<span class="hljs-number">1</span>], DP[<span class="hljs-number">0</span>] - price - fee)	<span class="hljs-comment"># 买的时候减去交易费</span>
+            
+        <span class="hljs-keyword">return</span> DP[<span class="hljs-number">0</span>]</code></pre>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>动态规划的题目最重要的是定义好<strong>状态</strong>和<strong>状态转移方程</strong>，同时要注意边界条件</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a href="https://www.cnblogs.com/hithongming/p/9229871.html" target="_blank" rel="noopener">https://www.cnblogs.com/hithongming/p/9229871.html</a><br>[2] <a href="https://blog.csdn.net/ailaojie/article/details/83014821" target="_blank" rel="noopener">https://blog.csdn.net/ailaojie/article/details/83014821</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/算法/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/数据结构/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/04/数据结构与算法——十大排序算法/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据结构与算法——十大排序算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/04/数据结构与算法———位运算/">
+                        <span class="hidden-mobile">数据结构与算法———位运算</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/06/04/数据结构与算法——动态规划/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

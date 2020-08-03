@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>机器学习——线性模型 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                机器学习——线性模型
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-06-24 21:25">
+      2019年6月24日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      46
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="一、线性回归"><a href="#一、线性回归" class="headerlink" title="一、线性回归"></a><strong>一、线性回归</strong></h1><p>给定由$d$个属性描述的样本$\boldsymbol{x}=(x_1; x_2; .. ; x_d)$（列向量），数据集$D=\left\{\left(\boldsymbol{x}_{1}, y_{1}\right),\left(\boldsymbol{x}_{2}, y_{2}\right), \ldots,\left(\boldsymbol{x}_{m}, y_{m}\right)\right\}$，线性回归试图学得一个线性组合来进行预测的函数：</p>
+<script type="math/tex; mode=display">
+f(\boldsymbol{x})=\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}+b</script><p>其中权重$\boldsymbol{w}=\left(w_{1} ; w_{2} ; \ldots ; w_{d}\right)$，偏置$b$为标量</p>
+<h2 id="1、一元线性回归"><a href="#1、一元线性回归" class="headerlink" title="1、一元线性回归"></a><strong>1、一元线性回归</strong></h2><p>先考虑最简单的情况：样本只有一个属性，即一元线性回归。此问题试图学得</p>
+<script type="math/tex; mode=display">
+f\left(x_{i}\right)=w x_{i}+b, 使得 f\left(x_{i}\right) \simeq y_{i}</script><p>这里使用<strong>均方误差</strong>来衡量$f(x)$与$y$之间的差别，使得均方误差最小的$w$和$b$即为所求，即：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}\left(w^{*}, b^{*}\right) &=\underset{(w, b)}{\arg \min } \sum_{i=1}^{m}\left(f\left(x_{i}\right)-y_{i}\right)^{2} \\ &=\underset{(w, b)}{\arg \min } \sum_{i=1}^{m}\left(y_{i}-w x_{i}-b\right)^{2} \end{aligned}</script><p>基于均方误差最小化来求解模型的方法称为<strong>最小二乘法</strong>，就是试图找到一条直线，是所有样本到直线上的欧式距离之和最小。设损失$E=\sum_{i=1}^{m}\left(f\left(x_{i}\right)-y_{i}\right)^{2}$，将$E$对$w$和$b$分别求导，得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \frac{\partial E_{(w, b)}}{\partial w} &=2\left(w \sum_{i=1}^{m} x_{i}^{2}-\sum_{i=1}^{m}\left(y_{i}-b\right) x_{i}\right) \\ \frac{\partial E_{(w, b)}}{\partial b} &=2\left(m b-\sum_{i=1}^{m}\left(y_{i}-w x_{i}\right)\right) \end{aligned}</script><p>然后令两式都为0，得到解析解：</p>
+<script type="math/tex; mode=display">
+w=\frac{\sum_{i=1}^{m} y_{i}\left(x_{i}-\overline{x}\right)}{\sum_{i=1}^{m} x_{i}^{2}-\frac{1}{m}\left(\sum_{i=1}^{m} x_{i}\right)^{2}} \\
+b=\frac{1}{m} \sum_{i=1}^{m}\left(y_{i}-w x_{i}\right)</script><p>其中$\overline{x}=\frac{1}{m} \sum_{i=1}^{m} x_{i}$为均值。</p>
+<h2 id="2、多元线性回归"><a href="#2、多元线性回归" class="headerlink" title="2、多元线性回归"></a><strong>2、多元线性回归</strong></h2><p>而更一般的情况是本文开头所给出的数据集的形式，样本有$d$个属性，此时我们试图学得</p>
+<script type="math/tex; mode=display">
+f\left(\boldsymbol{x}_{i}\right)=\boldsymbol{w}^{\mathrm{T}} \boldsymbol{x}_{i}+b, 使得f\left(x_{i}\right) \simeq y_{i}</script><p>这里我们将权重$\boldsymbol{w}$和偏置$b$整合在一起：$\hat{\boldsymbol{w}}=(\boldsymbol{w} ; b)$，同样得数据集$D$表示为一个$m \times (d+1)$大小的矩阵$\boldsymbol{X}$，即：</p>
+<script type="math/tex; mode=display">
+\mathbf{X}=\left(\begin{array}{ccccc}{x_{11}} & {x_{12}} & {\dots} & {x_{1 d}} & {1} \\ {x_{21}} & {x_{22}} & {\dots} & {x_{2 d}} & {1} \\ {\vdots} & {\vdots} & {\ddots} & {\vdots} & {\vdots} \\ {x_{m 1}} & {x_{m 2}} & {\dots} & {x_{m d}} & {1}\end{array}\right)=\left(\begin{array}{cc}{\boldsymbol{x}_{1}^{\mathrm{T}}} & {1} \\ {\boldsymbol{x}_{2}^{\mathrm{T}}} & {1} \\ {\vdots} & {\vdots} \\ {\boldsymbol{x}_{m}^{\mathrm{T}}} & {1}\end{array}\right)</script><p>标签也写成向量形式$\boldsymbol{y}=\left(y_{1} ; y_{2} ; \ldots ; y_{m}\right)$，我们同样使用均方误差最小化：</p>
+<script type="math/tex; mode=display">
+\hat{\boldsymbol{w}}^{*}=\underset{\boldsymbol{\hat { w }}}{\arg \min }(\boldsymbol{y}-\mathbf{X} \hat{\boldsymbol{w}})^{\mathrm{T}}(\boldsymbol{y}-\mathbf{X} \hat{\boldsymbol{w}})</script><p>令$E=(\boldsymbol{y}-\mathbf{X} \hat{\boldsymbol{w}})^{\mathrm{T}}(\boldsymbol{y}-\mathbf{X} \hat{\boldsymbol{w}})$，展开得到：</p>
+<script type="math/tex; mode=display">
+E=\boldsymbol{y}^{T} \boldsymbol{y}-\boldsymbol{y}^{T} \mathbf{X} \hat{\boldsymbol{w}}-\hat{\boldsymbol{w}}^{T} \mathbf{X}^{T} \boldsymbol{y}+\hat{\boldsymbol{w}}^{T} \mathbf{X}^{T} \mathbf{X} \hat{\boldsymbol{w}}</script><p>对$\hat{\boldsymbol{w}}$求导得到：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}{\frac{\partial E}{\partial \hat{\boldsymbol{w}}}=0-\mathbf{X}^{T} \boldsymbol{y}-\mathbf{X}^{T} \boldsymbol{y}+\left(\mathbf{X}^{T} \mathbf{X}+\mathbf{X}^{T} \mathbf{X}\right) \hat{\boldsymbol{w}}} \\ {\frac{\partial E}{\partial \hat{\boldsymbol{w}}}=2 \mathbf{X}^{T}(\mathbf{X} \hat{\boldsymbol{w}}-\boldsymbol{y})}\end{array}</script><blockquote>
+<p>此处推到用到的矢量导数公式：</p>
+<script type="math/tex; mode=display">
+\frac{\partial \boldsymbol{x}^{T} \boldsymbol{a}}{\partial \boldsymbol{x}}=\frac{\partial \boldsymbol{a}^{T} \boldsymbol{x}}{\partial \boldsymbol{x}}=\boldsymbol{a}</script></blockquote>
+<p>若$\boldsymbol{X}^{T} \boldsymbol{X}$为满秩矩阵或正定矩阵，令$\frac{\partial E}{\partial \hat{\boldsymbol{w}}}=0$，得：</p>
+<script type="math/tex; mode=display">
+\hat{\boldsymbol{w}}^{*}=\left(\mathbf{X}^{\mathrm{T}} \mathbf{X}\right)^{-1} \mathbf{X}^{\mathrm{T}} \boldsymbol{y}</script><h2 id="3、正则化回归"><a href="#3、正则化回归" class="headerlink" title="3、正则化回归"></a><strong>3、正则化回归</strong></h2><p>现实中$\boldsymbol{X}^{T} \boldsymbol{X}$往往不是满秩矩阵，比如$\boldsymbol{X}$的列数多于行数，此时可能会有多个$\hat{\boldsymbol{w}}^{*}$。这时候可以引入正则化项：</p>
+<script type="math/tex; mode=display">
+\hat{\boldsymbol{w}}^{*}=\underset{\boldsymbol{\hat { w }}}{\arg \min }(\boldsymbol{y}-\mathbf{X} \hat{\boldsymbol{w}})^{\mathrm{T}}(\boldsymbol{y}-\mathbf{X} \hat{\boldsymbol{w}}) + \lambda ||\hat{\boldsymbol w}||^2</script><p>其中$||\hat{\boldsymbol w}||^2=\sum w_{i}^{2}$，可解得：</p>
+<script type="math/tex; mode=display">
+\hat{\boldsymbol{w}}^{*}=\left(\mathbf{X}^{\mathrm{T}} \mathbf{X} + \lambda \boldsymbol I \right)^{-1} \mathbf{X}^{\mathrm{T}} \boldsymbol{y}</script><p>$\boldsymbol I$为单位矩阵，相当于为$\boldsymbol{X}^{T} \boldsymbol{X}$的对角线元素增加了$\lambda$，增强矩阵求逆数值的稳定性。此形式的正则化回归称为<strong>岭回归（ridge regression）</strong>。如果将$||\hat{\boldsymbol w}||^2$（L2正则化）换成$|\hat{\boldsymbol w}|$（L1正则化），则称为<strong>lasso（least absolute shrinkage and selection operator）</strong>，lasso对$\lambda$非常敏感，可以得到稀疏解，但lasso没有解析解。</p>
+<h1 id="二、线性判别分析LDA（Linear-Discriminant-Analysis）"><a href="#二、线性判别分析LDA（Linear-Discriminant-Analysis）" class="headerlink" title="二、线性判别分析LDA（Linear Discriminant Analysis）"></a><strong>二、线性判别分析LDA（Linear Discriminant Analysis）</strong></h1><p>LDA基本思想：将样本投影到一条直线上，使同类样本的投影点尽可能近，异类样本投影点尽可能远；在对新样本进行分类时，将其投影到这条直线上，根据投影点的位置确定类别。</p>
+<h2 id="1、两类LDA"><a href="#1、两类LDA" class="headerlink" title="1、两类LDA"></a><strong>1、两类LDA</strong></h2><p>给定数据集$D=\left\{\left(\boldsymbol{x}_{i}, y_{i}\right)\right\}_{i=1}^{m}$, $y_{i} \in\{0,1\}$，令$X_{i}, \boldsymbol{\mu}_{i}, \boldsymbol{\Sigma}_{i}$分别为第$i$类的集合、均值向量和协方差矩阵，投影到直线$\boldsymbol w$上，则两类中心在直线上的投影分别为$\boldsymbol w^{\mathrm{T}} \boldsymbol \mu_{0}$和$\boldsymbol w^{\mathrm{T}} \boldsymbol \mu_{1}$；协方差分别为$\boldsymbol w^{\mathrm{T}} \boldsymbol \Sigma_{0} \boldsymbol w$和$\boldsymbol w^{\mathrm{T}} \boldsymbol \Sigma_{1} \boldsymbol w$。</p>
+<p>要使同类投影点尽可能近，则$\boldsymbol w^{\mathrm{T}} \boldsymbol \Sigma_{0} \boldsymbol w + \boldsymbol w^{\mathrm{T}} \boldsymbol \Sigma_{1} \boldsymbol w$要尽可能小。</p>
+<p>要使异类投影点尽可能远，则$\left|\boldsymbol{w}^{\mathrm{T}} \boldsymbol{\mu}_{0}-\boldsymbol{w}^{\mathrm{T}} \boldsymbol{\mu}_{1}\right|_{2}^{2}$要尽可能大。</p>
+<p>同时考虑两者，可得最大化的目标函数：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} J &=\frac{\left\|\boldsymbol{w}^{\mathrm{T}} \boldsymbol{\mu}_{0}-\boldsymbol{w}^{\mathrm{T}} \boldsymbol{\mu}_{1}\right\|_{2}^{2}}{\boldsymbol{w}^{\mathrm{T}} \boldsymbol{\Sigma}_{0} \boldsymbol{w}+\boldsymbol{w}^{\mathrm{T}} \boldsymbol{\Sigma}_{1} \boldsymbol{w}} \\ &=\frac{\boldsymbol{w}^{\mathrm{T}}\left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)\left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \boldsymbol{w}}{\boldsymbol{w}^{\mathrm{T}}\left(\boldsymbol{\Sigma}_{0}+\boldsymbol{\Sigma}_{1}\right) \boldsymbol{w}} \end{aligned}</script><ul>
+<li><p>定义<strong>类内散度矩阵</strong>：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \mathbf{S}_{w} &=\boldsymbol{\Sigma}_{0}+\boldsymbol{\Sigma}_{1} \\ &=\sum_{\boldsymbol{x} \in X_{0}}\left(\boldsymbol{x}-\boldsymbol{\mu}_{0}\right)\left(\boldsymbol{x}-\boldsymbol{\mu}_{0}\right)^{\mathrm{T}}+\sum_{\boldsymbol{x} \in X_{1}}\left(\boldsymbol{x}-\boldsymbol{\mu}_{1}\right)\left(\boldsymbol{x}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \end{aligned}</script></li>
+<li><p>定义<strong>类间散度矩阵</strong>：</p>
+<script type="math/tex; mode=display">
+\mathbf{S}_{b}=\left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)\left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}}</script></li>
+</ul>
+<p>可重新定义目标函数：</p>
+<script type="math/tex; mode=display">
+J=\frac{\boldsymbol{w}^{\mathrm{T}} \mathbf{S}_{b} \boldsymbol{w}}{\boldsymbol{w}^{\mathrm{T}} \mathbf{S}_{w} \boldsymbol{w}}</script><p>LDA即是最大化$\mathbf{S}_{b}$和$\mathbf{S}_{w}$的广义瑞利商。</p>
+<blockquote>
+<p><strong>瑞利商</strong>：</p>
+<script type="math/tex; mode=display">
+R(A, x)=\frac{x^{H} A x}{x^{H} x}</script><p>$x$为非零向量，$A$为$n \times n$的Hermitan矩阵，满足$A^{H}=A$，即共轭转置矩阵和自己相等。如果A是实矩阵，则满足$A^{T}=A$的为Hermitan矩阵。瑞利商有一个非常重要的性质，即它的最大值等于矩阵A最大的特征值，而最小值等于矩阵A的最小的特征值，也就是满足</p>
+<script type="math/tex; mode=display">
+ \lambda_{\min } \leq \frac{x^{H} A x}{x^{H} x} \leq \lambda_{\max }</script><p>广义瑞利商是指这样的函数$R(A, B, x)$:</p>
+<script type="math/tex; mode=display">
+R(A, B, x)=\frac{x^{H} A x}{x^{H} B x}</script><p>其中$x$为非零向量，而$A$,$B$为$n \times n$的Hermitan矩，$B$为正定矩阵。</p>
+</blockquote>
+<p>若$\boldsymbol{w}$是一个解，那么对于任意常数$\alpha$，$\alpha \boldsymbol{w}$也是$J$的解，因此$J$的解与$\boldsymbol{w}$的长度无关，只与其方向有关。可以令$\boldsymbol{w}^{T} \boldsymbol{S}_{w} \boldsymbol{w}=1$，则最大化$J$等价于：</p>
+<script type="math/tex; mode=display">
+\begin{array}{cl}{\min _{\boldsymbol{w}}} & {-\boldsymbol{w}^{\mathrm{T}} \mathbf{S}_{b} \boldsymbol{w}} \\ {\text { s.t. }} & {\boldsymbol{w}^{\mathrm{T}} \mathbf{S}_{w} \boldsymbol{w}=1}\end{array}</script><p>由朗格朗日乘子，上式等价于：</p>
+<script type="math/tex; mode=display">
+\mathbf{S}_{b} \boldsymbol{w}=\lambda \mathbf{S}_{w} \boldsymbol{w}</script><p>由于$\mathbf{S}_{b} \boldsymbol{w}=\left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)\left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \boldsymbol{w}$，$\left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \boldsymbol{w}$为标量，所以$\mathbf{S}_{b} \boldsymbol{w}$的方向恒为$\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}$。不妨设$\mathbf{S}_{b} \boldsymbol{w}=\lambda \left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)$，可得：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{w}=\mathbf{S}_{w}^{-1}\left(\boldsymbol{\mu}_{0}-\boldsymbol{\mu}_{1}\right)</script><p><strong>推论：</strong>当两类数据同先验、满足高斯分布且协方差相等时，LDA可达到最优分类。</p>
+<h2 id="2、多分类情况"><a href="#2、多分类情况" class="headerlink" title="2、多分类情况"></a><strong>2、多分类情况</strong></h2><p>LDA推广到多分类任务，设有$N$个类，第$i$类样本数目为$m_{i}$。</p>
+<ul>
+<li>重新定义<strong>类内散度矩阵：</strong><script type="math/tex; mode=display">
+\mathbf{S}_{w}=\sum_{i=1}^{N} \mathbf{S}_{w_{i}}</script></li>
+</ul>
+<p>其中：$\mathbf{S}_{w_{i}}=\sum_{\boldsymbol{x} \in X_{i}}\left(\boldsymbol{x}-\boldsymbol{\mu}_{i}\right)\left(\boldsymbol{x}-\boldsymbol{\mu}_{i}\right)^{\mathrm{T}}$</p>
+<ul>
+<li>定义<strong>全局散度矩阵：</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned} \mathbf{S}_{t} &=\sum_{i=1}^{m}\left(\boldsymbol{x}_{i}-\boldsymbol{\mu}\right)\left(\boldsymbol{x}_{i}-\boldsymbol{\mu}\right)^{\mathrm{T}}\\
+&=\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}}\left(\boldsymbol{x}-\boldsymbol{\mu}_{j}+\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)\left(\boldsymbol{x}-\boldsymbol{\mu}_{j}+\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)^{T} \\ 
+&=\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}}\left(\boldsymbol{x}-\boldsymbol{\mu}_{j}\right)\left(\boldsymbol{x}-\boldsymbol{\mu}_{i}\right)^{T}+\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}} \left(\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)\left(\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)^{T} \\ &+\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}} \left(\boldsymbol{x}-\boldsymbol{\mu}_{j}\right)\left(\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)^{T}+\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}} \left(\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)\left(\boldsymbol{x}-\boldsymbol{\mu}_{j}\right)^{T} \end{aligned}</script><p>其中$\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}}\left(\boldsymbol{x}-\boldsymbol{\mu}_{j}\right)\left(\boldsymbol{x}-\boldsymbol{\mu}_{i}\right)^{T}=\mathbf{S}_{w}$，$\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}} \left(\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)\left(\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)^{T}=\mathbf{S}_{b}$，$\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}} \left(\boldsymbol{x}-\boldsymbol{\mu}_{j}\right)\left(\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)^{T}=\sum_{j=1}^{N} \sum_{\boldsymbol{x} \in X_{j}} \left(\boldsymbol{\mu}_{j}-\boldsymbol{\mu}\right)\left(\boldsymbol{x}-\boldsymbol{\mu}_{j}\right)^{T}=0$，因此：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \mathbf{S}_{t} &=\mathbf{S}_{b}+\mathbf{S}_{w}\end{aligned}</script><ul>
+<li>重新定义<strong>类间散度矩阵：</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned} \mathbf{S}_{b} &=\mathbf{S}_{t}-\mathbf{S}_{w} \\ &=\sum_{i=1}^{N} m_{i}\left(\boldsymbol{\mu}_{i}-\boldsymbol{\mu}\right)\left(\boldsymbol{\mu}_{i}-\boldsymbol{\mu}\right)^{\mathrm{T}} \end{aligned}</script><p>最优化目标函数可写为：</p>
+<script type="math/tex; mode=display">
+\max _{\mathbf{W}} \frac{\operatorname{tr}\left(\mathbf{W}^{\mathrm{T}} \mathbf{S}_{b} \mathbf{W}\right)}{\operatorname{tr}\left(\mathbf{W}^{\mathrm{T}} \mathbf{S}_{w} \mathbf{W}\right)}</script><p>其中$\mathbf{W}=\left[\boldsymbol{w}_{1}, \boldsymbol{w}_{2}, \dots, \boldsymbol{w}_{i}, \dots, \boldsymbol{w}_{k}\right]$，$\boldsymbol{w}_{i}$为d行1列的列向量，则：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{array}{c}{\operatorname{tr}\left(\mathbf{W}^{T} \mathbf{S}_{b} \mathbf{W}\right)=\sum_{i=1}^{k} \boldsymbol{w}_{i}^{T} \boldsymbol{S}_{b} \boldsymbol{w}_{i}} \\ {\operatorname{tr}\left(\mathbf{W}^{T} \boldsymbol{S}_{w} \mathbf{W}\right)=\sum_{i=1}^{k} \boldsymbol{w}_{i}^{T} \boldsymbol{S}_{w} \boldsymbol{w}_{i}}\end{array}\right.</script><p>上式可以通过如下广义特征值问题求解：</p>
+<script type="math/tex; mode=display">
+\mathbf{S}_{b} \mathbf{W}=\lambda \mathbf{S}_{w} \mathbf{W}</script><p>将$\mathbf{W}$视为一个投影矩阵，则多分类LDA将样本投影到$k$维空间，$k$通常远小于样本维度$d$。LDA也经常被视为一种监督降维方法。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h1><ul>
+<li>周志华《机器学习》</li>
+<li>[英]Peter Flach《机器学习》</li>
+<li>吴恩达《机器学习》公开课</li>
+<li><a href="https://datawhalechina.github.io/pumpkin-book/#/" target="_blank" rel="noopener">https://datawhalechina.github.io/pumpkin-book/#/</a></li>
+<li><a href="https://blog.csdn.net/wyl1813240346/article/details/78548274" target="_blank" rel="noopener">https://blog.csdn.net/wyl1813240346/article/details/78548274</a></li>
+<li><a href="https://blog.csdn.net/Oxalis_Triangularis/article/details/47420521" target="_blank" rel="noopener">https://blog.csdn.net/Oxalis_Triangularis/article/details/47420521</a></li>
+</ul>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/github/">github</a>
+                    
+                      <a class="hover-with-bg" href="/tags/机器学习/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/线性模型/">线性模型</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/08/16/生成星辰大海——变分自编码器（VAE）实践/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">生成星辰大海——变分自编码器（VAE）实践</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/06/10/数据结构与算法——链表/">
+                        <span class="hidden-mobile">数据结构与算法——链表</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/06/24/机器学习——线性模型/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="机器学习个人网站">
+  <meta name="author" content="Xudong Li">
+  <meta name="keywords" content>
+  <title>英语学术论文写作 - 贾维斯的小屋</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="/lib/hint/hint.min.css">
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script src="/js/utils.js"></script>
+<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                专栏
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/机器学习wiki/">
+                    
+                    机器学习wiki
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/NAS专栏/">
+                    
+                    NAS专栏
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/PHM专栏/">
+                    
+                    PHM专栏
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/2019/03/22/留言板/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/wenzhang.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                英语学术论文写作
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-04-01 11:01">
+      2019年4月1日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      74
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>本文为《英语科技论文写作（通信、计算机、密码、测绘版）》一书的学习总结。</p>
+</blockquote>
+<h1 id="第一章-概论"><a href="#第一章-概论" class="headerlink" title="第一章 概论"></a><strong>第一章 概论</strong></h1><p>略</p>
+<hr>
+<h1 id="第二章-英语科技论文的文体特点"><a href="#第二章-英语科技论文的文体特点" class="headerlink" title="第二章 英语科技论文的文体特点"></a><strong>第二章 英语科技论文的文体特点</strong></h1><h2 id="2-1-词汇特点"><a href="#2-1-词汇特点" class="headerlink" title="2.1 词汇特点"></a><strong>2.1 词汇特点</strong></h2><p>英语科技论文的特点之一就是大量使用科技词汇，主要包括以下几类：</p>
+<ul>
+<li><p>纯科技词汇。如diode（二极管）、database（数据库）等。</p>
+</li>
+<li><p>通用科技词汇。如power在机械力学中词义为“力”、“电”、“电力”、“动力”、“电源”、“功率”的等，在数学中为“乘方”、“次方”、“幂”。feed一词有“馈电”、“供水”、“输送”、“进刀”等意。</p>
+</li>
+<li><p>普通词汇专业化</p>
+</li>
+<li><p>合成词。如software（软件）、hoursepower（马力）等。</p>
+</li>
+<li><p>混成词。如comsat（通信卫星）、hi-tech（高新技术）等。</p>
+</li>
+<li><p>派生词。如前缀hydro-，hyper-，hypo-，inter-等。</p>
+</li>
+<li><p>缩略词。如IC（integrated circuit）集成电路、AI（artificial intelligence）人工智能</p>
+</li>
+<li><p>语体正式词。动词短语宜用与之对应的、意义明确地单个词的动词。如：</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>一般语体</th>
+<th>正式语体</th>
+<th>一般语体</th>
+<th>正式语体</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>use up</td>
+<td>exhaust 耗尽</td>
+<td>push into</td>
+<td>insert 插入，嵌入</td>
+</tr>
+<tr>
+<td>throw back</td>
+<td>reflecct 反映，反射</td>
+<td>put in</td>
+<td>add 加，增加</td>
+</tr>
+<tr>
+<td>carry out</td>
+<td>perform 执行，完成</td>
+<td>think about</td>
+<td>consider 考虑</td>
+</tr>
+<tr>
+<td>get rid of</td>
+<td>eliminate 消除，排除</td>
+<td>take away</td>
+<td>remove 移动，迁移，调动</td>
+</tr>
+<tr>
+<td>get together</td>
+<td>concentrate 集中，浓缩</td>
+<td>fill up</td>
+<td>occupy 占据，占领</td>
+</tr>
+<tr>
+<td>keep up</td>
+<td>maintain 维持，继续</td>
+<td>hang up</td>
+<td>suspend 延缓，推迟</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>一般语体</th>
+<th>正式语体</th>
+<th>一般语体</th>
+<th>正式语体</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>finish</td>
+<td>complete 完成</td>
+<td>underwater</td>
+<td>submarine 水下的</td>
+</tr>
+<tr>
+<td>buy</td>
+<td>purchase 购买</td>
+<td>enough</td>
+<td>sufficient 足够的</td>
+</tr>
+<tr>
+<td>similar</td>
+<td>identical 同一的，完全相同的</td>
+<td>handbook</td>
+<td>manual 手册，指南</td>
+</tr>
+<tr>
+<td>careful</td>
+<td>cautious 谨慎的，小心的</td>
+<td>help</td>
+<td>assist 帮助，促进</td>
+</tr>
+<tr>
+<td>try</td>
+<td>attempt 企图，试图</td>
+<td>get</td>
+<td>obtain 获得</td>
+</tr>
+<tr>
+<td>about</td>
+<td>approximately 大约，近似地</td>
+<td>use</td>
+<td>utilize 利用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="2-2-句法特点"><a href="#2-2-句法特点" class="headerlink" title="2.2 句法特点"></a><strong>2.2 句法特点</strong></h2><ul>
+<li><p><strong>较多使用被动语态</strong></p>
+</li>
+<li><p><strong>较多使用非谓语动词（分词、动名词、动词不定式及其复合结构）</strong>。例如：</p>
+<ul>
+<li><p><strong>Compared with DoD’s plan</strong>, the options would yield greater improvemnets in reception and would yield improvements sooner.</p>
+</li>
+<li><p>A theoretical framework is provided, <strong>consisting of negative reinforcing feedback  loops that act as drivers behind future industry change.</strong></p>
+</li>
+</ul>
+</li>
+<li><p><strong>大量使用名词化结构（主要是用具有动词意义的名词+of+修饰词）</strong>。</p>
+</li>
+<li><p><strong>非人称句使用频繁（第三人称作主语的矩句子）</strong>。</p>
+</li>
+</ul>
+<hr>
+<h1 id="第三章-英语科技论文的语言表达技巧和常见错误"><a href="#第三章-英语科技论文的语言表达技巧和常见错误" class="headerlink" title="第三章 英语科技论文的语言表达技巧和常见错误"></a><strong>第三章 英语科技论文的语言表达技巧和常见错误</strong></h1><h2 id="3-1-如何提高语言的准确性"><a href="#3-1-如何提高语言的准确性" class="headerlink" title="3.1 如何提高语言的准确性"></a><strong>3.1 如何提高语言的准确性</strong></h2><ul>
+<li><p><strong>选用具体的表达，避免抽象的表达</strong>。例如：</p>
+<ul>
+<li><p><strong>a1：</strong>Our experimenntal data are not precise because the devices are <strong>in poor condition</strong>.（含糊）</p>
+</li>
+<li><p><strong>a2：</strong>Our experimenntal data are not precise because the devices are <strong>not working properly</strong>.（具体）</p>
+</li>
+<li><p><strong>b1:</strong>The results seem to be <strong>satisfactory</strong>.（含糊）</p>
+</li>
+<li><p><strong>b2:</strong>We are satisfied with <strong>the result that $L(X2, X3)=0$</strong>. （具体）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>下列几个词语的相对意义不够确切，尽量少用：in the case of, generally, somewhat, unduly, several, fairly, rather, overall, certain, as such, anticipate, presently等</p>
+<ul>
+<li><p><strong>选用较为正式的动词</strong></p>
+</li>
+<li><p><strong>区别易混淆词、同义词和近义词</strong>。例如：</p>
+<ul>
+<li><p>The first result was obtained after <strong>approximately</strong> four minutes.句中的approximately与about, around, roughly都表示“大约大概”的意思，但approximately比其他词更准确。</p>
+</li>
+<li><p>近义词举例：’consist of’用主动语态，而compose的用法是“整体+be composed of+组成部分”：</p>
+<ul>
+<li><p><strong>a1:</strong>This process <em>consists of</em> the translation, reconstruction, and interpretation of three basic elements of the application.</p>
+</li>
+<li><p><strong>a2:</strong>Java applications <em>are composed</em> of one or more class files, one file per class.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>避免使用引起歧义的词语</strong></p>
+</li>
+</ul>
+<h2 id="3-2-如何提高语言的简洁性"><a href="#3-2-如何提高语言的简洁性" class="headerlink" title="3.2 如何提高语言的简洁性"></a><strong>3.2 如何提高语言的简洁性</strong></h2><h3 id="3-2-1-使用短语代替从句"><a href="#3-2-1-使用短语代替从句" class="headerlink" title="3.2.1 使用短语代替从句"></a><strong>3.2.1 使用短语代替从句</strong></h3><p>1、 <strong>名词短语代替从句</strong>。名词短语可以替代状语从句、宾语从句、表语从句、主语从句、同位语从句。</p>
+<ul>
+<li><p><strong>If the temperature of engines decreases dramatically,</strong> the fuel consumption of automobiles will increase.（条件状语从句可以简化为：A dramatic decrease in the tenperature of engines will result in an increase in the fuel consumption of automobiles.）</p>
+</li>
+<li><p>Note <strong>that the result is accurate.</strong> （宾语从句可以简化为：Note the accuracy of the result.）</p>
+</li>
+<li><p>One of the advantages of the machines is <strong>that they are small in size.</strong> （表语从句可以简化为：One of the advantages of the machine is their small size.）</p>
+</li>
+<li><p>To resolve the problem <strong>that malicious software load more and more harm to computer system,</strong> SRN mechanism is put forward. （同位语从句及其先行词可以简化为：To resolve the increasing harm of malicious software on computer system, SRN machanism is put forward.）</p>
+</li>
+<li><p>The value is the highest in the experiment. （可以简化为：The experiment has the highest value.）</p>
+</li>
+<li><p>Check Mate is a program analysis framework for Java. It uses Jchord to instrument lock acquires and releases. （两句话可以合并为：Check Mate, a program analysis framework for Java, uses Jchord to instrument lock acquires and releases.）</p>
+</li>
+</ul>
+<p>2、 <strong>形容词短语代替从句</strong>。形容词短语不仅可以充当定语，有事还可以替代从句表示原因、状态或补充说明。</p>
+<ul>
+<li>The satellites <strong>which are capable of transmitting M-code signals</strong> were already in orbit as of August 2011. （定语从句可以简化为：Ten satellites capable of transmitting M-code signals were already in orbit as of August 2011.）</li>
+</ul>
+<p>3、 <strong>副词短语替代从句</strong></p>
+<ul>
+<li>As far as the theory and computation are concerned, material anisotropy and layering pose great challenges. （状语从句可以简化为：Material anisotropy and layering pose great challenges both theoretically and computationally.）</li>
+</ul>
+<p>4、 <strong>介词短语代替从句</strong></p>
+<ul>
+<li><p>It’s a simple and scalable protocol, <strong>which performs well for average-case loads and operating conditions.</strong> （非限制性定语从句可简化为：with good performance for average-case loads and operating conditions）</p>
+</li>
+<li><p>The communication interface should be rather simple to implement. <strong>It dosen’t need specialized communication controllers.</strong> （第二句可简化为：without specialized communication controllers）</p>
+</li>
+</ul>
+<p>5、 <strong>分词短语代替从句</strong>。现在分词表示主动含义，过去分词表示被动含义。</p>
+<ul>
+<li><p>This paper gives an overview of GRASP, <strong>and also describes its basic components and enhancements to the basic procedure.</strong> （并列动词可简化为：describing its basic components and enhancements to the basic procedure）</p>
+</li>
+<li><p>From the class of protocols <strong>that is triggered by event,</strong> the controller area network bus is used in many automotive applications. （定语从句可简化为：From the eventtriggered class of protocols,…）</p>
+</li>
+</ul>
+<p>6、 <strong>动名词短语替代从句</strong>。动名词短语可以替代主语从句、宾语从句，作介词宾语可以替代状语从句，有时也可以吧并列句简化为简单句。</p>
+<ul>
+<li>You can transmit F three times clearly, <strong>but it doesn’t do the trick.</strong> （并列句可简化为：Transmitting F three times clearly doesn’t do the trick.）</li>
+</ul>
+<p>7、 <strong>不定式短语替代从句</strong>，不定式短语经常用来替代目的状语。</p>
+<h3 id="3-2-2-变后置定语为前置定语"><a href="#3-2-2-变后置定语为前置定语" class="headerlink" title="3.2.2 变后置定语为前置定语"></a><strong>3.2.2 变后置定语为前置定语</strong></h3><ul>
+<li>There was a choice <strong>that can not be avoided </strong>between privacy and user-desired functionality. （后置定语可简化为：There was an unavoidable choice between privacy and user-desired functionality.）</li>
+</ul>
+<h3 id="3-2-3-使用省略手段"><a href="#3-2-3-使用省略手段" class="headerlink" title="3.2.3 使用省略手段"></a><strong>3.2.3 使用省略手段</strong></h3><p>1、 <strong>省略谓语</strong></p>
+<ul>
+<li>Scheme 1 got the highest average <strong>while Scheme 2 got the lowest.</strong> （Scheme 1 got the highest average while Scheme 2 the lowest.）</li>
+</ul>
+<p>2、 <strong>省略从句中部分成分</strong></p>
+<ul>
+<li><p><strong>When used without a recovery service,</strong> Carburizer identifies bugs for a programmer to fix. （省略了it is）</p>
+</li>
+<li><p><strong>When confronted with real devices that misbehave, </strong>these assumptions can lead to driver or system failures. （省略了thay are）</p>
+</li>
+</ul>
+<p>3、 <strong>利用缩略词</strong></p>
+<p>4、 <strong>简化习语和词组</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>词组</th>
+<th>简化</th>
+<th>词组</th>
+<th>简化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aimed at</td>
+<td>for</td>
+<td>inasmuch as</td>
+<td>since</td>
+</tr>
+<tr>
+<td>a number of</td>
+<td>several</td>
+<td>in regard to</td>
+<td>about</td>
+</tr>
+<tr>
+<td>in all cases</td>
+<td>always</td>
+<td>in order that</td>
+<td>to</td>
+</tr>
+<tr>
+<td>in moast cases</td>
+<td>usually</td>
+<td>in the event that</td>
+<td>if</td>
+</tr>
+<tr>
+<td>in the nature of</td>
+<td>like</td>
+<td>not infrequently</td>
+<td>often</td>
+</tr>
+<tr>
+<td>for the purpose of</td>
+<td>for</td>
+<td>in the vicinity of</td>
+<td>near</td>
+</tr>
+<tr>
+<td>in connection with</td>
+<td>about</td>
+<td>in spite of the fact that</td>
+<td>although</td>
+</tr>
+<tr>
+<td>it may well be that</td>
+<td>perhaps</td>
+<td>on a regular basis</td>
+<td>regularly</td>
+</tr>
+<tr>
+<td>with the result that</td>
+<td>so</td>
+<td>bring to a consideration</td>
+<td>consider</td>
+</tr>
+<tr>
+<td>afford an opportunity to</td>
+<td>allow</td>
+<td>in conjunction with</td>
+<td>with</td>
+</tr>
+<tr>
+<td>after this has been done</td>
+<td>then</td>
+<td>the question as to whether</td>
+<td>whether</td>
+</tr>
+<tr>
+<td>it is therefore apparent that</td>
+<td>hence</td>
+<td>in view of the foregoing statement</td>
+<td>therefore</td>
+</tr>
+<tr>
+<td>in view of the fact that…/on account of the fact that …/owing to the fact that …</td>
+<td>seeing that/because/since</td>
+<td>it’s evident that…</td>
+<td>evidently…</td>
+</tr>
+<tr>
+<td>it would appear that…</td>
+<td>apparently …</td>
+<td>it is clear that …</td>
+<td>clearly</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-3-如何提高语义的连贯性"><a href="#3-3-如何提高语义的连贯性" class="headerlink" title="3.3 如何提高语义的连贯性"></a><strong>3.3 如何提高语义的连贯性</strong></h2><h3 id="3-3-1-使用连词"><a href="#3-3-1-使用连词" class="headerlink" title="3.3.1 使用连词"></a><strong>3.3.1 使用连词</strong></h3><ul>
+<li><p>表示时间和顺序关系：after, before, first(ly), second(ly), third(ly), last(ly), then, in the first place, to begin with, next, finally, later, afterwards, meanwhile, in the mean time, in the past, at present, presently, ultimately, recently</p>
+</li>
+<li><p>表示空间关系：here, there, nearby, under, below, in front of, in the middle of, at the back of, on the top of, at the bottom of</p>
+</li>
+<li><p>表示递增关系：and, also, in addition,additionally, besides, further, furthermore, moreover, what is more</p>
+</li>
+<li><p>表示转折关系：however, nevertheless, but, although, yet, while, in spite of, instead, now that, whereas</p>
+</li>
+<li><p>表示相似关系：similarly, equally, likewise, in the same way, in a like manner</p>
+</li>
+<li><p>表示对比关系：in contrast, alternately, on the contrary, not…but…</p>
+</li>
+<li><p>表示因果关系：since, because, as a result, due to, thanks to, for this reason, therefore, consequently, accordingly, thus, so, hence</p>
+</li>
+<li><p>表示让步关系：however, nevertheless, though, on the other hand, yet, still, in any case, after all, anyway</p>
+</li>
+<li><p>表示列举或重复诉述内容：for example, for instance, such as, namely, in other words, that is to say, that is, e.g., i.e., as before, as has been stated, as discudded previously, again, in review, as shown in Fig.2, to reiterate</p>
+</li>
+<li><p>表示总结：in conclusion, to sumup, in short, in a word, in brief, briefly speaking, on the whole</p>
+</li>
+</ul>
+<h3 id="3-3-2-使用代词或重复关键词"><a href="#3-3-2-使用代词或重复关键词" class="headerlink" title="3.3.2 使用代词或重复关键词"></a><strong>3.3.2 使用代词或重复关键词</strong></h3><p>代词的使用既可以避免次重复，使行文简洁，也可以使语句衔接更为紧密。</p>
+<h3 id="3-3-3-使用主从结构"><a href="#3-3-3-使用主从结构" class="headerlink" title="3.3.3 使用主从结构"></a><strong>3.3.3 使用主从结构</strong></h3><ul>
+<li><p><strong>a1: </strong>So instead of enlarging the line size, we choose to implemnet a fetch size. It is different from thr line size.</p>
+</li>
+<li><p><strong>a2: </strong>So instead of enlarging the line size, we choose to implemnet a fetch size which is different from thr line size.</p>
+</li>
+</ul>
+<h3 id="3-3-4-使用平行结构"><a href="#3-3-4-使用平行结构" class="headerlink" title="3.3.4 使用平行结构"></a><strong>3.3.4 使用平行结构</strong></h3><ul>
+<li><p>The SMART-3D architecture achieves speedups <strong>from 1.53 to 2.14 over planar designs</strong> and <strong>from 1.27 to 1.72 over prior 3D designs.</strong>（介词短语平行）</p>
+</li>
+<li><p>Therefore, it is very difficult, if not impossible, to compute them both <strong>accurately</strong> and <strong>efficiently.</strong>（副词平行）</p>
+</li>
+</ul>
+<h2 id="3-4-英语科技论文中的常见错误"><a href="#3-4-英语科技论文中的常见错误" class="headerlink" title="3.4 英语科技论文中的常见错误"></a><strong>3.4 英语科技论文中的常见错误</strong></h2><h3 id="3-4-1-数"><a href="#3-4-1-数" class="headerlink" title="3.4.1 数"></a><strong>3.4.1 数</strong></h3><p>1、 不规则变化的名词单复数</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>单数</th>
+<th>复数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>criterion</td>
+<td>criteria</td>
+<td>标准</td>
+</tr>
+<tr>
+<td>phenomenon</td>
+<td>phenomena</td>
+<td>现象</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>media</td>
+<td>介质</td>
+</tr>
+<tr>
+<td>radius</td>
+<td>radii</td>
+<td>半径</td>
+</tr>
+<tr>
+<td>index</td>
+<td>indices</td>
+<td>指数</td>
+</tr>
+<tr>
+<td>appendix</td>
+<td>appendices</td>
+<td>附录</td>
+</tr>
+<tr>
+<td>stimulus</td>
+<td>stimuli</td>
+<td>刺激</td>
+</tr>
+<tr>
+<td>basis</td>
+<td>bases</td>
+<td>基础</td>
+</tr>
+<tr>
+<td>synthesis</td>
+<td>syntheses</td>
+<td>合成</td>
+</tr>
+<tr>
+<td>matrix</td>
+<td>matrices</td>
+<td>矩阵</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>2、 一些特殊的名词</p>
+<p>data通常作复数名词，而research、work是不可数名词</p>
+<p>3、 主谓一致</p>
+<p>one of 复数名词 + 单数动词</p>
+<p>none of 复数名词 + 单数动词</p>
+<p>none of 单数名词/不可数名词 + 单数动词</p>
+<p>no 复数名词 + 复数动词</p>
+<p>a kind of 单数名词 + 单数动词</p>
+<p>this/that kind of 单数名词 + 单数动词</p>
+<p>these kind of 复数名词 + 复数动词</p>
+<p>复数名词 of this/that kind （sort） + 复数动词</p>
+<p>a type of 单数名词 + 单数动词</p>
+<p>a series of 复数名词 + 复数动词</p>
+<p>the number of 复数名词 + 单数动词</p>
+<p>a number of 复数名词 + 复数动词</p>
+<p>4、 后面通常用复数名词的词</p>
+<p>variois，most，all，many，several， one of， many of， kinds of， a number of， the number of， a（wide）variety of， a class of， a series of， a wide range of</p>
+<p>5、 修饰可数名词和不可数名词的量词</p>
+<ul>
+<li><p>修饰可数名词的量词有：a few of，many，a number of</p>
+</li>
+<li><p>修饰不可数名词的量词有：a great/small/certain amount of，agreat/good deal of</p>
+</li>
+<li><p>修饰可数和不可数名词均可的量词有：a lot of，lots of</p>
+</li>
+</ul>
+<p>6、 以下结构中谓语的数</p>
+<ul>
+<li><p>由靠近谓语动词的名词或代词来决定谓语的数的短语有：not only……but also……， either……or……， neither……nor……</p>
+</li>
+<li><p>as well as 谓语动词往往用复数</p>
+</li>
+</ul>
+<h3 id="3-4-2-冠词"><a href="#3-4-2-冠词" class="headerlink" title="3.4.2 冠词"></a><strong>3.4.2 冠词</strong></h3><ul>
+<li><p>第一次出现或表示泛指的单数名词前一般要加不定冠词a/an</p>
+</li>
+<li><p>有修饰词的、特指的或再次出现的单数名词前一般要加定冠词the，但有些情况可以不加</p>
+</li>
+<li><p>无特指或无修饰词的复数名词前不加定冠词the，特指的或被修饰的复数名词前一般加the</p>
+</li>
+</ul>
+<h3 id="3-4-3-谓语动词与非谓语动词"><a href="#3-4-3-谓语动词与非谓语动词" class="headerlink" title="3.4.3 谓语动词与非谓语动词"></a><strong>3.4.3 谓语动词与非谓语动词</strong></h3><ul>
+<li><p>动名词：由动词原形加后缀ing构成，可做主语、宾语和表语，与介词构成的介词短语（如in/on/without + doing）可做定语、状语</p>
+</li>
+<li><p>现在分词：由动词原形+ing构成，可做定语、补语和状语，表示主动、正在进行的含义</p>
+</li>
+<li><p>过去分词：由动词原形+ed构成（规则动词），可做定语、补语，少部分可做状语（如Given……），表示被动的含义</p>
+</li>
+<li><p>不定式：由动词原形前加to构成，可做主语、宾语、定语、补语和目的状语，表示将来、目的性含义</p>
+</li>
+</ul>
+<hr>
+<p>第四章、第五章 略</p>
+<hr>
+<h1 id="第六章-表格、插图、数学公式的撰写"><a href="#第六章-表格、插图、数学公式的撰写" class="headerlink" title="第六章 表格、插图、数学公式的撰写"></a><strong>第六章 表格、插图、数学公式的撰写</strong></h1><h2 id="一、插图的英文表达"><a href="#一、插图的英文表达" class="headerlink" title="一、插图的英文表达"></a><strong>一、插图的英文表达</strong></h2><ul>
+<li>figure，通常指几何图形或图案，不管什么图都可以用figure表示。</li>
+<li>diagram，用于一般的图形、图表</li>
+<li>graph，一般用于指曲线图、标绘图</li>
+<li>plot，往往可以与graph互换</li>
+<li>view，一般用于机械图或各种结构图中的各向视图</li>
+<li>profile，一般只零部件的外形轮廓图，剖面形状图，也可以指各种分布图</li>
+<li>pattern，指图型、图案、花纹等</li>
+<li>drawing，主要用于各种工程图纸及有关工程设计的附图、插图</li>
+<li>chart，多用于航线图和某种方向的图</li>
+<li>map，地图、天体图、布局图及一些专用图形</li>
+<li>sketch，一般指粗略勾画的示意图、草图</li>
+<li>layout，着重于被描述对象的总体概貌，外形轮廓，总体安排和设计</li>
+<li>line，一般仅用于线条描绘的轮廓和外形图</li>
+<li>scheme，草图，示意图</li>
+</ul>
+<h2 id="二、图表的描述语言"><a href="#二、图表的描述语言" class="headerlink" title="二、图表的描述语言"></a><strong>二、图表的描述语言</strong></h2><h3 id="1、图表的指示"><a href="#1、图表的指示" class="headerlink" title="1、图表的指示"></a><strong>1、图表的指示</strong></h3><ul>
+<li>As shown in Table 1</li>
+<li>… is shown in Table 1</li>
+<li>Table 1 shows that…</li>
+<li>Each methods is proved to be effective(Table 1)</li>
+</ul>
+<h3 id="2、描述变化或趋势常用词"><a href="#2、描述变化或趋势常用词" class="headerlink" title="2、描述变化或趋势常用词"></a><strong>2、描述变化或趋势常用词</strong></h3><ul>
+<li>描述一般变化：</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>to go up (a little)</th>
+<th>to go down (a little)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Nouns</em></td>
+<td><em>Verbs</em></td>
+<td><em>Nouns</em></td>
+<td><em>Verbs</em></td>
+</tr>
+<tr>
+<td>an increase</td>
+<td>to increase</td>
+<td>a decrease</td>
+<td>to decrease</td>
+</tr>
+<tr>
+<td>a rise</td>
+<td>to rise</td>
+<td>a fall</td>
+<td>to fall (off)</td>
+</tr>
+<tr>
+<td>a growth</td>
+<td>to grow</td>
+<td>a drop</td>
+<td>to drop</td>
+</tr>
+<tr>
+<td>an improvement</td>
+<td>to improve</td>
+<td>a decline</td>
+<td>to decline</td>
+</tr>
+<tr>
+<td>an upturn</td>
+<td></td>
+<td>a dowmturn</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>to go up</td>
+<td></td>
+<td>to go down</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>to slip</td>
+</tr>
+<tr>
+<td>an upward</td>
+<td></td>
+<td>a downward trend</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>描述剧烈变化：</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>to go up (a lot)</th>
+<th>to go down (a lot)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Nouns</em></td>
+<td><em>Verbs</em></td>
+<td><em>Nouns</em></td>
+<td><em>Verbs</em></td>
+</tr>
+<tr>
+<td>a surge</td>
+<td>to surge</td>
+<td></td>
+<td>to plummet</td>
+</tr>
+<tr>
+<td>an upsurge</td>
+<td></td>
+<td>a plunge</td>
+<td>to plunge</td>
+</tr>
+<tr>
+<td></td>
+<td>to take off</td>
+<td>a slump</td>
+<td>to slump</td>
+</tr>
+<tr>
+<td></td>
+<td>to shoot up</td>
+<td>a crash</td>
+<td>to crash</td>
+</tr>
+<tr>
+<td></td>
+<td>to soar</td>
+<td></td>
+<td>to sink</td>
+</tr>
+<tr>
+<td></td>
+<td>to rocket</td>
+<td>a tumble</td>
+<td>to bumble</td>
+</tr>
+<tr>
+<td>a jump</td>
+<td>to jump</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>a leap</td>
+<td>to leap</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>描述变化结果</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>no change</th>
+<th>change of direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><em>downward</em></td>
+<td><em>upward</em></td>
+</tr>
+<tr>
+<td>to remain stable</td>
+<td>to peak</td>
+<td></td>
+</tr>
+<tr>
+<td>to level off</td>
+<td>to reach a peak</td>
+<td>to reach a low point</td>
+</tr>
+<tr>
+<td>to stay at the same level</td>
+<td>to top out</td>
+<td>to recover</td>
+</tr>
+<tr>
+<td>to remain constant</td>
+<td></td>
+<td>to rebound</td>
+</tr>
+<tr>
+<td>to stagnate</td>
+<td></td>
+<td>to revive</td>
+</tr>
+<tr>
+<td>to stabilise</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>描述变化速度</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>to describe the speed of change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>objectives</em></td>
+<td><em>adverbs</em></td>
+</tr>
+<tr>
+<td>an abrupt</td>
+<td>rise or fall</td>
+<td>to rise or fall</td>
+<td>abruptly</td>
+</tr>
+<tr>
+<td>a sudden</td>
+<td></td>
+<td></td>
+<td>suddenly</td>
+</tr>
+<tr>
+<td>rapid</td>
+<td></td>
+<td></td>
+<td>rapidly</td>
+</tr>
+<tr>
+<td>quick</td>
+<td></td>
+<td></td>
+<td>quickly</td>
+</tr>
+<tr>
+<td>steady</td>
+<td></td>
+<td></td>
+<td>steadily</td>
+</tr>
+<tr>
+<td>gradual</td>
+<td></td>
+<td></td>
+<td>gradually</td>
+</tr>
+<tr>
+<td>slow</td>
+<td></td>
+<td></td>
+<td>slowly</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>描述变化程度</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>to describe the degree of change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>objectives</em></td>
+<td><em>adverbs</em></td>
+</tr>
+<tr>
+<td>a dramatic</td>
+<td>rise of fall</td>
+<td>to rise or fall</td>
+<td>dramatically</td>
+</tr>
+<tr>
+<td>considerable</td>
+<td></td>
+<td></td>
+<td>considerably</td>
+</tr>
+<tr>
+<td>sharp</td>
+<td></td>
+<td></td>
+<td>sharply</td>
+</tr>
+<tr>
+<td>significant</td>
+<td></td>
+<td></td>
+<td>significantly</td>
+</tr>
+<tr>
+<td>substantial</td>
+<td></td>
+<td></td>
+<td>substantially</td>
+</tr>
+<tr>
+<td>moderate</td>
+<td></td>
+<td></td>
+<td>moderately</td>
+</tr>
+<tr>
+<td>slight</td>
+<td></td>
+<td></td>
+<td>slightly</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3、描述图表的套句"><a href="#3、描述图表的套句" class="headerlink" title="3、描述图表的套句"></a><strong>3、描述图表的套句</strong></h3><ul>
+<li>The table shows the changes in the number of … over the period from … to …改表格描述了在…年至…年间…数量的变化</li>
+<li>The graph provides some interesting data regrading … 该图为我们提供了有关…的有趣数据</li>
+<li>The diagram /bar chart/pie graph/tree diagram/data/figures/statistics … show(s)/illustrate(s)/depict(s) that…该图/数据…向我们展示/揭示/表明了…</li>
+<li>This is a cure graph which describes the trend of … 这个曲线描述了…的趋势</li>
+<li>The data /statistics/figures lead us to the conclusion that…从数据中，我们得出…</li>
+<li>As is shown/demonstrated/exhibited in the diagram/graph/chart/table … 如图所示…</li>
+<li>According to the chart/figures…根据这些表格（数字）…</li>
+<li>As is shown in the table…如表格所示</li>
+<li>As can be seen from the diagram, great changes have taken place in … 从图中可以看出，…发生了巨大变化</li>
+<li>From the table/chart/diagram/figure, we can see clearly that … or, It is clear/apparent from the chart that…从图表中我们可以清楚看到</li>
+<li>This table shows the changing proportion of a &amp; b from … to 该表格描述了 ……年到……年间a与b的比例关系</li>
+<li>The graph presented in a pie chart shows the general trend in … 该图形以饼状图描述了…总的趋势</li>
+<li>This is a column chart showing … 这是个柱状图，描述了……</li>
+<li>As can be seen from the graph, the two curves show the fluctuation of …如图所示，两条曲线描述了……的波动情况</li>
+<li>Over the period from … to…, the …remained level. 在……至……期间，……基本不变</li>
+<li>in the year between… and …在……年间到……期间</li>
+<li>in the 4 years spanning from 1995 through 1998… 在1995至1998四年里</li>
+<li>From then on/from this time onwards… 从那时起</li>
+<li>The number of … remained steady/stable from (month/year) to (month/year)   ……至……的数量基本不变</li>
+<li>The number sharply went up to… 数字急剧上升至……</li>
+<li>The percentage of … stayed the same between  … and … ……至……期间……的比率维持不变</li>
+<li>The figures peaked at … in (month/year) … ……的数目在……达到顶点，为……</li>
+<li>The percentage remained steady at … 比率维持在……</li>
+<li>The percentage of … is slightly larger/smaller than that of … ……的比例比……的比例略高（低）</li>
+<li>There is not a great deal of different between … and … ……与……的区别不大</li>
+<li>The graphs show a threefold increase in the number of … 该图表表明……的数目增长了三倍</li>
+<li>…decreased year by year while … increased steadily ……逐年减少，而……逐步增加</li>
+<li>The situation reached a peak (a high point at) of …%  ……的情况达到顶（高）点，为……百分点</li>
+<li>The figures.situation bottomed out in … 数字（情况）在……达到底部</li>
+<li>The figures reached the bottom/a low point/hit a trough. 数字（情况）达到底部（低谷）</li>
+<li>a is … times as much /many as b.  a是b的……倍</li>
+<li>a increased by/to …  a增长了/到……</li>
+<li>The difference between a and b lies in …   a与b之间的差别在于……</li>
+<li>…(year) witnessed/saw a sharp rise in …   ……年……急剧上升</li>
+<li>The number of … rose steadily, whereas/while that of … fell slightly. ……的数量不断上升，而……的数量不断下降</li>
+</ul>
+<h2 id="三、数学公式的搭配用语"><a href="#三、数学公式的搭配用语" class="headerlink" title="三、数学公式的搭配用语"></a><strong>三、数学公式的搭配用语</strong></h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>证，证明</td>
+<td>prove</td>
+</tr>
+<tr>
+<td>设，假设</td>
+<td>assume; we claim…</td>
+</tr>
+<tr>
+<td>令</td>
+<td>let</td>
+</tr>
+<tr>
+<td>若</td>
+<td>if</td>
+</tr>
+<tr>
+<td>因，因为，由于</td>
+<td>since</td>
+</tr>
+<tr>
+<td>则，故，因此，因而</td>
+<td>then; thus; therefore; so; hence</td>
+</tr>
+<tr>
+<td>对于</td>
+<td>for</td>
+</tr>
+<tr>
+<td>有</td>
+<td>there exists…</td>
+</tr>
+<tr>
+<td>即</td>
+<td>that is; i.e.; which means…</td>
+</tr>
+<tr>
+<td>于是，由此</td>
+<td>such that</td>
+</tr>
+<tr>
+<td>定义</td>
+<td>define</td>
+</tr>
+<tr>
+<td>便得，可得，可知</td>
+<td>we have…; we obtain…; we can write…; it follows that…; note that…; one can derive that…</td>
+</tr>
+<tr>
+<td>以及</td>
+<td>and</td>
+</tr>
+<tr>
+<td>或者</td>
+<td>or</td>
+</tr>
+<tr>
+<td>此处，这里，式中，其中</td>
+<td>where</td>
+</tr>
+<tr>
+<td>x为</td>
+<td>x is…; x denotes…</td>
+</tr>
+<tr>
+<td>由此得</td>
+<td>produce; lead to</td>
+</tr>
+<tr>
+<td>一般来说</td>
+<td>in general; generally</td>
+</tr>
+<tr>
+<td>当且仅当，重要条件是</td>
+<td>if and only if</td>
+</tr>
+<tr>
+<td>式1变为</td>
+<td>equatuion 1 becomes…</td>
+</tr>
+<tr>
+<td>由式1可得</td>
+<td>from equation 1, we get …</td>
+</tr>
+<tr>
+<td>可表达为</td>
+<td>can be expressed as …; can be given by …</td>
+</tr>
+<tr>
+<td>将式1带入式2</td>
+<td>insert (1) into (2); apply (1) to (2)</td>
+</tr>
+<tr>
+<td>式1左边/右边</td>
+<td>the left/right (hand) side of equation 1</td>
+</tr>
+<tr>
+<td>满足</td>
+<td>subject to; satisfy; obey</td>
+</tr>
+<tr>
+<td>如下</td>
+<td>in the following; as follows</td>
+</tr>
+<tr>
+<td>证明完毕</td>
+<td>QED</td>
+</tr>
+<tr>
+<td>考虑</td>
+<td>if one consider…; consider…</td>
+</tr>
+<tr>
+<td>如果……那么……</td>
+<td>if … then …</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="四、数学公式的英文读法"><a href="#四、数学公式的英文读法" class="headerlink" title="四、数学公式的英文读法"></a><strong>四、数学公式的英文读法</strong></h2><p>$\exists$: there exists<br>$\forall$: for all<br>$p \implies q$: p implies q / if p, then q<br>$q \iff p$: p if and only if q / p is eqivalent to q / p and q are equivalent<br>$x \in A$: x belongs to A / x is an element(ora member) of A<br>$x \notin A$: x does not belong to A / x is not an element(or a member) of A<br>$A \subset B$: A is contained in B / A is a subset of B<br>$A \supset B$: A contains B / B is a subset of A<br>$A \bigcap B$: A cap B / A meet B / A intersection B<br>$A \bigcup B$: A cup B / A join B / A union B<br>$A \backslash B$: A minus B / the difference between A and B<br>$A \times B$: A cross B / the cartesian product of A and B<br>$x \equiv y$: x is equivalent to(or identical with) y<br>$x &gt; y$: x is greater than y<br>$x \geq y$: x is greater than or equal to y<br>$x &lt; y$: x is less than y<br>$x \leq y$: x is less than equal to y<br>$0&lt;x&lt;1$: zero is less than x is less than one<br>$0 \leq x \leq 1$: zero is less than or equal to x is less than or euqal to 1<br>$|x|$: mod x / modulus x<br>$x^{2}$: x squared / x(raised) to the power 2<br>$x^{3}$: x cubed<br>$x^{4}$: x to the fourth / x to the power four<br>$x^{n}$: x to the nth/ x to the power n<br>$x^{-n}$: x to the (power) minus n<br>$\sqrt{x}$: (square) root x / the square root of x<br>$\sqrt[3]{x}$: cube root (of) x<br>$\sqrt[4]{x}$: fourth root (of) x<br>$\sqrt[n]{x}$: nth root (of) x<br>$(x+y)^{2}$: x plus y all squared<br>$\left(\frac{x}{y} \right)^{2}$: x over y all squared<br>$f:S \to T$: a function f from S to T<br>$x \mapsto y$: x maps to y / x is sent (or mapped) to y<br>$f \prime (x)$: f prime x / f dash x / the (first) derivative of f with respect to x<br>$f \prime \prime (x)$: f double-prime x / f double-dash x / the second derivative of f with respect to x<br>$f \prime \prime \prime (x)$: f triple-prime x / f triple-dash x / the third derivative of f with respect to x<br>$f^{(4)}(x)$: f four x / the fourth derivative of f with respect to x<br>$\frac{\partial f}{\partial x_{1}}$: the partial (derivative) of f with respect to $x_{1}$<br>$\frac{\partial f}{\partial x_{1}^{2}}$: the second partial (derivative) of f with respect to $x_{1}$<br>$\int_{0}^{\infty}$: the integral from zero to infinity<br>$\lim_{n \to 0}$: the limit as x approaches zero<br>$\lim_{n \to +0}$: the limit as x approaches zero from above<br>$\lim_{n \to -0}$: the limit as x approaches zero from below<br>$\log _{e}y$:log y to the base e / log to the base e of y / natural log (of) y<br>$\ln y$:log y to the base e / log to the base e of y / natural log (of) y</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/原创教程/">原创教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/论文写作/">论文写作</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/04/26/我的书单/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">我的书单</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/03/30/机器学习面试问题-基础知识汇总/">
+                        <span class="hidden-mobile">机器学习面试问题/基础知识汇总</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz",
+          app_key: "KBjTdSy7b9V1AlRMP3GpweuD",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" rel="nofollow noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+  <!-- 备案信息 -->
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
+    
+  </div>
+
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/main.js"></script>
+
+<!-- Plugins -->
+
+
+  
+    <script src="/js/lazyload.js"></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="/js/clipboard-use.js"></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2019/04/01/英语学术论文写作/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
+    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
+    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js"></script>
+
+  
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
