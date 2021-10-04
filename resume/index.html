@@ -1,703 +1,176 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
 
+<!doctype html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
 
-
-<head><meta name="generator" content="Hexo 3.8.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="机器学习个人网站">
-  <meta name="author" content="Xudong Li">
-  <meta name="keywords" content>
-  <title>resume - 贾维斯的小屋</title>
-
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
-
-
-  <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
-  <link rel="stylesheet" href="/lib/hint/hint.min.css">
-
-  
-    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css">
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-<link rel="stylesheet" href="/css/main.css">
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script src="/js/utils.js"></script>
-<link rel="alternate" href="/atom.xml" title="贾维斯的小屋" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Xudong Li</title>
 </head>
 
+<body style="background-color: #ffffff">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
 
-<body>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 60vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">&nbsp;<strong>贾维斯的小屋</strong>&nbsp;</a>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-book"></i>
-                专栏
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/机器学习wiki/">
-                    
-                    机器学习wiki
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/数据结构与算法/">
-                    
-                    数据结构与算法
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/NAS专栏/">
-                    
-                    NAS专栏
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/PHM专栏/">
-                    
-                    PHM专栏
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/2019/03/22/留言板/">
-                <i class="iconfont icon-comment"></i>
-                留言板
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/resume/">
-                <i class="iconfont icon-pen"></i>
-                学术主页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
+  <div>
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ffffff; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+        <a class="navbar-brand" style="margin-left: 3%">Xudong Li</a>
+        <a class="navbar-brand" style="margin-left: 8%" href="https://lixudong.ink" target="_blank">My Blog</a>
+    </nav>
   </div>
-</nav>
 
-    <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/wenzhang.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
-              
-                resume
-              
-            </span>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
+  <div style="margin-left: 20%; margin-right: 20%; margin-top: 50px">
+    <div>
+      <br>
+        <br>
     </div>
-  </header>
+    <div class="row" style="margin-top: 10px">
+      <div class="col-md-4 col-sm-12 text-center">
+        <img src="me.jpg" alt="Profile Picture" style="width: 240px; height: auto">
+      </div>
 
-  <main>
-    
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
+        <div class="col-md-8">
             <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="page-content">
-  <p>I am currently a member of <a href="http://campus.jd.com/#/talentProject?tabKey=3" target="_blank" rel="noopener">DMT (Doctor Management Trainee)</a> program in JD.com, Inc. I received my Ph.D. degree in <a href="http://www.nssc.cas.cn/gjkjkxzxsy2015/" target="_blank" rel="noopener">Nation Space Science Center, CAS</a> and <a href="https://www.ucas.ac.cn/" target="_blank" rel="noopener">University of Chinese Academy of Sciences</a>. I received my B.S. in School of Intelligent Science and Engineering, <a href="http://www.hrbeu.edu.cn/" target="_blank" rel="noopener">Harbin Engineering University</a> </p>
-<p><a href="https://github.com/5663015" target="_blank" rel="noopener"><strong>Github,</strong></a>    <a href="https://lixudong.ink" target="_blank" rel="noopener"><strong>Personal Blog, </strong></a>    <a href="https://scholar.google.com.hk/citations?user=2KSmpuIecgsC&amp;hl=zh-CN" target="_blank" rel="noopener"><strong>Google Scholar</strong></a></p>
-<p><strong>Contact Info:</strong></p>
-<ul>
-<li><p>lixudong39@jd.com</p>
-</li>
-<li><p>lixudong16@mails.ucas.edu.cn</p>
-</li>
-</ul>
-<h1 id="Education"><a href="#Education" class="headerlink" title="Education"></a><strong>Education</strong></h1><ul>
-<li>Ph.D. in National Space Science Center, CAS, 2021. Computer Applications Technology.</li>
-<li>B.S. in Harbin Engineering University, 2016. Automation. </li>
-</ul>
-<h1 id="Research-Interests"><a href="#Research-Interests" class="headerlink" title="Research Interests"></a><strong>Research Interests</strong></h1><p>My research interests include Deep Learning, Transfer learning, AutoML, and other Artificial Intelligence topics. My PhD projects focused on transfer learning and NAS (Neural Architecture Search) applications in fault diagnosis. </p>
-<h1 id="Publications"><a href="#Publications" class="headerlink" title="Publications"></a><strong>Publications</strong></h1><div class="note note-success">
-            <ul><li><p><strong>Frequency-Domain Fusing Convolutional Neural Network: A Unified Architecture Improving Effect of Domain Adaptation for Fault Diagnosis</strong></p><p><strong>Xudong Li</strong>, Mingtao Li, Jianhua Zheng, Wenzhen Ma, Yang Hu.  <em>Sensors, 2021 - mdpi.com</em></p></li></ul>
-          </div>
-<div class="note note-success">
-            <ul><li><p><strong>Central moment discrepancy based domain adaptation for intelligent bearing fault diagnosis</strong></p><p><strong>Xudong Li</strong>, Yang Hu, Mingtao Li, Jianhua Zheng, Wenzhen Ma. <em>Neurocomputing, 2021 - Elsevier</em></p></li></ul>
-          </div>
-<div class="note note-success">
-            <ul><li><p><strong>Neural architecture search for fault diagnosis</strong></p><p><strong>Xudong Li</strong>, Yang Hu, Jianhua Zheng, Mingtao Li. <em>arXiv preprint arXiv:2002.07997</em></p></li></ul>
-          </div>
-</div>
-
+                <!--Xudong Li-->
+              <div class="col-md-5 col-sm-12" id="contact">
+                <h2>Xudong Li</h2>
+                <hr>
+                  <strong><a href="https://github.com/5663015">Github</a></strong>,
+                  <strong><a href="https://scholar.google.com.hk/citations?user=2KSmpuIecgsC&hl=zh-CN">Google Scholar</a></strong>,
+                  <br> <strong>Email:</strong>
+                  <br>
+                  <a href="mailto:lixudong39@jd.com" target="_top">lixudong39@jd.com</a>
+                  <br> <a href="mailto:lixudong16@mails.ucas.edu.cn" target="_top">lixudong16@mails.ucas.edu.cn</a>
+                </p>
+              </div>
+                <!--education-->
+              <div class="col-md-7 col-sm-12" id="research">
+                <h4>Education</h4>
+                <ul>
+                  <li>PhD in Computer Applications Technology. 2016 - 2021
+                      <br/><i>National Space Science Center, CAS</i><br/></li><br>
+                  <li>B.S in Automation, 2012 - 2016
+                      <br/><i>Harbin Engineering University</i><br/></li><br>
+                </ul>
               </div>
             </div>
-          </div>
+            <!--research interests-->
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                <h4>Research Interests</h4>
+                <p> Deep Learning, Transfer learning, AutoML, and other Artificial Intelligence topics.
+                    My PhD projects focused on transfer learning and NAS (Neural Architecture Search)
+                    applications in fault diagnosis.
+                </div>
+            </div>
         </div>
-      </div>
-    
-  </main>
-
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
     </div>
+    <hr>
+
+    <h3>About Me</h3>
+    <p>
+        I am currently a member of <a href="http://campus.jd.com/#/talentProject?tabKey=3" target="_blank">DMT (Doctor Management Trainee)</a>
+        program in JD.com, Inc. I received my Ph.D. degree in
+        <a href="http://www.nssc.cas.cn/gjkjkxzxsy2015/" target="_blank">Nation Space Science Center, CAS</a> and
+        <a href="https://www.ucas.ac.cn/" target="_blank">University of Chinese Academy of Sciences</a>.
+        I received my B.S. in School of Intelligent Science and Engineering,
+        <a href="http://www.hrbeu.edu.cn/" target="_blank">Harbin Engineering University</a>.
+    </p>
+
+      <p>
+          I was born in Handan city, Hebei Province, China in 1993. I love reading and I think reading can
+          bring peace of mind. My goal in life is to understand the world as widely as possible and to
+          contribute to it as much as possible. I'm an introvert and may be struggle to
+          socialize. But introverts have a richer inner world and are better able to understand each other.
+          I really want to be a painter or designer (I think I have a gift for it), but I probably have little
+          time to develop those skills.
+      </p>
+
+
+      <hr>
+    <h3>Publications</h3>
+
+    <ul>
+        <li style="padding-bottom: 10px">
+        <strong><a href="" target="_blank">One-Shot Neural Architecture Search
+            for Fault Diagnosis Using Vibration Signals</a></strong>
+            <br><strong>Xudong Li</strong>, Jianhua Zheng, Mingtao Li, Wenzhen Ma, Yang Hu
+            <br><i>Expert Systems With Applications, 2021 - Elsevier</i>
+        </li>
+
+    	<li style="padding-bottom: 10px">
+        <strong><a href="https://www.mdpi.com/1424-8220/21/2/450" target="_blank">Frequency-Domain Fusing Convolutional Neural Network:
+            A Unified Architecture Improving Effect of Domain Adaptation for Fault Diagnosis</a></strong>
+            <br><strong>Xudong Li</strong>, Mingtao Li, Jianhua Zheng, Wenzhen Ma, Yang Hu
+            <br><i>Sensors, 2021 - mdpi.com</i>
+        </li>
+
+        <li style="padding-bottom: 10px">
+        <strong><a href="https://www.sciencedirect.com/science/article/pii/S0925231220318579" target="_blank">Central moment discrepancy
+            based domain adaptation for intelligent bearing fault diagnosis</a></strong>
+            <br><strong>Xudong Li</strong>, Yang Hu, Mingtao Li, Jianhua Zheng, Wenzhen Ma
+            <br><i>Neurocomputing, 2021 - Elsevier</i>
+        </li>
+
+        <li style="padding-bottom: 10px">
+        <strong><a href="https://arxiv.org/abs/2002.07997" target="_blank">Neural architecture search for fault diagnosis</a></strong>
+            <br><strong>Xudong Li</strong>, Yang Hu, Jianhua Zheng, Mingtao Li
+            <br><i>arXiv preprint arXiv:2002.07997</i>
+        </li>
+
+        <li style="padding-bottom: 10px">
+        <strong><a href="https://arxiv.org/abs/2001.05887" target="_blank">Mixpath: A unified approach for one-shot neural architecture search</a></strong>
+            <br>Xiangxiang Chu, <strong>Xudong Li</strong>, Shun Lu, Bo Zhang, Jixiang Li
+            <br><i>arXiv preprint arXiv:2001.05887</i>
+        </li>
+
+        <li style="padding-bottom: 10px">
+        <strong><a href="https://www.sciencedirect.com/science/article/pii/S1568494619307318" target="_blank">Fault diagnostics between different
+            type of components: A transfer learning approach</a></strong>
+            <br><strong>Xudong Li</strong>, Yang Hu, Mingtao Li, Jianhua Zheng
+            <br><i>Applied Soft Computing 86, 105950</i>
+        </li>
+
+        <li style="padding-bottom: 10px">
+        <strong>Deep Transfer Learning and its Difficulty Measurement
+            for Fault Diagnosis in Changing Working Conditions</strong>
+            <br><strong>Xudong Li</strong>, Yang Hu, Mingtao Li, Jianhua Zheng, Wenzhen Ma
+            <br><i>PHM Asia Pacific 2019</i>
+        </li>
+
+        <li style="padding-bottom: 10px">
+        <strong><a href="https://www.sciencedirect.com/science/article/pii/S1568494618300425">Deep diagnostics
+            and prognostics: An integrated hierarchical learning framework in PHM applications</a></strong>
+            <br>Yanhui Lin, <strong>Xudong Li</strong>, Yang Hu
+            <br><i>Applied Soft Computing 72, 555-564</i>
+        </li>
+
+        <li style="padding-bottom: 10px">
+        <strong><a href="https://ieeexplore.ieee.org/abstract/document/8603536/">Issues and tips:
+            a set of integrated experiments of applying auto-encoder and convolutional neural network in feature extraction and fault diagnosis</a></strong>
+            <br><strong>Xudong Li</strong>, Mingtao Li, Jianhua Zheng, Yang Hu
+            <br><i>2018 Prognostics and System Health Management Conference (PHM-Chongqing)</i>
+        </li>
+
+
+    </ul>
+
+
+
+
   </div>
-</div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
-      
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
-
-
-    
-  <!-- 备案信息 -->
-  <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">京ICP证20022949号</a>
-    
-  </div>
-
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="/js/debouncer.js"></script>
-<script src="/js/main.js"></script>
-
-<!-- Plugins -->
-
-
-  
-    <script src="/js/lazyload.js"></script>
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
-  <script src="/js/clipboard-use.js"></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(resp => resp.json())
-          .then(({results, code, error}) => {
-            if (code === 401) {
-              throw error;
-            }
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(resp => resp.json())
-                .then((record, error) => {
-                  if (error) {
-                    throw error;
-                  }
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch((error) => {
-          console.error('LeanCloud Counter Error:', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          res = res.json();
-          if (res.error) {
-            throw res.error;
-          }
-          resolve(res);
-        }).catch((error) => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('false' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/resume/index.html');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = '4uTKUSHbisxPDbqazfBvQyvM-gzGzoHsz'
-    var app_key = 'KBjTdSy7b9V1AlRMP3GpweuD'
-    var server_url = 'https://4utkushb.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(resp => resp.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-
-
-
-  <script src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js"></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-      icon: "❡"
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script src="/js/local-search.js"></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-
-
-
-
-
-
-  
-  
-    <script>
-      !function (e, t, a) {
-        function r() {
-          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
-          requestAnimationFrame(r)
-        }
-
-        function n() {
-          var t = "function" == typeof e.onclick && e.onclick;
-          e.onclick = function (e) {
-            t && t(), o(e)
-          }
-        }
-
-        function o(e) {
-          var a = t.createElement("div");
-          a.className = "heart", s.push({
-            el: a,
-            x: e.clientX - 5,
-            y: e.clientY - 5,
-            scale: 1,
-            alpha: 1,
-            color: c()
-          }), t.body.appendChild(a)
-        }
-
-        function i(e) {
-          var a = t.createElement("style");
-          a.type = "text/css";
-          try {
-            a.appendChild(t.createTextNode(e))
-          } catch (t) {
-            a.styleSheet.cssText = e
-          }
-          t.getElementsByTagName("head")[0].appendChild(a)
-        }
-
-        function c() {
-          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-        }
-
-        var s = [];
-        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
-          setTimeout(e, 1e3 / 60)
-        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
-      }(window, document);
-    </script>
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
+
 </html>

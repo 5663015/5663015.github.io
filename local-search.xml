@@ -1016,9 +1016,9 @@
     
     <tags>
       
-      <tag>原创</tag>
-      
       <tag>文献</tag>
+      
+      <tag>原创</tag>
       
     </tags>
     
@@ -1087,9 +1087,9 @@
       
       <tag>编程语言</tag>
       
-      <tag>python</tag>
-      
       <tag>原创</tag>
+      
+      <tag>python</tag>
       
     </tags>
     
@@ -1313,11 +1313,11 @@
       
       <tag>文摘</tag>
       
-      <tag>编程语言</tag>
-      
       <tag>算法</tag>
       
       <tag>机器学习</tag>
+      
+      <tag>编程语言</tag>
       
     </tags>
     
