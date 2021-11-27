@@ -234,13 +234,7 @@
   <div class="row mx-auto index-card">
     
     
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2019/03/01/既要担起生活的责任，又要对得起梦想/" target="_self">
-          <img src="/img/post_default.jpg" srcset="/img/loading.gif" alt="既要担起生活的责任，又要对得起梦想">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2019/03/01/既要担起生活的责任，又要对得起梦想/">既要担起生活的责任，又要对得起梦想</a>
 
       <a href="/2019/03/01/既要担起生活的责任，又要对得起梦想/" class="index-excerpt">
@@ -276,13 +270,7 @@
   <div class="row mx-auto index-card">
     
     
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2019/03/01/深度学习调参经验汇总/" target="_self">
-          <img src="/img/post_default.jpg" srcset="/img/loading.gif" alt="深度学习调参经验汇总">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2019/03/01/深度学习调参经验汇总/">深度学习调参经验汇总</a>
 
       <a href="/2019/03/01/深度学习调参经验汇总/" class="index-excerpt">
@@ -322,13 +310,7 @@
   <div class="row mx-auto index-card">
     
     
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2019/03/01/AboutMe/" target="_self">
-          <img src="/img/post_default.jpg" srcset="/img/loading.gif" alt="AboutMe">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2019/03/01/AboutMe/">AboutMe</a>
 
       <a href="/2019/03/01/AboutMe/" class="index-excerpt">
@@ -372,13 +354,7 @@ Machine Learn</div>
   <div class="row mx-auto index-card">
     
     
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2019/02/26/使用hexo+github搭建博客/" target="_self">
-          <img src="/img/post_default.jpg" srcset="/img/loading.gif" alt="使用hexo+github搭建博客">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2019/02/26/使用hexo+github搭建博客/">使用hexo+github搭建博客</a>
 
       <a href="/2019/02/26/使用hexo+github搭建博客/" class="index-excerpt">
@@ -791,7 +767,7 @@ Machine Learn</div>
           setTimeout(e, 1e3 / 60)
         }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
       }(window, document);
-    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </script>
   
 
 
@@ -820,5 +796,23 @@ Machine Learn</div>
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

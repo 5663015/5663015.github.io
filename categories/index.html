@@ -236,11 +236,10 @@
   
   
   
-  
     
     
     <div class="category row">
-      <a class="category-item collapsed list-group-item category-item-action col-10 col-md-11" id="heading-ckwhtrqwp0007vcugve9jeg8m" role="tab" data-toggle="collapse" href="#collapse-ckwhtrqwp0007vcugve9jeg8m" aria-expanded="false">
+      <a class="category-item collapsed list-group-item category-item-action col-10 col-md-11" id="heading-ckwhu0fum0007k4ugst1bufw2" role="tab" data-toggle="collapse" href="#collapse-ckwhu0fum0007k4ugst1bufw2" aria-expanded="false">
         原创教程
         <i class="iconfont icon-arrowright"></i>
       </a>
@@ -250,8 +249,7 @@
       </a>
       <div class="category-collapse">
         
-          
-  <div id="collapse-ckwhtrqwp0007vcugve9jeg8m" class="collapse in" role="tabpanel" aria-labelledby="heading-ckwhtrqwp0007vcugve9jeg8m">
+  <div id="collapse-ckwhu0fum0007k4ugst1bufw2" class="collapse in" role="tabpanel" aria-labelledby="heading-ckwhu0fum0007k4ugst1bufw2">
     
     
     
@@ -333,6 +331,7 @@
         
   </div>
 
+          
         
       </div>
     </div>
@@ -340,7 +339,7 @@
     
     
     <div class="category row">
-      <a class="category-item collapsed list-group-item category-item-action col-10 col-md-11" id="heading-ckwhtrqwz000hvcugqmcar66r" role="tab" data-toggle="collapse" href="#collapse-ckwhtrqwz000hvcugqmcar66r" aria-expanded="false">
+      <a class="category-item collapsed list-group-item category-item-action col-10 col-md-11" id="heading-ckwhu0fv5000mk4ug10dull5g" role="tab" data-toggle="collapse" href="#collapse-ckwhu0fv5000mk4ug10dull5g" aria-expanded="false">
         机器学习文摘
         <i class="iconfont icon-arrowright"></i>
       </a>
@@ -350,8 +349,7 @@
       </a>
       <div class="category-collapse">
         
-          
-  <div id="collapse-ckwhtrqwz000hvcugqmcar66r" class="collapse in" role="tabpanel" aria-labelledby="heading-ckwhtrqwz000hvcugqmcar66r">
+  <div id="collapse-ckwhu0fv5000mk4ug10dull5g" class="collapse in" role="tabpanel" aria-labelledby="heading-ckwhu0fv5000mk4ug10dull5g">
     
     
     
@@ -433,6 +431,7 @@
         
   </div>
 
+          
         
       </div>
     </div>
@@ -440,7 +439,7 @@
     
     
     <div class="category row">
-      <a class="category-item collapsed list-group-item category-item-action col-10 col-md-11" id="heading-ckwhtrqx3000ovcuge5kl2frf" role="tab" data-toggle="collapse" href="#collapse-ckwhtrqx3000ovcuge5kl2frf" aria-expanded="false">
+      <a class="category-item collapsed list-group-item category-item-action col-10 col-md-11" id="heading-ckwhu0fva000tk4ugzvo0xypg" role="tab" data-toggle="collapse" href="#collapse-ckwhu0fva000tk4ugzvo0xypg" aria-expanded="false">
         随笔
         <i class="iconfont icon-arrowright"></i>
       </a>
@@ -450,8 +449,7 @@
       </a>
       <div class="category-collapse">
         
-          
-  <div id="collapse-ckwhtrqx3000ovcuge5kl2frf" class="collapse in" role="tabpanel" aria-labelledby="heading-ckwhtrqx3000ovcuge5kl2frf">
+  <div id="collapse-ckwhu0fva000tk4ugzvo0xypg" class="collapse in" role="tabpanel" aria-labelledby="heading-ckwhu0fva000tk4ugzvo0xypg">
     
     
     
@@ -471,9 +469,11 @@
     
   </div>
 
+          
         
       </div>
     </div>
+  
   
 </div>
 
@@ -840,7 +840,7 @@
           setTimeout(e, 1e3 / 60)
         }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
       }(window, document);
-    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </script>
   
 
 
@@ -869,5 +869,23 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
