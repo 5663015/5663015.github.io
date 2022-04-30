@@ -1,0 +1,259 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
+  <title>作品展示</title>
+</head>
+
+<style>
+    .left{
+        padding-top: 20px;
+        float:left;
+        width:50%;
+        height:200px;
+        /*background:black;*/
+    }
+
+    .right{
+        padding-top: 20px;
+        margin-left: 50%;
+        height:200px;
+        /*background:red;*/
+    }
+    .tag{
+        margin-right: 10px;
+        border: 2px solid #bdbdbd;
+        /*background: rgb(255, 204, 13);*/
+        border-radius: 5px;
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-bottom: 1px;
+    }
+</style>
+
+<body style="background-color: #ffffff">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
+
+
+  <div id="top">
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #4885ed; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+        <a class="navbar-brand" style="margin-left: 3%; color: white">作品展示</a>
+<!--        <a class="navbar-brand" style="margin-left: 8%" href="https://lixudong.ink" target="_blank">My Blog</a>-->
+<!--        <a class="navbar-brand" style="margin-left: 1%" href="#about">About Me</a>-->
+<!--        <a class="navbar-brand" style="margin-left: 1%" href="#publication">Publication</a>-->
+<!--        <a class="navbar-brand" style="margin-left: 1%" href="#others">Others</a>-->
+    </nav>
+  </div>
+
+  <div style="margin-left: 10%; margin-right: 10%; margin-top: 50px">
+    <div>
+      <br>
+        <br>
+    </div>
+
+      <!--目录-->
+      <div style="margin-left: 10%; margin-right: 10%">
+          <span style="text-align: center"><h2><strong style="padding-bottom: 5px; border-bottom: 5px solid #db3236">目录</strong></h2></span>
+          <div class="left">
+              <ul>
+                  <li><a href="#fault_transfer">基于监督迁移学习的故障诊断</a></li>
+                  <li><a href="#fault_cmd_transfer">基于CMD的无监督迁移学习故障诊断</a></li>
+                  <li><a href="#ffcnn">频域融合卷积神经网络：提升无监督迁移学习故障诊断的通用架构</a></li>
+                  <li><a href="#fault_nas">用于故障诊断的神经网络结构搜索</a></li>
+                  <li><a href="#fault_one_shot_nas">故障诊断中基于one-shot的神经网络结构搜索</a></li>
+                  <li><a href="#mixpath">Mixpath：通用的one-shot神经网络结构搜索</a></li>
+              </ul>
+          </div>
+          <div class="right">
+              <ul>
+                <li><a href="#vae_stars">用变分自编码器生成星辰大海</a></li>
+              </ul>
+          </div>
+      </div>
+    <hr>
+
+  <div id="fault_transfer">
+    <h4><strong style="padding-left: 5px; border-left: 5px solid #3cba54">基于监督迁移学习的故障诊断</strong></h4>
+      <div style="padding-top: 5px; padding-bottom: 5px; color: rgb(255, 204, 13)">
+          <a class="tag">深度学习</a>
+          <a class="tag">迁移学习</a>
+          <a class="tag">CNN</a>
+          <a class="tag">MLP</a>
+          <a class="tag">工业故障诊断</a>
+      </div>
+    <div style="padding-top: 10px">
+        <div style="float:left; width:30%; height:200px">
+            <img src="fault_transfer.jpg" alt="" width="420px" height="200px">
+        </div>
+        <div style="margin-left: 40%; height:200px">
+            <ul>
+                <li>本项目将故障诊断中的迁移学习扩展到了不同的部件之间（如轴承到齿轮箱）。</li>
+                <li>使用CNN和MLP作为基础架构，从源域数据中训练基模型，再将基模型迁移至相同部件的不同工况、不同部件的不同工况。</li>
+                <li>本项目使用了CWRU和PHM2009数据集。</li>
+                <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494619307318" target="_blank">查看论文</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <hr>
+
+  <div id="fault_cmd_transfer">
+    <h4><strong style="padding-left: 5px; border-left: 5px solid #3cba54">基于CMD的无监督迁移学习故障诊断</strong></h4>
+      <div style="padding-top: 5px; padding-bottom: 5px; color: rgb(255, 204, 13)">
+          <a class="tag">深度学习</a>
+          <a class="tag">迁移学习</a>
+          <a class="tag">域适配</a>
+          <a class="tag">工业故障诊断</a>
+      </div>
+    <div style="padding-top: 10px">
+        <div style="float:left; width:30%; height:200px">
+            <img src="fault_cmd_transfer.jpg" alt="" width="450px" height="200px">
+        </div>
+        <div style="margin-left: 40%; height:200px">
+            <ul>
+                <li>本项目解决了目标域数据无标签的问题。</li>
+                <li>使用CNN提取源域和目标域振动信号的特征，用Central Moment Discrepancy衡量源域和目标域特征之间的差异性，将其作为损失函数中的一项。</li>
+                <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0925231220318579" target="_blank">查看论文</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <hr>
+
+  <div id="ffcnn">
+    <h4><strong style="padding-left: 5px; border-left: 5px solid #3cba54">频域融合卷积神经网络：提升无监督迁移学习故障诊断的通用架构</strong></h4>
+      <div style="padding-top: 5px; padding-bottom: 5px; color: rgb(255, 204, 13)">
+          <a class="tag">深度学习</a>
+          <a class="tag">迁移学习</a>
+          <a class="tag">域适配</a>
+          <a class="tag">频域</a>
+          <a class="tag">工业故障诊断</a>
+      </div>
+    <div style="padding-top: 10px">
+        <div style="float:left; width:30%; height:200px">
+            <img src="ffcnn.png" alt="" width="460px" height="200px">
+        </div>
+        <div style="margin-left: 40%; height:200px">
+            <ul>
+                <li>本项目提出了一种通用的网络架构：频域融合卷积神经网络Frequency-domain Fusing Convolutional Neural Network (FFCNN)，用于提升故障诊断中的无监督迁移学习的效果。</li>
+                <li>本项目提出使用幅频图来描述卷积的频域特性，不同大小的卷积核实际上提取振动信号的频段也不同。FFCNN将不同尺度的卷积核提取的特征进行融合，可提取不同频段的信息。</li>
+                <li><a href="https://www.mdpi.com/1424-8220/21/2/450/htm" target="_blank">查看论文</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <hr>
+
+  <div id="fault_nas">
+    <h4><strong style="padding-left: 5px; border-left: 5px solid #3cba54">用于故障诊断的神经网络结构搜索</strong></h4>
+      <div style="padding-top: 5px; padding-bottom: 5px; color: rgb(255, 204, 13)">
+          <a class="tag">深度学习</a>
+          <a class="tag">AutoML</a>
+          <a class="tag">强化学习</a>
+          <a class="tag">工业故障诊断</a>
+      </div>
+    <div style="padding-top: 10px">
+        <div style="float:left; width:30%; height:200px">
+            <img src="fault_nas.jpg" alt="" width="200px" height="200px">
+        </div>
+        <div style="margin-left: 40%; height:200px">
+            <ul>
+                <li>本项目将神经网络结构搜索（Neural Architecture Search，NAS）应用到故障诊断中，以残差卷积网络为基础搜索每层不同的卷积核大小。</li>
+                <li>利用强化学习，RNN作为控制器，生成不同的网络结构，其在验证集上的准确率作为reward，使用策略梯度算法去更新RNN的参数。</li>
+                <li>为了加速搜索的速度，使用了权值共享的思想。</li>
+                <li><a href="https://arxiv.org/abs/2002.07997" target="_blank">查看论文</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <hr>
+
+  <div id="fault_one_shot_nas">
+    <h4><strong style="padding-left: 5px; border-left: 5px solid #3cba54">故障诊断中基于one-shot的神经网络结构搜索</strong></h4>
+      <div style="padding-top: 5px; padding-bottom: 5px; color: rgb(255, 204, 13)">
+          <a class="tag">深度学习</a>
+          <a class="tag">AutoML</a>
+          <a class="tag">One-shot</a>
+          <a class="tag">工业故障诊断</a>
+      </div>
+    <div style="padding-top: 10px">
+        <div style="float:left; width:30%; height:200px">
+            <img src="fault_one_shot_nas.jpg" alt="" width="220px" height="200px">
+        </div>
+        <div style="margin-left: 40%; height:200px">
+            <ul>
+                <li>本项目使用one-shot方法来进行神经网络结构搜索，其中超网络包含了搜索空间里所有可能的网络结构。</li>
+                <li>首先训练超网络，超网络可以预测子网络的性能；然后使用遗传算法在搜索空间里搜索，将超网络对子网络的预测作为评价指标。</li>
+                <li>利用强化学习，RNN作为控制器，生成不同的网络结构，其在验证集上的准确率作为reward，使用策略梯度算法去更新RNN的参数。</li>
+                <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0957417421013737" target="_blank">查看论文</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <hr>
+
+  <div id="mixpath">
+    <h4><strong style="padding-left: 5px; border-left: 5px solid #3cba54">Mixpath：通用的one-shot神经网络结构搜索</strong></h4>
+      <div style="padding-top: 5px; padding-bottom: 5px; color: rgb(255, 204, 13)">
+          <a class="tag">深度学习</a>
+          <a class="tag">AutoML</a>
+          <a class="tag">One-shot</a>
+      </div>
+    <div style="padding-top: 10px">
+        <div style="float:left; width:30%; height:200px">
+            <img src="mixpath.jpg" alt="" width="460px" height="200px">
+        </div>
+        <div style="margin-left: 40%; height:200px">
+            <ul>
+                <li>本项目将one-shot方法扩展到多支路的搜索上，提出了一种Shadow BN（SBN）以保证超网训练的稳定性，并提高了超网的ranking能力。</li>
+                <li>首先训练超网络，超网络可以预测子网络的性能；然后使用遗传算法在搜索空间里搜索，将超网络对子网络的预测作为评价指标。</li>
+                <li><a href="https://arxiv.org/abs/2001.05887" target="_blank">查看论文</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <hr>
+
+
+  <div id="vae_stars">
+    <h4><strong style="padding-left: 5px; border-left: 5px solid #3cba54">用变分自编码器生成星辰大海</strong></h4>
+      <div style="padding-top: 5px; padding-bottom: 5px; color: rgb(255, 204, 13)">
+          <a class="tag">深度学习</a>
+          <a class="tag">VAE</a>
+          <a class="tag">生成式模型</a>
+      </div>
+    <div style="padding-top: 10px">
+        <div style="float:left; width:30%; height:200px">
+            <img src="vae_stars.png" alt="" width="420px" height="200px">
+        </div>
+        <div style="margin-left: 40%; height:200px">
+            <ul>
+                <li>本项目通过收集星系的图片，将其输入到变分自编码器中，学习它们的特征分布，由此可以生成新的星系图片。</li>
+                <li><a href="https://github.com/5663015/galaxy_generation" target="_blank">查看代码</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <hr>
+
+
+  </div>
+</body>
+
+</html>
